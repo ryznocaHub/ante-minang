@@ -20,7 +20,6 @@ class CreateHistoriesTable extends Migration
             $table->integer('jumlah');
             $table->text('keterangan');
             $table->timestamp('tanggal')->useCurrent();
-            // $table->timestamps();
         });
     }
 
