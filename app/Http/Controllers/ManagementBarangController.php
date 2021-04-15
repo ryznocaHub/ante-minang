@@ -2,89 +2,93 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
+use App\Models\History;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManagementBarangController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('dashboard.pages.manajemen');
+        $barangs = Barang::all();
+        return view('dashboard.pages.manajemen', compact('barangs'));
     }
 
-    public function masuk() {
-        
-        return view('dashboard.pages.history');
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function masuk()
     {
-        //
+        $histories = History::with('barang', 'user')->where('kategori', 'Masuk')->orderByDesc('tanggal')->get();
+        $kategori = '1';
+        return view('dashboard.pages.history', compact('histories', 'kategori'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function keluar()
     {
-        //
+        $histories = History::with('barang', 'user')->where('kategori', 'Keluar')->orderByDesc('tanggal')->get();
+        $kategori = '2';
+        return view('dashboard.pages.history', compact('histories', 'kategori'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $request->validate([
+            'jumlah'        => ['numeric', 'min:0']
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if ($request['customRadio'] == 'select') {
+            $keterangan = $request->get('keteranganSelect');
+        } else if ($request['customRadio'] == 'text') {
+            $keterangan = $request->get('keteranganText');
+        }
+
+        switch ($request->input('action')) {
+            case 'tambah':
+                DB::transaction(function () use ($request, $keterangan) {
+                    $barang = Barang::where('id', $request->input('id'))->first();
+                    $kode = History::where('id_barang', $barang->id)->count();
+                    History::create(
+                        [
+                            'id_barang'     => $request->input('id'),
+                            'id_user'       => auth()->user()->id,
+                            'jumlah'        => $request->get('jumlah'),
+                            'keterangan'    => $keterangan,
+                            'kategori'      => 'Masuk',
+                            'kode'          => $barang->kode_barang . ($kode + 1)
+                        ]
+                    );
+
+                    Barang::where('id', $barang->id)->update([
+                        'jumlah'    => $barang->jumlah + $request->get('jumlah')
+                    ]);
+                }, 5);
+                break;
+            case 'kurang':
+                DB::transaction(function () use ($request, $keterangan) {
+                    $barang = Barang::where('id', $request->input('id'))->first();
+                    $kode = History::where('id_barang', $barang->id)->count();
+                    History::create(
+                        [
+                            'id_barang'     => $request->input('id'),
+                            'id_user'       => auth()->user()->id,
+                            'jumlah'        => $request->get('jumlah'),
+                            'keterangan'    => $keterangan,
+                            'kategori'      => 'Keluar',
+                            'kode'          => $barang->kode_barang . ($kode + 1)
+                        ]
+                    );
+
+                    Barang::where('id', $barang->id)->update([
+                        'jumlah'    => $barang->jumlah - $request->get('jumlah')
+                    ]);
+                }, 5);
+            case 'update':
+        }
+        return redirect()->back();
     }
 }
