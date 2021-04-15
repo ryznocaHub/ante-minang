@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManagementBarangController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -22,12 +21,12 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::resource('users',         UserController::class)->except(['edit']);
 });
 
-Route::group(['middleware' => 'Pegawai'], function () {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('history/barang/masuk',  [ManagementBarangController::class, 'masuk'])->name('history.masuk');
-    Route::get('history/barang/keluar',  [ManagementBarangController::class, 'keluar'])->name('history.keluar');
-    Route::resource('manajemen',    ManagementBarangController::class);
-    Route::resource('users',        UserController::class)->only(['show', 'update']);
-});
 
+Auth::routes(['register' => 'false']);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('users',            UserController::class)->except(['edit']);
+Route::resource('manajemen',        ManagementBarangController::class)->except(['show', 'edit', 'create']);
+Route::get('history/masuk',         [ManagementBarangController::class, 'masuk'])->name('history.masuk');
+Route::get('history/keluar',         [ManagementBarangController::class, 'keluar'])->name('history.keluar');
