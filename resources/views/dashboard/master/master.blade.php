@@ -68,14 +68,29 @@
                 </p>
               </a>
             </li>
-  
-            <li class="nav-item ">
-              <a href="{{route('manajemen.index')}}" class="nav-link @yield('mb_aktif')">
-                <i class="nav-icon fas fa-edit"></i>
+
+            <li class="nav-item @yield('mb_open')">
+              <a href="#" class="nav-link ">
+                  <i class="nav-icon fas fa-edit"></i>
                 <p>
                   Manajemen Barang
+                  <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('manajemen.index')}}" class="nav-link @yield('mb_bb_aktif')">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Bahan Baku</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link @yield('mb_bj_aktif')">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Produk</p>
+                  </a>
+                </li>
+              </ul>
             </li>
   
             <li class="nav-item @yield('history_open')">
@@ -97,6 +112,18 @@
                   <a href="{{route('history.keluar')}}" class="nav-link @yield('bk_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Barang Keluar</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link @yield('bb_aktif')">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Bahan Baku</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link @yield('bj_aktif')">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Barang Jadi</p>
                   </a>
                 </li>
               </ul>
@@ -129,7 +156,7 @@
             <li class="nav-item">
               <form action="{{route('logout')}}" method="POST">
                 @csrf
-                <button type="submit" class="nav-link">
+                <button type="submit" class="nav-link" style="text-align: left;background-color: transparent;border:none;  !important">
                   <i class="nav-icon fas fa-sign-out-alt"></i>
                   <p>
                     Logout
