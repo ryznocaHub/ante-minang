@@ -1,7 +1,7 @@
 @extends('dashboard.master.master')
 
 @section('title')
-Manajemen Barang
+Manajemen Produk
 @endsection
 
 @section('css')
@@ -12,13 +12,18 @@ Manajemen Barang
 @endsection
 
 {{-- manajemen menu aktif --}}
-@section('mb_aktif')
+@section('mb_open')
+menu-open
+@endsection
+
+@section('mb_bj_aktif')
 active
 @endsection
 {{-- end manajemen --}}
 
 @section('page_aktif')
 <li class="breadcrumb-item active">@yield('title')</li>
+<li class="breadcrumb-item active">Manajemen Barang</li>
 @endsection
 
 @section('isi')
@@ -47,7 +52,7 @@ active
                   <td>{{$barang->kategori}}</td>
                   <td>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#tambah{{$barang->id}}"><i class="fas fa-plus"></i></button>
+                    <button type="button" class="btn btn-outline-primary mr-2" data-toggle="modal" data-target="#tambah{{$barang->id}}"><i class="fas fa-plus"></i></button>
 
                     <div class="modal fade" id="tambah{{$barang->id}}">
                       <div class="modal-dialog">
@@ -181,7 +186,7 @@ active
       <div class="col-4">
         <div class="card card-info ">
           <div class="card-header">
-            <h3 class="card-title">Tambah Data Barang</h3>
+            <h3 class="card-title">Tambah Data Produk</h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -193,26 +198,45 @@ active
           <div class="card-body">
             <form>
               <div class="form-group">
-                <label for="namabarang">Nama Barang</label>
-                <input type="text" class="form-control" id="namabarang" placeholder="Input Nama Barang">
+                <label for="namabarang">Nama Produk</label>
+                <input type="text" class="form-control" id="namabarang" placeholder="Input Nama Produk">
               </div>
-              <div class="form-group">
+              <span id="dynamic_field">
+                <div class="card card-outline card-info">
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="bahanbaku">Bahan Baku 1</label>
+                      <select class="form-control select2" style="width: 100%;">
+                        <option selected="selected">Singkong</option>
+                        <option>Gula</option>
+                        <option>Garam</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="jumlahbahan1">Jumlah</label>
+                      <input type="text" class="form-control" id="jumlah1" placeholder="Jumlah bahan baku untuk 1 produk">
+                    </div>
+                  </div>
+                </div>
+              </span>
+                <button type="button" name="add" id="add" class="btn btn-info col-12 p-2"><i class="fas fa-plus mr-2"></i>Tambah Bahan Baku</button>
+              {{-- <div class="form-group">
                 <label for="kategori">Kategori</label>
                 <select class="form-control select2" style="width: 100%;">
                   <option selected="selected">Bahan Baku</option>
                   <option>Produk</option>
                   <option>Barang</option>
                 </select>
-              </div>
+              </div> --}}
               <!-- /.card-body -->
-              <button type="submit" class="btn btn-info">Tambah</button>
+              <button type="submit" class="btn btn-outline-info mt-4">Tambah</button>
             </form>
           </div>
           <!-- /.card-body -->
         </div>
         <div class="card card-warning bg-gradient collapsed-card">
           <div class="card-header">
-            <h3 class="card-title">Ubah Data Barang</h3>
+            <h3 class="card-title">Ubah Data Bahan Baku</h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
@@ -224,7 +248,7 @@ active
           <div class="card-body">
             <form>
               <div class="form-group">
-                <label>Nama Barang</label>
+                <label>Nama Bahan Baku</label>
                 <select class="form-control select2" style="width: 100%;">
                   <option selected="selected">Singkong</option>
                   <option>Biji Plastik</option>
@@ -237,7 +261,7 @@ active
                 <label for="namabarang">Nama Baru</label>
                 <input type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">
               </div>
-              <div class="form-group">
+              {{-- <div class="form-group">
                 <label for="kategori">Kategori</label>
                 <select class="form-control select2" style="width: 100%;">
                   <option selected="selected"> </option>
@@ -245,7 +269,7 @@ active
                   <option>Produk</option>
                   <option>Barang</option>
                 </select>
-              </div>
+              </div> --}}
               <!-- /.card-body -->
               <button type="submit" class="btn btn-warning bg-gradient">Ubah</button>
             </form>
@@ -254,7 +278,7 @@ active
         </div>
         <div class="card card-danger bg-gradient collapsed-card">
           <div class="card-header">
-            <h3 class="card-title">Hapus Data Barang</h3>
+            <h3 class="card-title">Hapus Data Bahan Baku</h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
@@ -266,7 +290,7 @@ active
           <div class="card-body">
             <form>
               <div class="form-group">
-                <label>Nama Barang</label>
+                <label>Nama Bahan Baku</label>
                 <select class="form-control select2" style="width: 100%;">
                   <option selected="selected">Singkong</option>
                   <option>Biji Plastik</option>
@@ -323,6 +347,34 @@ active
       "autoWidth": false,
       "responsive": true,
     });
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var i = 1;
+    $('#add').click(function(){
+      i++;
+      //penambahan pemilihan bahan baku tambahan
+      $('#dynamic_field').append(''+
+        '<div class="card card-outline card-info dynamic-added" id="row'+i+'">' +
+          '<div class="card-body">' +
+            '<div class="form-group">' +
+              '<label for="bahanbaku">Bahan Baku '+i+'</label>' +
+              '<select class="form-control select2" style="width: 100%;">' +
+                '<option selected="selected">Singkong</option>' +
+                '<option>Gula</option>' +
+                '<option>Garam</option>' +
+              '</select>' +
+            '</div>' +
+            '<div class="form-group">' +
+              '<label for="jumlahbahan1">Jumlah</label>' +
+              '<input type="text" class="form-control" id="jumlah1" placeholder="Jumlah bahan baku untuk 1 produk">' +
+            '</div>' +
+          '</div>' +
+        '</div>'
+        );
+    })
   });
 </script>
 @endsection
