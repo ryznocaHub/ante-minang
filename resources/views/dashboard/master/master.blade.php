@@ -15,9 +15,9 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('css/Master/adminlte.min.css') }}">
   <!-- Tempusdominus Bootstrap 4 -->
-  {{-- <link rel="stylesheet" href="{{ asset('css/Template/tempusdominus-bootstrap-4.min.css') }}"> --}}
+  <link rel="stylesheet" href="{{ asset('css/Template/tempusdominus-bootstrap-4.min.css') }}">
   <!-- JQVMap -->
-  {{-- <link rel="stylesheet" href="{{ asset('css/Template/jqvmap.min.css') }}"> --}}
+  <link rel="stylesheet" href="{{ asset('css/Template/jqvmap.min.css') }}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ asset('css/Template/OverlayScrollbars.min.css') }}">
   <!-- summernote -->
@@ -97,7 +97,7 @@
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-history"></i>
                 <p>
-                  History Barang
+                  History
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
@@ -123,7 +123,7 @@
                 <li class="nav-item">
                   <a href="#" class="nav-link @yield('bj_aktif')">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Barang Jadi</p>
+                    <p>Produk</p>
                   </a>
                 </li>
               </ul>
