@@ -47,7 +47,7 @@ active
                   </ul>
                 </div>
                 <div class="col-5 text-center">
-                  <img src="{{$user->foto}}" alt="user-avatar" class="img-circle img-fluid">
+                  <img src="{{$user->foto}}" alt="user-avatar" class="rounded-circle" width="100%" height="100%">
                 </div>
               </div>
             </div>
