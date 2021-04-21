@@ -105,20 +105,20 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item @yield('bbm_aktif')">
-                  <a href="{{route('history.bahanbaku.masuk')}}" class="nav-link">
+                <li class="nav-item ">
+                  <a href="{{route('history.bahanbaku.masuk')}}" class="nav-link @yield('bbm_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Bahan Baku Masuk</p>
                   </a>
                 </li>
-                <li class="nav-item @yield('bbk_aktif')">
-                  <a href="{{route('history.bahanbaku.keluar')}}" class="nav-link">
+                <li class="nav-item ">
+                  <a href="{{route('history.bahanbaku.keluar')}}" class="nav-link @yield('bbk_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Bahan Baku Keluar</p>
                   </a>
                 </li>
-                <li class="nav-item @yield('dbb_aktif')">
-                  <a href="{{route('history.bahanbaku.data')}}" class="nav-link">
+                <li class="nav-item ">
+                  <a href="{{route('history.bahanbaku.data')}}" class="nav-link @yield('dbb_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Bahan Baku</p>
                   </a>
@@ -134,58 +134,42 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item @yield('pm_aktif')">
-                  <a href="{{route('history.produk.masuk')}}" class="nav-link">
+                <li class="nav-item">
+                  <a href="{{route('history.produk.masuk')}}" class="nav-link @yield('pm_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Produk Masuk</p>
                   </a>
                 </li>
-                <li class="nav-item @yield('pk_aktif')">
-                  <a href="{{route('history.produk.keluar')}}" class="nav-link">
+                <li class="nav-item ">
+                  <a href="{{route('history.produk.keluar')}}" class="nav-link @yield('pk_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Produk Keluar</p>
                   </a>
                 </li>
-                <li class="nav-item @yield('dp_aktif')">
-                  <a href="{{route('history.produk.data')}}" class="nav-link">
+                <li class="nav-item ">
+                  <a href="{{route('history.produk.data')}}" class="nav-link @yield('dp_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Produk</p>
                   </a>
                 </li>
               </ul>
             </li>
-
-
-
-
-
-
-
-
-
-
-            <li class="nav-item @yield('user_open')">
-              <a href="#" class="nav-link ">
+            <li class="nav-header">Users</li>
+            <li class="nav-item">
+              <a href="{{route('users.index')}}" class="nav-link @yield('is_aktif')">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Users
-                  <i class="fas fa-angle-left right"></i>
+                  List User
                 </p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{{route('users.index')}}" class="nav-link @yield('is_aktif')">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Info Users</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{route('users.create')}}" class="nav-link @yield('mu_aktif')">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Manajemen User</p>
-                  </a>
-                </li>
-              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('users.create')}}" class="nav-link @yield('mu_aktif')">
+                <i class="nav-icon fas fa-user-edit"></i>
+                <p>
+                  Manajemen Users
+                </p>
+              </a>
             </li>
 
             <li class="nav-item">

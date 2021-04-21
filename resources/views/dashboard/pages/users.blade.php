@@ -1,23 +1,17 @@
 @extends('dashboard.master.master')
 
 @section('title')
-Users
+List Users
 @endsection
 
 {{-- manajemen menu aktif --}}
-{{-- user menu --}}
-
-@section('user_open')
-menu-open
-@endsection
-
 @section('is_aktif')
 active
 @endsection
 {{-- end manajemen --}}
 
 @section('page_aktif')
-<li class="breadcrumb-item active">Info</li>
+<li class="breadcrumb-item active">List</li>
 <li class="breadcrumb-item active">Users</li>
 @endsection
 

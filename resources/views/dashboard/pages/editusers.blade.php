@@ -5,10 +5,6 @@ Manajemen Users
 @endsection
 
 {{-- manajemen menu aktif --}}
-@section('user_open')
-menu-open
-@endsection
-
 @section('mu_aktif')
 active
 @endsection
