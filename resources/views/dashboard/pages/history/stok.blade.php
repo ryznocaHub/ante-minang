@@ -1,7 +1,7 @@
 @extends('dashboard.master.master')
 
 @section('title')
-History Stok {{$kategori == '1' ? "Masuk" : "Keluar"}}
+History {{ $jenis == '1' ? "Bahan baku" : "produk"}} {{$kategori == '1' ? "Masuk" : "Keluar"}} 
 @endsection
 
 @section('css')
@@ -16,10 +16,15 @@ History Stok {{$kategori == '1' ? "Masuk" : "Keluar"}}
 @endsection
 
 {{-- manajemen menu aktif --}}
-@section('history_open')
-menu-open
-@endsection
-
+@if ($jenis == '1')    
+  @section('bm_aktif')
+  active
+  @endsection
+@else
+  @section('bk_aktif')
+  active
+  @endsection
+@endif
 @if ($kategori == '1')    
   @section('bm_aktif')
   active
@@ -32,7 +37,8 @@ menu-open
 {{-- end manajemen --}}
 
 @section('page_aktif')
-<li class="breadcrumb-item active">Barang {{$kategori == '1' ? "Masuk" : "Keluar"}}</li>
+<li class="breadcrumb-item active">{{$kategori == '1' ? "Masuk" : "Keluar"}}</li>
+<li class="breadcrumb-item active">{{ $jenis == '1' ? "Bahan baku" : "produk"}}</li>
 <li class="breadcrumb-item active">History</li>
 @endsection
 

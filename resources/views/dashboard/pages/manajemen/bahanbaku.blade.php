@@ -227,126 +227,122 @@ active
         <!-- /.card -->
       </div>
       <div class="col-4">
-        <div class="card card-info ">
-          <div class="card-header">
-            <h3 class="card-title">Tambah Data Bahan Baku</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-              </button>
+        <div id="accordion">
+          <div class="card card-info">
+            <div class="card-header">
+              <h4 class="card-title w-100">
+                <a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
+                  Tambah Data Bahan Baku
+                </a>
+              </h4>
             </div>
-            <!-- /.card-tools -->
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <form method="POST" action="{{ route('bahanbaku.store') }}">
-              @csrf
-              <div class="form-group">
-                <label for="namabarang">Nama Bahan Baku</label>
-                <input name="nama" type="text" class="form-control" id="namabarang" placeholder="Input Nama Barang">
+            <div id="collapseOne" class="collapse show" data-parent="#accordion">
+              <div class="card-body">
+                  <form method="POST" action="{{ route('bahanbaku.store') }}">
+                      @csrf
+                      <div class="form-group">
+                        <label for="namabarang">Nama Bahan Baku</label>
+                        <input name="nama" type="text" class="form-control" id="namabarang" placeholder="Input Nama Barang">
+                      </div>
+                      <label>Satuan</label>
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="radiosatuan1" name="satuantambah" value="select" checked>
+                        <label for="radiosatuan1" class="custom-control-label col-4">
+                          <select name="satuanSelect" class="form-control select2" style="width: 100%;">
+                            <option selected value="pcs">pcs</option>
+                            <option value="kg">kg</option>
+                            <option value="gr">gr</option>
+                          </select>
+                        </label>
+                      </div>
+                      <div class="custom-control custom-radio my-2">
+                        <input class="custom-control-input" type="radio" id="radiosatuan2" name="satuantambah" value="text">
+                        <label for="radiosatuan2" class="custom-control-label col-4">
+                          <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
+                        </label>
+                      </div>
+                      <!-- /.card-body -->
+                      <button type="submit" class="btn btn-outline-info mt-2">Tambah</button>
+                    </form>
               </div>
-              <label>Satuan</label>
-              <div class="custom-control custom-radio">
-                <input class="custom-control-input" type="radio" id="radiosatuan1" name="satuantambah" value="select" checked>
-                <label for="radiosatuan1" class="custom-control-label col-4">
-                  <select name="satuanSelect" class="form-control select2" style="width: 100%;">
-                    <option selected value="pcs">pcs</option>
-                    <option value="kg">kg</option>
-                    <option value="gr">gr</option>
-                  </select>
-                </label>
-              </div>
-              <div class="custom-control custom-radio my-2">
-                <input class="custom-control-input" type="radio" id="radiosatuan2" name="satuantambah" value="text">
-                <label for="radiosatuan2" class="custom-control-label col-4">
-                  <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
-                </label>
-              </div>
-              <!-- /.card-body -->
-              <button type="submit" class="btn btn-info">Tambah</button>
-            </form>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <div class="card card-warning bg-gradient collapsed-card">
-          <div class="card-header">
-            <h3 class="card-title">Ubah Data Bahan Baku</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-              </button>
             </div>
-            <!-- /.card-tools -->
           </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <form action="{{ route('bahanbaku.updatedata') }}" method="POST">
-              @csrf
-              <div class="form-group">
-                <label>Nama Bahan Baku</label>
-                <select name="id" class="form-control select2" style="width: 100%;" required>
-                  <option selected disabled value="">Pilih bahan baku</option>
-                  @foreach ($bahanbakus as $bahanbaku)
-                  <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
-                  @endforeach
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="namabaru">Nama Baru</label>
-                <input name="nama" type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">
-              </div>
-              <label>Satuan Baru</label>
-              <div class="custom-control custom-radio">
-                <input class="custom-control-input" type="radio" id="ubahSatuanSelect" name="ubah" value="select" checked>
-                <label for="ubahSatuanSelect" class="custom-control-label col-4">
-                  <select name="satuanSelect" class="form-control select2" style="width: 100%;">
-                    <option selected value="pcs">pcs</option>
-                    <option value="kg">kg</option>
-                    <option value="gr">gr</option>
-                  </select>
-                </label>
-              </div>
-              <div class="custom-control custom-radio my-2">
-                <input class="custom-control-input" type="radio" id="ubahSatuanText" name="ubah" value="text">
-                <label for="ubahSatuanText" class="custom-control-label col-4">
-                  <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
-                </label>
-              </div>
-              <!-- /.card-body -->
-              <button type="submit" class="btn btn-warning bg-gradient">Ubah</button>
-            </form>
-          </div>
-          <!-- /.card-body -->
-        </div>
-        <div class="card card-danger bg-gradient collapsed-card">
-          <div class="card-header">
-            <h3 class="card-title">Hapus Data Bahan Baku</h3>
-
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-              </button>
+          <div class="card card-warning">
+            <div class="card-header">
+              <h4 class="card-title w-100">
+                <a class="d-block w-100" data-toggle="collapse" href="#collapseTwo">
+                  Edit Data Bahan Baku
+                </a>
+              </h4>
             </div>
-            <!-- /.card-tools -->
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <form method="POST" action="{{ route('bahanbaku.destroy') }}">
-              @csrf
-              <div class="form-group">
-                <label>Nama Bahan Baku</label>
-                <select name="id" class="form-control select2" style="width: 100%;" required>
-                  <option selected disabled value="">Pilih bahan baku</option>
-                  @foreach($bahanbakus as $bahanbaku)
-                  <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
-                  @endforeach
-                </select>
+            <div id="collapseTwo" class="collapse" data-parent="#accordion">
+              <div class="card-body">
+                  <form action="{{ route('bahanbaku.updatedata') }}" method="POST">
+                      @csrf
+                      <div class="form-group">
+                        <label>Nama Bahan Baku</label>
+                        <select name="id" class="form-control select2" style="width: 100%;" required>
+                          <option selected disabled value="">Pilih bahan baku</option>
+                          @foreach ($bahanbakus as $bahanbaku)
+                          <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+        
+                      <div class="form-group">
+                        <label for="namabaru">Nama Baru</label>
+                        <input name="nama" type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">
+                      </div>
+                      <label>Satuan Baru</label>
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="ubahSatuanSelect" name="ubah" value="select" checked>
+                        <label for="ubahSatuanSelect" class="custom-control-label col-4">
+                          <select name="satuanSelect" class="form-control select2" style="width: 100%;">
+                            <option selected value="pcs">pcs</option>
+                            <option value="kg">kg</option>
+                            <option value="gr">gr</option>
+                          </select>
+                        </label>
+                      </div>
+                      <div class="custom-control custom-radio my-2">
+                        <input class="custom-control-input" type="radio" id="ubahSatuanText" name="ubah" value="text">
+                        <label for="ubahSatuanText" class="custom-control-label col-4">
+                          <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
+                        </label>
+                      </div>
+                      <!-- /.card-body -->
+                      <button type="submit" class="btn btn-warning bg-gradient">Ubah</button>
+                    </form>
               </div>
-              <!-- /.card-body -->
-              <button type="submit" class="btn btn-danger bg-gradient">Hapus</button>
-            </form>
+            </div>
           </div>
-          <!-- /.card-body -->
+          <div class="card card-danger">
+            <div class="card-header">
+              <h4 class="card-title w-100">
+                <a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
+                  Hapus Data Bahan Baku
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="collapse" data-parent="#accordion">
+              <div class="card-body">
+                  <form method="POST" action="{{ route('bahanbaku.destroy') }}">
+                      @csrf
+                      <div class="form-group">
+                        <label>Nama Bahan Baku</label>
+                        <select name="id" class="form-control select2" style="width: 100%;" required>
+                          <option selected disabled value="">Pilih bahan baku</option>
+                          @foreach($bahanbakus as $bahanbaku)
+                          <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <!-- /.card-body -->
+                      <button type="submit" class="btn btn-danger bg-gradient">Hapus</button>
+                    </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
