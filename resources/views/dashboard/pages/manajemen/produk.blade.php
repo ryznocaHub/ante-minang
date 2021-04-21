@@ -453,7 +453,6 @@ active
   $(document).ready(function(){
     var j = 50;
     var i = 50;
-
     $('#addi').click(function(){
       j++;
       $('#dynamic_tambah').append('' +
@@ -461,9 +460,9 @@ active
           '<select class="form-control select2 col-7" style="width: 100%;">' +
             '<option selected="selected">Pilih Bahan Baku</option>' +
             '<option>Singkong (kg)</option>' +
-            '<option>Biji Plastik (pcs)</option>' +
-            '<option>Kreipik Sanjai (gr)</option>' +
-            '<option>Plastik (ons)</option>' +
+            @foreach($barangs as $barang)
+            '<option>'+{{$loop->iteration}}+'</option>' +
+            @endforeach
           '</select>' +
           '<input type="text" class="form-control col-3 ml-2" placeholder="Input Jumlah">' +
           '<button type="button" id="tambah'+j+'" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>' +

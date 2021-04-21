@@ -162,6 +162,49 @@ active
                       <!-- /.modal-dialog -->
                     </div>
                     <!-- /.modal -->
+
+                    {{-- button lihat produk --}}
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#lihat{{$barang->id}}"><i class="far fa-eye mr-2"></i>Lihat Produk</button>
+                    {{-- modal resep produk --}}
+                    <div class="modal fade" id="lihat{{$barang->id}}">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header bg-secondary">
+                            <h4 class="modal-title">Produk dari Bahan Baku {{$barang->nama_barang}}</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <table id="example2" class="table table-bordered table-striped">
+                              <thead>
+                                <td>Produk</td>
+                                <td>Keperluan</td>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Singkong</td>
+                                  <td>89 ton</td>
+                                </tr>
+                                <tr>
+                                  <td>Singkong</td>
+                                  <td>89 ton</td>
+                                </tr>
+                                <tr>
+                                  <td>Singkong</td>
+                                  <td>89 ton</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="modal-footer justify-content-between">
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                    {{-- end modal resep produk --}}
                   </td>
                   @endforeach
                 </tr>
