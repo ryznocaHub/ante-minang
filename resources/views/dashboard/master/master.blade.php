@@ -87,7 +87,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="#" class="nav-link @yield('mb_bj_aktif')">
+                  <a href="{{ route('produk.index') }}" class="nav-link @yield('mb_bj_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Produk</p>
                   </a>
