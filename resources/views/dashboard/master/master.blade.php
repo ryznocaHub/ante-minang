@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,6 +28,7 @@
   <!-- ExtraJS -->
   @yield('js_atas')
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
 
@@ -34,7 +36,7 @@
     <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__shake" src="{{ asset('img/ante.png') }}" alt="AnteMinangLogo" height="150" width="200">
     </div>
-  
+
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
@@ -42,7 +44,7 @@
         <img src="{{ asset('img/ante.png') }}" alt="AnteMinangLogo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Ante Minang</span>
       </a>
-  
+
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
@@ -54,14 +56,14 @@
             <a href="{{ route('users.show', 1)}}" class="d-block">Fikri Halim Ch</a>
           </div>
         </div>
-  
+
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="{{ route('home')}}" class="nav-link @yield('home_aktif')" >
+              <a href="{{ route('home')}}" class="nav-link @yield('home_aktif')">
                 <i class="nav-icon fas fa-home"></i>
                 <p>
                   Home
@@ -71,7 +73,7 @@
 
             <li class="nav-item @yield('mb_open')">
               <a href="#" class="nav-link ">
-                  <i class="nav-icon fas fa-edit"></i>
+                <i class="nav-icon fas fa-edit"></i>
                 <p>
                   Manajemen Barang
                   <i class="fas fa-angle-left right"></i>
@@ -79,7 +81,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{route('manajemen.index')}}" class="nav-link @yield('mb_bb_aktif')">
+                  <a href="{{route('bahanbaku.index')}}" class="nav-link @yield('mb_bb_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Bahan Baku</p>
                   </a>
@@ -92,7 +94,7 @@
                 </li>
               </ul>
             </li>
-  
+
             <li class="nav-item @yield('history_open')">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-history"></i>
@@ -103,13 +105,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item ">
-                  <a href="{{route('history.masuk')}}" class="nav-link @yield('bm_aktif')">
+                  <a href="{{route('history.bahanbaku.masuk')}}" class="nav-link @yield('bm_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Barang Masuk</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{route('history.keluar')}}" class="nav-link @yield('bk_aktif')">
+                  <a href="{{route('history.bahanbaku.keluar')}}" class="nav-link @yield('bk_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Barang Keluar</p>
                   </a>
@@ -128,10 +130,10 @@
                 </li>
               </ul>
             </li>
-  
+
             <li class="nav-item @yield('user_open')">
               <a href="#" class="nav-link ">
-                  <i class="nav-icon fas fa-users"></i>
+                <i class="nav-icon fas fa-users"></i>
                 <p>
                   Users
                   <i class="fas fa-angle-left right"></i>
@@ -152,7 +154,7 @@
                 </li>
               </ul>
             </li>
-  
+
             <li class="nav-item">
               <form action="{{route('logout')}}" method="POST">
                 @csrf
@@ -170,7 +172,7 @@
       </div>
       <!-- /.sidebar -->
     </aside>
-  
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -190,7 +192,7 @@
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
-  
+
       <!-- Main content -->
       @yield('isi')
       <!-- /.content -->
@@ -204,7 +206,7 @@
         <b>Version</b> 1.0.1
       </div>
     </footer>
-  
+
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Control sidebar content goes here -->
@@ -213,36 +215,37 @@
   </div>
   <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="{{ asset('js/Template/jquery.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('js/Template/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('js/Template/bootstrap.bundle.min.js') }}"></script>
-<!-- JQVMap -->
-<script src="{{ asset('js/Template/jquery.vmap.min.js') }}"></script>
-<script src="{{ asset('js/Template/jquery.vmap.usa.js') }}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset('js/Template/jquery.knob.min.js') }}"></script>
-<!-- daterangepicker -->
-{{-- <script src="{{ asset('js/Template/moment.min.js') }}"></script>
-<script src="{{ asset('js/Template/daterangepicker.js') }}"></script> --}}
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset('js/Template/tempusdominus-bootstrap-4.min.js') }}"></script>
-<!-- Summernote -->
-<script src="{{ asset('js/Template/summernote-bs4.min.js') }}"></script>
-<!-- overlayScrollbars -->
-<script src="{{ asset('js/Template/jquery.overlayScrollbars.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('js/Master/adminlte.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('js/Master/demo.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('js/Master/dashboard.js') }}"></script>
-@yield('js_bawah')
+  <!-- jQuery -->
+  <script src="{{ asset('js/Template/jquery.min.js') }}"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="{{ asset('js/Template/jquery-ui.min.js') }}"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="{{ asset('js/Template/bootstrap.bundle.min.js') }}"></script>
+  <!-- JQVMap -->
+  <script src="{{ asset('js/Template/jquery.vmap.min.js') }}"></script>
+  <script src="{{ asset('js/Template/jquery.vmap.usa.js') }}"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="{{ asset('js/Template/jquery.knob.min.js') }}"></script>
+  <!-- daterangepicker -->
+  {{-- <script src="{{ asset('js/Template/moment.min.js') }}"></script>
+  <script src="{{ asset('js/Template/daterangepicker.js') }}"></script> --}}
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="{{ asset('js/Template/tempusdominus-bootstrap-4.min.js') }}"></script>
+  <!-- Summernote -->
+  <script src="{{ asset('js/Template/summernote-bs4.min.js') }}"></script>
+  <!-- overlayScrollbars -->
+  <script src="{{ asset('js/Template/jquery.overlayScrollbars.min.js') }}"></script>
+  <!-- AdminLTE App -->
+  <script src="{{ asset('js/Master/adminlte.js') }}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="{{ asset('js/Master/demo.js') }}"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="{{ asset('js/Master/dashboard.js') }}"></script>
+  @yield('js_bawah')
 </body>
+
 </html>
