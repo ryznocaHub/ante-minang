@@ -133,31 +133,29 @@ class BahanBakuController extends Controller
 
     public function updateBahanBaku(Request $request)
     {
-        $request->validate(
-            [
-                'nama'  => ['required'],
-            ]
-        );
-
         if ($request['ubah'] == 'select') {
             $satuan = $request->get('satuanSelect');
         } else if ($request['ubah'] == 'text') {
             $satuan = $request->get('satuanText');
         }
 
-        // dd($satuan);
+        $bahanBaku = BahanBaku::where('id', $request->get('id'))->first();
 
-        DB::transaction(function () use ($request, $satuan) {
+        if ($request->has('nama')) {
+            $nama = $request->get('nama');
+        } else {
+            $nama = $bahanBaku->nama;
+        }
+
+        DB::transaction(function () use ($request, $satuan, $nama, $bahanBaku) {
 
             BahanBaku::where('id', $request->get('id'))
                 ->update(
                     [
-                        'nama'      => $request->get('nama'),
+                        'nama'      => $nama,
                         'satuan'    => $satuan
                     ]
                 );
-
-            $bahanBaku = BahanBaku::where('id', $request->get('id'))->first();
 
             HistoryManagementBahanBaku::create(
                 [
