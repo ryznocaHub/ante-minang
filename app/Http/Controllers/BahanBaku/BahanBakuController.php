@@ -33,20 +33,26 @@ class BahanBakuController extends Controller
             $satuan = $request->get('satuanText');
         }
 
-        $totalBahanBaku = BahanBaku::count();
-
         $bahanBaku = BahanBaku::create(
             [
-                'kode'      => 'BB' . ($totalBahanBaku + 1),
                 'nama'      => $request->get('nama'),
                 'jumlah'    => 0,
                 'satuan'    => $satuan
             ]
         );
 
+        BahanBaku::where('id', $bahanBaku->id)->update(
+            [
+                'kode'      => 'BB' . ($bahanBaku->id)
+            ]
+        );
+
+        $bahanBaku = BahanBaku::orderByDesc('id')->first();
+
         HistoryManagementBahanBaku::create(
             [
-                'bahan_baku_id' => $bahanBaku->id,
+                'kode'          => $bahanBaku->kode,
+                'nama'          => $bahanBaku->nama,
                 'user_id'       => auth()->user()->id,
                 'aksi'          => 'Tambah'
             ]
@@ -77,7 +83,8 @@ class BahanBakuController extends Controller
 
                     HistoryBahanBaku::create(
                         [
-                            'bahan_baku_id' => $bahanBaku->id,
+                            'kode'          => $bahanBaku->kode,
+                            'nama'          => $bahanBaku->nama,
                             'user_id'       => auth()->user()->id,
                             'jumlah'        => $request->get('jumlah'),
                             'keterangan'    => $keterangan,
@@ -104,7 +111,8 @@ class BahanBakuController extends Controller
 
                     HistoryBahanBaku::create(
                         [
-                            'bahan_baku_id' => $bahanBaku->id,
+                            'kode'          => $bahanBaku->kode,
+                            'nama'          => $bahanBaku->nama,
                             'user_id'       => auth()->user()->id,
                             'jumlah'        => $request->get('jumlah'),
                             'keterangan'    => $keterangan,
@@ -145,9 +153,12 @@ class BahanBakuController extends Controller
                 ]
             );
 
+        $bahanBaku = BahanBaku::where('id', $request->get('id'))->first();
+
         HistoryManagementBahanBaku::create(
             [
-                'bahan_baku_id' => $request->get('id'),
+                'kode'          => $bahanBaku->kode,
+                'nama'          => $bahanBaku->nama,
                 'user_id'       => auth()->user()->id,
                 'aksi'          => 'Ubah'
             ]
@@ -158,6 +169,17 @@ class BahanBakuController extends Controller
 
     public function destroy(Request $request)
     {
+        $bahanBaku = BahanBaku::where('id', $request->get('id'))->first();
+
+        HistoryManagementBahanBaku::create(
+            [
+                'kode'          => $bahanBaku->kode,
+                'nama'          => $bahanBaku->nama,
+                'user_id'       => auth()->user()->id,
+                'aksi'          => 'Hapus'
+            ]
+        );
+
         BahanBaku::where('id', $request->get('id'))->delete();
 
         return redirect()->route('bahanbaku.index')->with('status', 'Sukses menghapus bahan baku');
@@ -165,22 +187,24 @@ class BahanBakuController extends Controller
 
     public function masuk()
     {
-        $histories = HistoryBahanBaku::with('bahanbaku', 'user')
+        $histories = HistoryBahanBaku::with('user')
             ->where('kategori', 'Masuk')
             ->orderByDesc('tanggal')->get();
         $kategori = 1;
+        $jenis = 1;
 
-        return view('dashboard.pages.history', compact('histories', 'kategori'));
+        return view('dashboard.pages.history', compact('histories', 'kategori', 'jenis'));
     }
 
     public function keluar()
     {
-        $histories = HistoryBahanBaku::with('bahanbaku', 'user')
+        $histories = HistoryBahanBaku::with('user')
             ->where('kategori', 'Keluar')
             ->orderByDesc('tanggal')->get();
         $kategori = 2;
+        $jenis = 1;
 
-        return view('dashboard.pages.history', compact('histories', 'kategori'));
+        return view('dashboard.pages.history', compact('histories', 'kategori', 'jenis'));
     }
 
     public function history()

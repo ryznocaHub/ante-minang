@@ -56,8 +56,8 @@ active
               <tbody>
                 @foreach($histories as $history)
                 <tr>
-                  <td>{{$history->bahanbaku->kode}}</td>
-                  <td>{{$history->bahanbaku->nama}}</td>
+                  <td>{{$history->kode}}</td>
+                  <td>{{$history->nama}}</td>
                   <td>{{$history->jumlah}}</td>
                   <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history->tanggal)->format('d-m-Y') }}</td>
                   <td>{{$history->keterangan}}</td>

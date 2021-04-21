@@ -15,7 +15,8 @@ class CreateHistoryBahanBakusTable extends Migration
     {
         Schema::create('history_bahan_bakus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bahan_baku_id')->references('id')->on('bahan_bakus')->onDelete('cascade');
+            $table->string('kode');
+            $table->string('nama');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('jumlah');
             $table->text('keterangan');

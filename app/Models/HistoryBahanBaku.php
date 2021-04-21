@@ -12,7 +12,8 @@ class HistoryBahanBaku extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'bahan_baku_id',
+        'nama',
+        'kode',
         'user_id',
         'jumlah',
         'keterangan',

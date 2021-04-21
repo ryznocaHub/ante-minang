@@ -38,6 +38,7 @@ active
             <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <tr>
+                  <th>ID</th>
                   <th>Nama</th>
                   <th>Stok</th>
                   <th>Manajemen Stok</th>
@@ -46,8 +47,9 @@ active
               <tbody>
                 @foreach($bahanbakus as $bahanbaku)
                 <tr>
+                  <td>{{$bahanbaku->kode}}</td>
                   <td>{{$bahanbaku->nama}}</td>
-                  <td>{{$bahanbaku->jumlah}}</td>
+                  <td>{{$bahanbaku->jumlah}} <small>{{$bahanbaku->satuan}}</small> </td>
                   <td>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-outline-primary mr-2" data-toggle="modal" data-target="#tambah{{$bahanbaku->id}}"><i class="fas fa-plus"></i></button>
