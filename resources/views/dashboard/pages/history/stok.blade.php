@@ -20,9 +20,15 @@ History Stok {{$kategori == '1' ? "Masuk" : "Keluar"}}
 menu-open
 @endsection
 
-@section('{{$kategori == '1' ? "bm" : "bk"}}_aktif')
-active
-@endsection
+@if ($kategori == '1')    
+  @section('bm_aktif')
+  active
+  @endsection
+@else
+  @section('bk_aktif')
+  active
+  @endsection
+@endif
 {{-- end manajemen --}}
 
 @section('page_aktif')
@@ -45,10 +51,15 @@ active
             <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  {{-- kode barang BB->bahan baku , BJ->Produk --}}
+                  <th>ID</th> 
+                  {{-- nama barang --}}
                   <th>Nama</th>
+                  {{-- jumlah barang --}}
                   <th>Jumlah</th>
+                  {{-- tanggal masuk/keluar --}}
                   <th>Tanggal</th>
+
                   <th>Keterangan</th>
                   <th>Pegawai</th>
                 </tr>
