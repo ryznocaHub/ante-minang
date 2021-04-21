@@ -145,24 +145,29 @@ class BahanBakuController extends Controller
             $satuan = $request->get('satuanText');
         }
 
-        BahanBaku::where('id', $request->get('id'))
-            ->update(
+        // dd($satuan);
+
+        DB::transaction(function () use ($request, $satuan) {
+
+            BahanBaku::where('id', $request->get('id'))
+                ->update(
+                    [
+                        'nama'      => $request->get('nama'),
+                        'satuan'    => $satuan
+                    ]
+                );
+
+            $bahanBaku = BahanBaku::where('id', $request->get('id'))->first();
+
+            HistoryManagementBahanBaku::create(
                 [
-                    'nama'      => $request->get('nama'),
-                    'satuan'    => $satuan
+                    'kode'          => $bahanBaku->kode,
+                    'nama'          => $bahanBaku->nama,
+                    'user_id'       => auth()->user()->id,
+                    'aksi'          => 'Ubah'
                 ]
             );
-
-        $bahanBaku = BahanBaku::where('id', $request->get('id'))->first();
-
-        HistoryManagementBahanBaku::create(
-            [
-                'kode'          => $bahanBaku->kode,
-                'nama'          => $bahanBaku->nama,
-                'user_id'       => auth()->user()->id,
-                'aksi'          => 'Ubah'
-            ]
-        );
+        });
 
         return redirect()->route('bahanbaku.index')->with('status', 'Sukses merubah bahan baku');
     }
