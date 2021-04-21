@@ -15,7 +15,7 @@ class CreateBahanBakusTable extends Migration
     {
         Schema::create('bahan_bakus', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
+            $table->string('kode')->nullable();
             $table->string('nama');
             $table->integer('jumlah');
             $table->string('satuan');

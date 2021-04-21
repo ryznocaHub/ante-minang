@@ -12,13 +12,9 @@ class HistoryManagementBahanBaku extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'bahan_baku_id',
+        'nama',
+        'kode',
         'user_id',
         'aksi'
     ];
-
-    public function bahanbaku()
-    {
-        return $this->belongsTo(BahanBaku::class, 'bahan_baku_id', 'id');
-    }
 }

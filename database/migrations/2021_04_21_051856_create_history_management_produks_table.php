@@ -15,7 +15,8 @@ class CreateHistoryManagementProduksTable extends Migration
     {
         Schema::create('history_management_produks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('produk_id')->references('id')->on('produks')->onDelete('cascade');
+            $table->string('kode');
+            $table->string('nama');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('aksi');
             $table->timestamp('tanggal')->useCurrent();

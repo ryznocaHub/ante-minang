@@ -12,13 +12,9 @@ class HistoryManagementProduk extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'produk_id',
+        'nama',
+        'kode',
         'user_id',
         'aksi'
     ];
-
-    public function produk()
-    {
-        return $this->belongsTo(Produk::class, 'produk_id', 'id');
-    }
 }
