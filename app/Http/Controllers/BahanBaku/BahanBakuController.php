@@ -146,7 +146,14 @@ class BahanBakuController extends Controller
             $nama = $bahanBaku->nama;
         }
 
-        dd($nama);
+        $cekUpdate = BahanBaku::where('id', $request->get('id'))
+            ->where('nama', $nama)
+            ->where('satuan', $satuan)
+            ->first();
+
+        if (!$cekUpdate) {
+            return redirect()->route('bahanbaku.index');
+        }
 
         DB::transaction(function () use ($request, $satuan, $nama, $bahanBaku) {
 
