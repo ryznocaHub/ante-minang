@@ -17,22 +17,31 @@ History {{ $jenis == '1' ? "Bahan baku" : "produk"}} {{$kategori == '1' ? "Masuk
 
 {{-- manajemen menu aktif --}}
 @if ($jenis == '1')
-@section('bm_aktif')
-active
-@endsection
+  @section('bahanbaku_open')
+    menu-open
+  @endsection
+  @if ($kategori == '1')
+    @section('bbm_aktif')
+      active
+    @endsection
+  @else
+    @section('bbk_aktif')
+      active
+    @endsection  
+  @endif
 @else
-@section('bk_aktif')
-active
-@endsection
-@endif
-@if ($kategori == '1')
-@section('bm_aktif')
-active
-@endsection
-@else
-@section('bk_aktif')
-active
-@endsection
+  @section('produk_open')
+    menu-open
+  @endsection
+  @if ($kategori == '1')
+    @section('pm_aktif')
+      active
+    @endsection
+  @else
+    @section('pk_aktif')
+      active
+    @endsection  
+  @endif
 @endif
 {{-- end manajemen --}}
 
