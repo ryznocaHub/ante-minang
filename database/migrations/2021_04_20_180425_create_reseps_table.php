@@ -15,8 +15,8 @@ class CreateResepsTable extends Migration
     {
         Schema::create('reseps', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('produks')->references('id')->on('produks');
-            $table->foreignId('bahan_bakus')->references('id')->on('bahan_bakus');
+            $table->foreignId('produk_id')->references('id')->on('produks')->onDelete('cascade');
+            $table->foreignId('bahan_baku_id')->references('id')->on('bahan_bakus')->onDelete('cascade');
             $table->integer('jumlah');
         });
     }
