@@ -140,12 +140,13 @@ class BahanBakuController extends Controller
         }
 
         $bahanBaku = BahanBaku::where('id', $request->get('id'))->first();
+        $nama = $request->get('nama');
 
-        if ($request->has('nama')) {
-            $nama = $request->get('nama');
-        } else {
+        if ($nama == null) {
             $nama = $bahanBaku->nama;
         }
+
+        dd($nama);
 
         DB::transaction(function () use ($request, $satuan, $nama, $bahanBaku) {
 
