@@ -193,7 +193,7 @@ class BahanBakuController extends Controller
         $kategori = 1;
         $jenis = 1;
 
-        return view('dashboard.pages.history', compact('histories', 'kategori', 'jenis'));
+        return view('dashboard.pages.history.stok', compact('histories', 'kategori', 'jenis'));
     }
 
     public function keluar()
@@ -204,7 +204,7 @@ class BahanBakuController extends Controller
         $kategori = 2;
         $jenis = 1;
 
-        return view('dashboard.pages.history', compact('histories', 'kategori', 'jenis'));
+        return view('dashboard.pages.history.stok', compact('histories', 'kategori', 'jenis'));
     }
 
     public function history()
