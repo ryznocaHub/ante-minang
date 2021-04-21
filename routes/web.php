@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BahanBaku\BahanBakuController;
 use App\Http\Controllers\ManagementBarangController;
+use App\Http\Controllers\Produk\ProdukController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
