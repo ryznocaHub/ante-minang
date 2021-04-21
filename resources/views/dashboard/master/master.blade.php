@@ -118,7 +118,7 @@
                   </a>
                 </li>
                 <li class="nav-item @yield('dbb_aktif')">
-                  <a href="#" class="nav-link">
+                  <a href="{{route('history.bahanbaku.data')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Bahan Baku</p>
                   </a>

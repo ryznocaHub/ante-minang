@@ -1,7 +1,7 @@
 @extends('dashboard.master.master')
 
 @section('title')
-History {{ $jenis == '1' ? "Bahan baku" : "produk"}} {{$kategori == '1' ? "Masuk" : "Keluar"}} 
+History {{ $jenis == '1' ? "Bahan baku" : "produk"}} {{$kategori == '1' ? "Masuk" : "Keluar"}}
 @endsection
 
 @section('css')
@@ -16,23 +16,23 @@ History {{ $jenis == '1' ? "Bahan baku" : "produk"}} {{$kategori == '1' ? "Masuk
 @endsection
 
 {{-- manajemen menu aktif --}}
-@if ($jenis == '1')    
-  @section('bm_aktif')
-  active
-  @endsection
+@if ($jenis == '1')
+@section('bm_aktif')
+active
+@endsection
 @else
-  @section('bk_aktif')
-  active
-  @endsection
+@section('bk_aktif')
+active
+@endsection
 @endif
-@if ($kategori == '1')    
-  @section('bm_aktif')
-  active
-  @endsection
+@if ($kategori == '1')
+@section('bm_aktif')
+active
+@endsection
 @else
-  @section('bk_aktif')
-  active
-  @endsection
+@section('bk_aktif')
+active
+@endsection
 @endif
 {{-- end manajemen --}}
 
@@ -58,7 +58,7 @@ History {{ $jenis == '1' ? "Bahan baku" : "produk"}} {{$kategori == '1' ? "Masuk
               <thead>
                 <tr>
                   {{-- kode barang BB->bahan baku , BJ->Produk --}}
-                  <th>ID</th> 
+                  <th>ID</th>
                   {{-- nama barang --}}
                   <th>Nama</th>
                   {{-- jumlah barang --}}
@@ -74,7 +74,7 @@ History {{ $jenis == '1' ? "Bahan baku" : "produk"}} {{$kategori == '1' ? "Masuk
                 @foreach($histories as $history)
                 <tr>
                   <td>{{$history->kode}}</td>
-                  <td>{{$history->barang->nama_barang}}</td>
+                  <td>{{$history->nama}}</td>
                   <td>{{$history->jumlah}}</td>
                   <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history->tanggal)->format('d-m-Y') }}</td>
                   <td>{{$history->keterangan}}</td>

@@ -209,8 +209,9 @@ class BahanBakuController extends Controller
 
     public function history()
     {
-        $histories = HistoryManagementBahanBaku::orderBy('tanggal')->get();
+        $histories = HistoryManagementBahanBaku::orderByDesc('tanggal')->get();
+        $kategori = 1;
 
-        return view('dashboard.pages./');
+        return view('dashboard.pages.history.data', compact('histories', 'kategori'));
     }
 }

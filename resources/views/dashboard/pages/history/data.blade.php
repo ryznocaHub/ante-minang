@@ -18,21 +18,21 @@ History Data {{$kategori == '1' ? "Bahan Baku" : "Produk"}}
 {{-- manajemen menu aktif --}}
 
 @if($kategori == '1')
-  @section('bahanbaku_open')
-    menu-open
-  @endsection
-  
-  @section('dbb_aktif')
-    active
-  @endsection   
+@section('bahanbaku_open')
+menu-open
+@endsection
+
+@section('dbb_aktif')
+active
+@endsection
 @else
-  @section('produk_open')
-    menu-open
-  @endsection
-  
-  @section('dp_aktif')
-    active
-  @endsection   
+@section('produk_open')
+menu-open
+@endsection
+
+@section('dp_aktif')
+active
+@endsection
 @endif
 {{-- end manajemen --}}
 
@@ -61,7 +61,6 @@ History Data {{$kategori == '1' ? "Bahan Baku" : "Produk"}}
                   <th>Nama</th>
                   <th>Aksi</th>
                   <th>Tanggal</th>
-                  <th>Keterangan</th>
                   <th>Pegawai</th>
                 </tr>
               </thead>
@@ -69,10 +68,9 @@ History Data {{$kategori == '1' ? "Bahan Baku" : "Produk"}}
                 @foreach($histories as $history)
                 <tr>
                   <td>{{$history->kode}}</td>
-                  <td>{{$history->barang->nama_barang}}</td>
-                  <td>{{$history->jumlah}}</td>
+                  <td>{{$history->nama}}</td>
+                  <td>{{$history->aksi}}</td>
                   <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history->tanggal)->format('d-m-Y') }}</td>
-                  <td>{{$history->keterangan}}</td>
                   <td>{{$history->user->name}}</td>
                 </tr>
                 @endforeach

@@ -166,13 +166,13 @@ active
                     <!-- /.modal -->
 
                     {{-- button lihat produk --}}
-                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#lihat{{$barang->id}}"><i class="far fa-eye mr-2"></i>Lihat Produk</button>
+                    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#lihat{{$bahanbaku->id}}"><i class="far fa-eye mr-2"></i>Lihat Produk</button>
                     {{-- modal resep produk --}}
-                    <div class="modal fade" id="lihat{{$barang->id}}">
+                    <div class="modal fade" id="lihat{{$bahanbaku->id}}">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header bg-secondary">
-                            <h4 class="modal-title">Produk dari Bahan Baku {{$barang->nama_barang}}</h4>
+                            <h4 class="modal-title">Produk dari Bahan Baku {{$bahanbaku->nama_barang}}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
@@ -238,32 +238,32 @@ active
             </div>
             <div id="collapseOne" class="collapse show" data-parent="#accordion">
               <div class="card-body">
-                  <form method="POST" action="{{ route('bahanbaku.store') }}">
-                      @csrf
-                      <div class="form-group">
-                        <label for="namabarang">Nama Bahan Baku</label>
-                        <input name="nama" type="text" class="form-control" id="namabarang" placeholder="Input Nama Barang">
-                      </div>
-                      <label>Satuan</label>
-                      <div class="custom-control custom-radio">
-                        <input class="custom-control-input" type="radio" id="radiosatuan1" name="satuantambah" value="select" checked>
-                        <label for="radiosatuan1" class="custom-control-label col-4">
-                          <select name="satuanSelect" class="form-control select2" style="width: 100%;">
-                            <option selected value="pcs">pcs</option>
-                            <option value="kg">kg</option>
-                            <option value="gr">gr</option>
-                          </select>
-                        </label>
-                      </div>
-                      <div class="custom-control custom-radio my-2">
-                        <input class="custom-control-input" type="radio" id="radiosatuan2" name="satuantambah" value="text">
-                        <label for="radiosatuan2" class="custom-control-label col-4">
-                          <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
-                        </label>
-                      </div>
-                      <!-- /.card-body -->
-                      <button type="submit" class="btn btn-outline-info mt-2">Tambah</button>
-                    </form>
+                <form method="POST" action="{{ route('bahanbaku.store') }}">
+                  @csrf
+                  <div class="form-group">
+                    <label for="namabarang">Nama Bahan Baku</label>
+                    <input name="nama" type="text" class="form-control" id="namabarang" placeholder="Input Nama Barang">
+                  </div>
+                  <label>Satuan</label>
+                  <div class="custom-control custom-radio">
+                    <input class="custom-control-input" type="radio" id="radiosatuan1" name="satuantambah" value="select" checked>
+                    <label for="radiosatuan1" class="custom-control-label col-4">
+                      <select name="satuanSelect" class="form-control select2" style="width: 100%;">
+                        <option selected value="pcs">pcs</option>
+                        <option value="kg">kg</option>
+                        <option value="gr">gr</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="custom-control custom-radio my-2">
+                    <input class="custom-control-input" type="radio" id="radiosatuan2" name="satuantambah" value="text">
+                    <label for="radiosatuan2" class="custom-control-label col-4">
+                      <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
+                    </label>
+                  </div>
+                  <!-- /.card-body -->
+                  <button type="submit" class="btn btn-outline-info mt-2">Tambah</button>
+                </form>
               </div>
             </div>
           </div>
@@ -277,42 +277,42 @@ active
             </div>
             <div id="collapseTwo" class="collapse" data-parent="#accordion">
               <div class="card-body">
-                  <form action="{{ route('bahanbaku.updatedata') }}" method="POST">
-                      @csrf
-                      <div class="form-group">
-                        <label>Nama Bahan Baku</label>
-                        <select name="id" class="form-control select2" style="width: 100%;" required>
-                          <option selected disabled value="">Pilih bahan baku</option>
-                          @foreach ($bahanbakus as $bahanbaku)
-                          <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-        
-                      <div class="form-group">
-                        <label for="namabaru">Nama Baru</label>
-                        <input name="nama" type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">
-                      </div>
-                      <label>Satuan Baru</label>
-                      <div class="custom-control custom-radio">
-                        <input class="custom-control-input" type="radio" id="ubahSatuanSelect" name="ubah" value="select" checked>
-                        <label for="ubahSatuanSelect" class="custom-control-label col-4">
-                          <select name="satuanSelect" class="form-control select2" style="width: 100%;">
-                            <option selected value="pcs">pcs</option>
-                            <option value="kg">kg</option>
-                            <option value="gr">gr</option>
-                          </select>
-                        </label>
-                      </div>
-                      <div class="custom-control custom-radio my-2">
-                        <input class="custom-control-input" type="radio" id="ubahSatuanText" name="ubah" value="text">
-                        <label for="ubahSatuanText" class="custom-control-label col-4">
-                          <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
-                        </label>
-                      </div>
-                      <!-- /.card-body -->
-                      <button type="submit" class="btn btn-warning bg-gradient">Ubah</button>
-                    </form>
+                <form action="{{ route('bahanbaku.updatedata') }}" method="POST">
+                  @csrf
+                  <div class="form-group">
+                    <label>Nama Bahan Baku</label>
+                    <select name="id" class="form-control select2" style="width: 100%;" required>
+                      <option selected disabled value="">Pilih bahan baku</option>
+                      @foreach ($bahanbakus as $bahanbaku)
+                      <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="namabaru">Nama Baru</label>
+                    <input name="nama" type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">
+                  </div>
+                  <label>Satuan Baru</label>
+                  <div class="custom-control custom-radio">
+                    <input class="custom-control-input" type="radio" id="ubahSatuanSelect" name="ubah" value="select" checked>
+                    <label for="ubahSatuanSelect" class="custom-control-label col-4">
+                      <select name="satuanSelect" class="form-control select2" style="width: 100%;">
+                        <option selected value="pcs">pcs</option>
+                        <option value="kg">kg</option>
+                        <option value="gr">gr</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="custom-control custom-radio my-2">
+                    <input class="custom-control-input" type="radio" id="ubahSatuanText" name="ubah" value="text">
+                    <label for="ubahSatuanText" class="custom-control-label col-4">
+                      <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
+                    </label>
+                  </div>
+                  <!-- /.card-body -->
+                  <button type="submit" class="btn btn-warning bg-gradient">Ubah</button>
+                </form>
               </div>
             </div>
           </div>
@@ -326,20 +326,20 @@ active
             </div>
             <div id="collapseThree" class="collapse" data-parent="#accordion">
               <div class="card-body">
-                  <form method="POST" action="{{ route('bahanbaku.destroy') }}">
-                      @csrf
-                      <div class="form-group">
-                        <label>Nama Bahan Baku</label>
-                        <select name="id" class="form-control select2" style="width: 100%;" required>
-                          <option selected disabled value="">Pilih bahan baku</option>
-                          @foreach($bahanbakus as $bahanbaku)
-                          <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
-                          @endforeach
-                        </select>
-                      </div>
-                      <!-- /.card-body -->
-                      <button type="submit" class="btn btn-danger bg-gradient">Hapus</button>
-                    </form>
+                <form method="POST" action="{{ route('bahanbaku.destroy') }}">
+                  @csrf
+                  <div class="form-group">
+                    <label>Nama Bahan Baku</label>
+                    <select name="id" class="form-control select2" style="width: 100%;" required>
+                      <option selected disabled value="">Pilih bahan baku</option>
+                      @foreach($bahanbakus as $bahanbaku)
+                      <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  <!-- /.card-body -->
+                  <button type="submit" class="btn btn-danger bg-gradient">Hapus</button>
+                </form>
               </div>
             </div>
           </div>
