@@ -23,4 +23,9 @@ class HistoryBahanBaku extends Model
     {
         return $this->belongsTo(BahanBaku::class, 'bahan_baku_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }
