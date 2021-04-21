@@ -151,7 +151,7 @@ class BahanBakuController extends Controller
             ->where('satuan', $satuan)
             ->first();
 
-        if (!$cekUpdate) {
+        if ($cekUpdate) {
             return redirect()->route('bahanbaku.index');
         }
 
