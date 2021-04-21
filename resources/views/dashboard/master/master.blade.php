@@ -95,41 +95,74 @@
               </ul>
             </li>
 
-            <li class="nav-item @yield('history_open')">
+            <li class="nav-header">HISTORI</li>
+            <li class="nav-item @yield('bahanbaku_open')">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-history"></i>
+                <i class="nav-icon fas fa-cubes"></i>
                 <p>
-                  History
-                  <i class="fas fa-angle-left right"></i>
+                  Bahan Baku
+                  <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item ">
-                  <a href="{{route('history.bahanbaku.masuk')}}" class="nav-link @yield('bm_aktif')">
+                <li class="nav-item @yield('bbm_aktif')">
+                  <a href="{{route('history.bahanbaku.masuk')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Barang Masuk</p>
+                    <p>Bahan Baku Masuk</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="{{route('history.bahanbaku.keluar')}}" class="nav-link @yield('bk_aktif')">
+                <li class="nav-item @yield('bbk_aktif')">
+                  <a href="{{route('history.bahanbaku.keluar')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Barang Keluar</p>
+                    <p>Bahan Baku Keluar</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link @yield('bb_aktif')">
+                <li class="nav-item @yield('dbb_aktif')">
+                  <a href="#" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Bahan Baku</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link @yield('bj_aktif')">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Produk</p>
+                    <p>Data Bahan Baku</p>
                   </a>
                 </li>
               </ul>
             </li>
+            <li class="nav-item @yield('produk_open')">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-bacon"></i>
+                <p>
+                  Produk
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item @yield('pm_aktif')">
+                  <a href="{{route('history.produk.masuk')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Produk Masuk</p>
+                  </a>
+                </li>
+                <li class="nav-item @yield('pk_aktif')">
+                  <a href="{{route('history.produk.keluar')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Produk Keluar</p>
+                  </a>
+                </li>
+                <li class="nav-item @yield('dp_aktif')">
+                  <a href="{{route('history.produk.data')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Produk</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+
+
+
+
+
+
+
 
             <li class="nav-item @yield('user_open')">
               <a href="#" class="nav-link ">
