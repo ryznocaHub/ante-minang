@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHistoriesTable extends Migration
+class CreateHistoryManagementBahanBakusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('histories', function (Blueprint $table) {
+        Schema::create('history_management_bahan_bakus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_barang')->references('id')->on('barangs');
-            $table->foreignId('id_user')->references('id')->on('users');
-            $table->integer('jumlah');
-            $table->text('keterangan');
+            $table->foreignId('bahan_baku_id')->references('id')->on('bahan_bakus')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('aksi');
             $table->timestamp('tanggal')->useCurrent();
         });
     }
@@ -30,6 +29,6 @@ class CreateHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('histories');
+        Schema::dropIfExists('history_management_bahan_bakus');
     }
 }

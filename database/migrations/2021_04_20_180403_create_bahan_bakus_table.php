@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddKodeToHistoriesTable extends Migration
+class CreateBahanBakusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddKodeToHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::table('histories', function (Blueprint $table) {
+        Schema::create('bahan_bakus', function (Blueprint $table) {
+            $table->id();
             $table->string('kode');
+            $table->string('nama');
+            $table->integer('jumlah');
+            $table->string('satuan');
         });
     }
 
@@ -25,8 +29,6 @@ class AddKodeToHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('histories', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('bahan_bakus');
     }
 }

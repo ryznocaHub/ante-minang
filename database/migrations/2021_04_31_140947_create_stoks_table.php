@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddKategoriToHistoriesTable extends Migration
+class CreateStoksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddKategoriToHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::table('histories', function (Blueprint $table) {
-            $table->string('kategori');
+        Schema::create('stoks', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('bahan_baku_id')->references('id')->on('bahan_bakus');
+            $table->integer('jumlah');
+            $table->timestamp('tanggal')->useCurrent();
         });
     }
 
@@ -25,8 +28,6 @@ class AddKategoriToHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('histories', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('stoks');
     }
 }
