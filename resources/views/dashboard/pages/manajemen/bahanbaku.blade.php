@@ -40,38 +40,36 @@ active
                 <tr>
                   <th>Nama</th>
                   <th>Stok</th>
-                  <th>Kategori</th>
                   <th>Manajemen Stok</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($barangs as $barang)
+                @foreach($bahanbakus as $bahanbaku)
                 <tr>
-                  <td>{{$barang->nama_barang}}</td>
-                  <td>{{$barang->jumlah}}</td>
-                  <td>{{$barang->kategori}}</td>
+                  <td>{{$bahanbaku->nama}}</td>
+                  <td>{{$bahanbaku->jumlah}}</td>
                   <td>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-primary mr-2" data-toggle="modal" data-target="#tambah{{$barang->id}}"><i class="fas fa-plus"></i></button>
+                    <button type="button" class="btn btn-outline-primary mr-2" data-toggle="modal" data-target="#tambah{{$bahanbaku->id}}"><i class="fas fa-plus"></i></button>
 
-                    <div class="modal fade" id="tambah{{$barang->id}}">
+                    <div class="modal fade" id="tambah{{$bahanbaku->id}}">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header bg-info">
-                            <h4 class="modal-title">Tambah Stok {{$barang->nama_barang}}</h4>
+                            <h4 class="modal-title">Tambah Stok {{$bahanbaku->nama}}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form method="POST" action="{{ route('manajemen.update', $barang->id) }}">
+                            <form method="POST" action="{{ route('bahanbaku.update', $bahanbaku->id) }}">
                               <!-- text input -->
                               @csrf
                               @method('PUT')
-                              <input type="hidden" name="id" value="{{$barang->id}}">
+                              <input type="hidden" name="id" value="{{$bahanbaku->id}}">
                               <div class="card bg-info text-center ">
-                                <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$barang->nama_barang}} saat ini</h1>
-                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$barang->jumlah}}</h1>
+                                <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$bahanbaku->nama}} saat ini</h1>
+                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}}</h1>
                                 <i class="fas fa-cubes fa-3x my-3"></i>
                               </div>
                               <div class="form-group">
@@ -81,7 +79,7 @@ active
                               <div class="form-group mt-4">
                                 <label>Keterangan</label>
                                 <div class="custom-control custom-radio">
-                                  <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio" value="select" checked>
+                                  <input class="custom-control-input" type="radio" id="customRadio1" name="radioKeterangan" value="select" checked>
                                   <label for="customRadio1" class="custom-control-label col-6">
                                     <select name="keteranganSelect" class="form-control select2" style="width: 100%;">
                                       <option selected value="Barang Masuk">Barang Masuk</option>
@@ -91,13 +89,13 @@ active
                                   </label>
                                 </div>
                                 <div class="custom-control custom-radio mt-2">
-                                  <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" value="text">
+                                  <input class="custom-control-input" type="radio" id="customRadio2" name="radioKeterangan" value="text">
                                   <label for="customRadio2" class="custom-control-label col-6">
                                     <input type="text" name="keteranganText" class="form-control " placeholder="Keterangan Lain">
                                   </label>
                                 </div>
                               </div>
-                              <button type="submit" name="action" value="tambah" class="btn btn-info">Tambah</button>
+                              <button type="submit" name="update" value="tambah" class="btn btn-info">Tambah</button>
                             </form>
                           </div>
                           <div class="modal-footer justify-content-between">
@@ -108,26 +106,26 @@ active
                       <!-- /.modal-dialog -->
                     </div>
                     <!-- /.modal -->
-                    <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#kurang{{$barang->id}}"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#kurang{{$bahanbaku->id}}"><i class="fas fa-minus"></i></button>
 
-                    <div class="modal fade" id="kurang{{$barang->id}}">
+                    <div class="modal fade" id="kurang{{$bahanbaku->id}}">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header bg-warning">
-                            <h4 class="modal-title">Kurang Stok {{$barang->nama_barang}}</h4>
+                            <h4 class="modal-title">Kurang Stok {{$bahanbaku->nama}}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form method="POST" action="{{ route('manajemen.update', $barang->id) }}">
+                            <form method="POST" action="{{ route('bahanbaku.update', $bahanbaku->id) }}">
                               @csrf
                               @method('PUT')
-                              <input type="hidden" name="id" value="{{$barang->id}}">
+                              <input type="hidden" name="id" value="{{$bahanbaku->id}}">
                               <!-- text input -->
                               <div class="card bg-warning text-center ">
-                                <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$barang->nama_barang}} saat ini</h1>
-                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$barang->jumlah}}</h1>
+                                <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$bahanbaku->nama}} saat ini</h1>
+                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}}</h1>
                                 <i class="fas fa-cubes fa-3x my-3"></i>
                               </div>
                               <div class="form-group">
@@ -137,7 +135,7 @@ active
                               <div class="form-group mt-4">
                                 <label>Keterangan</label>
                                 <div class="custom-control custom-radio">
-                                  <input class="custom-control-input" type="radio" id="customRadio3" name="customRadio" value="select" checked>
+                                  <input class="custom-control-input" type="radio" id="customRadio3" name="radioKeterangan" value="select" checked>
                                   <label for="customRadio3" class="custom-control-label col-6">
                                     <select name="keteranganSelect" class="form-control select2" style="width: 100%;">
                                       <option selected="selected">Busuk</option>
@@ -147,13 +145,13 @@ active
                                   </label>
                                 </div>
                                 <div class="custom-control custom-radio mt-2">
-                                  <input class="custom-control-input" type="radio" id="customRadio4" name="customRadio" value="text">
+                                  <input class="custom-control-input" type="radio" id="customRadio4" name="radioKeterangan" value="text">
                                   <label for="customRadio4" class="custom-control-label col-6">
                                     <input name="keteranganText" type="text" class="form-control " placeholder="Keterangan Lain">
                                   </label>
                                 </div>
                               </div>
-                              <button type="submit" name="action" value="kurang" class="btn btn-warning">Kurang</button>
+                              <button type="submit" name="update" value="kurang" class="btn btn-warning">Kurang</button>
                             </form>
                           </div>
                           <div class="modal-footer justify-content-between">
@@ -196,19 +194,29 @@ active
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <form>
+            <form method="POST" action="{{ route('bahanbaku.store') }}">
+              @csrf
               <div class="form-group">
                 <label for="namabarang">Nama Bahan Baku</label>
-                <input type="text" class="form-control" id="namabarang" placeholder="Input Nama Barang">
+                <input name="nama" type="text" class="form-control" id="namabarang" placeholder="Input Nama Barang">
               </div>
-              {{-- <div class="form-group">
-                <label for="kategori">Kategori</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected="selected">Bahan Baku</option>
-                  <option>Produk</option>
-                  <option>Barang</option>
-                </select>
-              </div> --}}
+              <label>Satuan</label>
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" id="radiosatuan1" name="satuantambah" value="select" checked>
+                <label for="radiosatuan1" class="custom-control-label col-4">
+                  <select name="satuanSelect" class="form-control select2" style="width: 100%;">
+                    <option selected value="pcs">pcs</option>
+                    <option value="kg">kg</option>
+                    <option value="gr">gr</option>
+                  </select>
+                </label>
+              </div>
+              <div class="custom-control custom-radio my-2">
+                <input class="custom-control-input" type="radio" id="radiosatuan2" name="satuantambah" value="text">
+                <label for="radiosatuan2" class="custom-control-label col-4">
+                  <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
+                </label>
+              </div>
               <!-- /.card-body -->
               <button type="submit" class="btn btn-info">Tambah</button>
             </form>
@@ -227,30 +235,39 @@ active
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <form>
+            <form action="{{ route('bahanbaku.updatedata') }}" method="POST">
+              @csrf
               <div class="form-group">
                 <label>Nama Bahan Baku</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected="selected">Singkong</option>
-                  <option>Biji Plastik</option>
-                  <option>Kreipik Sanjai</option>
-                  <option>Plastik</option>
+                <select name="id" class="form-control select2" style="width: 100%;" required>
+                  <option selected disabled value="">Pilih bahan baku</option>
+                  @foreach ($bahanbakus as $bahanbaku)
+                  <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
+                  @endforeach
                 </select>
               </div>
 
               <div class="form-group">
-                <label for="namabarang">Nama Baru</label>
-                <input type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">
+                <label for="namabaru">Nama Baru</label>
+                <input name="nama" type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">
               </div>
-              {{-- <div class="form-group">
-                <label for="kategori">Kategori</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected="selected"> </option>
-                  <option>Bahan Baku</option>
-                  <option>Produk</option>
-                  <option>Barang</option>
-                </select>
-              </div> --}}
+              <label>Satuan Baru</label>
+              <div class="custom-control custom-radio">
+                <input class="custom-control-input" type="radio" id="ubahSatuanSelect" name="ubah" value="select" checked>
+                <label for="ubahSatuanSelect" class="custom-control-label col-4">
+                  <select name="satuanSelect" class="form-control select2" style="width: 100%;">
+                    <option selected value="pcs">pcs</option>
+                    <option value="kg">kg</option>
+                    <option value="gr">gr</option>
+                  </select>
+                </label>
+              </div>
+              <div class="custom-control custom-radio my-2">
+                <input class="custom-control-input" type="radio" id="ubahSatuanText" name="ubah" value="text">
+                <label for="ubahSatuanText" class="custom-control-label col-4">
+                  <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
+                </label>
+              </div>
               <!-- /.card-body -->
               <button type="submit" class="btn btn-warning bg-gradient">Ubah</button>
             </form>
@@ -269,14 +286,15 @@ active
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <form>
+            <form method="POST" action="{{ route('bahanbaku.destroy') }}">
+              @csrf
               <div class="form-group">
                 <label>Nama Bahan Baku</label>
-                <select class="form-control select2" style="width: 100%;">
-                  <option selected="selected">Singkong</option>
-                  <option>Biji Plastik</option>
-                  <option>Kreipik Sanjai</option>
-                  <option>Plastik</option>
+                <select name="id" class="form-control select2" style="width: 100%;" required>
+                  <option selected disabled value="">Pilih bahan baku</option>
+                  @foreach($bahanbakus as $bahanbaku)
+                  <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
+                  @endforeach
                 </select>
               </div>
               <!-- /.card-body -->
