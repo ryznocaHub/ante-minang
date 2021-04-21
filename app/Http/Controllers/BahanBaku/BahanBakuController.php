@@ -10,6 +10,7 @@ use App\Models\HistoryManagementBahanBaku;
 use App\Models\Resep;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class BahanBakuController extends Controller
 {
@@ -23,7 +24,7 @@ class BahanBakuController extends Controller
     {
         $request->validate(
             [
-                'nama'      => ['required']
+                'nama'      => ['required', Rule::unique('bahan_bakus', 'nama')]
             ]
         );
 
@@ -144,6 +145,12 @@ class BahanBakuController extends Controller
 
         if ($nama == null) {
             $nama = $bahanBaku->nama;
+        } else {
+            $request->validate(
+                [
+                    'nama' => [Rule::unique('bahan_bakus', 'nama')]
+                ]
+            );
         }
 
         $cekUpdate = BahanBaku::where('id', $request->get('id'))
