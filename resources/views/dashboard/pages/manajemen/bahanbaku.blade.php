@@ -185,18 +185,14 @@ active
                                 <td>Keperluan</td>
                               </thead>
                               <tbody>
+                                @foreach($reseps as $resep)
+                                @if ($resep->bahan_baku_id == $bahanbaku->id)
                                 <tr>
-                                  <td>Singkong</td>
-                                  <td>89 ton</td>
+                                  <td>{{$resep->produk->nama}}</td>
+                                  <td>{{$resep->jumlah}} <small>{{$bahanbaku->satuan}}</small></td>
                                 </tr>
-                                <tr>
-                                  <td>Singkong</td>
-                                  <td>89 ton</td>
-                                </tr>
-                                <tr>
-                                  <td>Singkong</td>
-                                  <td>89 ton</td>
-                                </tr>
+                                @endif
+                                @endforeach
                               </tbody>
                             </table>
                           </div>
