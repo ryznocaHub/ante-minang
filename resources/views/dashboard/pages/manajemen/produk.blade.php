@@ -190,7 +190,7 @@ active
                                 @if ($resep->produk_id == $produk->id)
                                 <tr>
                                   <td>{{$resep->bahanbaku->nama}}</td>
-                                  <td>{{$resep->jumlah}}</td>
+                                  <td>{{$resep->jumlah}} <small>{{$resep->bahanbaku->satuan}}</small></td>
                                 </tr>
                                 @endif
                                 @endforeach
@@ -240,7 +240,7 @@ active
                   @csrf
                   <div class="form-group">
                     <label for="namabarang">Nama Produk</label>
-                    <input name="nama" type="text" class="form-control" id="namabarang" placeholder="Input Nama Produk">
+                    <input name="nama" type="text" class="form-control" id="namabarang" placeholder="Input Nama Produk" required>
                   </div>
                   <label>Satuan</label>
                   <div class="custom-control custom-radio">
@@ -381,14 +381,15 @@ active
             </div>
             <div id="collapseThree" class="collapse" data-parent="#accordion">
               <div class="card-body">
-                <form>
+                <form method="POST" action="{{ route('produk.destroy') }}">
+                  @csrf
                   <div class="form-group">
                     <label>Nama Bahan Baku</label>
-                    <select class="form-control select2" style="width: 100%;">
-                      <option selected="selected">Singkong</option>
-                      <option>Biji Plastik</option>
-                      <option>Kreipik Sanjai</option>
-                      <option>Plastik</option>
+                    <select name="id" class="form-control select2" style="width: 100%;" required>
+                      <option selected disabled value="">Pilih Produk</option>
+                      @foreach($produks as $produk)
+                      <option value="{{$produk->id}}">{{$produk->nama}}</option>
+                      @endforeach
                     </select>
                   </div>
                   <!-- /.card-body -->
@@ -453,12 +454,12 @@ active
       j++;
       $('#dynamic_tambah').append('' +
         '<div class="form-group d-flex" id="bahantambah' + j + '">' +
-        '<select name="bahanbaku[' + j + ']" class="form-control select2 col-7" style="width: 100%;">' +
+        '<select name="bahanbaku[' + j + ']" class="form-control select2 col-7" style="width: 100%;" required>' +
         '<option selected disabled value="">Pilih Bahan Baku</option>' +
         '@foreach($bahanbakus as $bahanbaku)' +
-        '<option value="{{$bahanbaku->id}}">' + '{{$bahanbaku->nama}}' + '</option>' +
+        '<option value="{{$bahanbaku->id}}">' + '{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small>' + '</option>' +
         '@endforeach' + '</select>' +
-        '<input type="number" name="jumlah[' + j + ']"class="form-control col-3 ml-2" placeholder="Input Jumlah" required>' +
+        '<input type="number" name="jumlah[' + j + ']" min="1" class="form-control col-3 ml-2" placeholder="Input Jumlah" required>' +
         '<button type="button" id="tambah' + j + '" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>' +
         '</div>'
       );
