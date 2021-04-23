@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Produk;
 use App\Http\Controllers\Controller;
 use App\Models\BahanBaku;
 use App\Models\HistoryManagementProduk;
+use App\Models\HistoryProduk;
 use App\Models\Produk;
 use App\Models\Resep;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ProdukController extends Controller
 {
@@ -25,19 +27,24 @@ class ProdukController extends Controller
     {
         $request->validate(
             [
-                'nama'          => ['required'],
+                'nama'          => ['required', Rule::unique('produks', 'nama')],
             ]
         );
 
         if ($request['satuantambah'] == 'select') {
             $satuan = $request->get('satuanSelect');
         } else if ($request['satuantambah'] == 'text') {
+            $request->validate(
+                [
+                    'satuanText'    => ['required']
+                ]
+            );
             $satuan = $request->get('satuanText');
         }
 
-        dd(count($request->get('bahanbaku')));
+        $bahanBaku = array_unique($request->get('bahanbaku'));
 
-        DB::transaction(function () use ($request, $satuan) {
+        DB::transaction(function () use ($request, $satuan, $bahanBaku) {
             $produk = Produk::create(
                 [
                     'nama'      => $request->get('nama'),
@@ -54,6 +61,16 @@ class ProdukController extends Controller
 
             $produk = Produk::orderByDesc('id')->first();
 
+            foreach ($bahanBaku as $key => $value) {
+                Resep::create(
+                    [
+                        'produk_id'     => $produk->id,
+                        'bahan_baku_id' => $value,
+                        'jumlah'        => $request->get('jumlah')[$key]
+                    ]
+                );
+            }
+
             HistoryManagementProduk::create(
                 [
                     'kode'      => $produk->kode,
@@ -62,7 +79,38 @@ class ProdukController extends Controller
                     'aksi'      => 'Tambah'
                 ]
             );
-            dd($request->get('bahanbaku'));
         });
+
+        return redirect()->route('produk.index')->with('status', 'Produk berhasil ditambah');
+    }
+
+    public function masuk()
+    {
+        $histories = HistoryProduk::with('user')
+            ->where('kategori', 'Masuk')
+            ->orderByDesc('tanggal')->get();
+        $kategori = 1;
+        $jenis = 2;
+
+        return view('dashboard.pages.history.stok', compact('histories', 'kategori', 'jenis'));
+    }
+
+    public function keluar()
+    {
+        $histories = HistoryProduk::with('user')
+            ->where('kategori', 'Keluar')
+            ->orderByDesc('tanggal')->get();
+        $kategori = 2;
+        $jenis = 2;
+
+        return view('dashboard.pages.history.stok', compact('histories', 'kategori', 'jenis'));
+    }
+
+    public function history()
+    {
+        $histories = HistoryManagementProduk::orderByDesc('tanggal')->get();
+        $kategori = 2;
+
+        return view('dashboard.pages.history.data', compact('histories', 'kategori'));
     }
 }
