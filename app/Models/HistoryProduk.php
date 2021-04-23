@@ -16,6 +16,7 @@ class HistoryProduk extends Model
         'kode',
         'user_id',
         'jumlah',
+        'satuan',
         'keterangan',
         'kategori'
     ];
