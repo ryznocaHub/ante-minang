@@ -182,8 +182,10 @@ active
                           <div class="modal-body">
                             <table id="example2" class="table table-bordered table-striped">
                               <thead>
-                                <td>Bahan Baku</td>
-                                <td>Jumlah</td>
+                                <tr>
+                                  <th>Bahan Baku</th>
+                                  <th>Jumlah</th>
+                                </tr>
                               </thead>
                               <tbody>
                                 @foreach ($reseps as $resep)
