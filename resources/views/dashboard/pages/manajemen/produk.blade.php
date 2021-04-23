@@ -41,7 +41,6 @@ active
                   <th>ID</th>
                   <th>Nama</th>
                   <th>Stok</th>
-                  <th>Kategori</th>
                   <th>Manajemen Stok</th>
                 </tr>
               </thead>
@@ -50,8 +49,7 @@ active
                 <tr>
                   <td>{{$produk->kode}}</td>
                   <td>{{$produk->nama}}</td>
-                  <td>{{$produk->jumlah}}</td>
-                  <td>{{$produk->kategori}}</td>
+                  <td>{{$produk->jumlah}} <small>{{$produk->satuan}}</small></td>
                   <td>
                     <!-- Button penambahan stok -->
                     <button type="button" class="btn btn-outline-primary " data-toggle="modal" data-target="#tambah{{$produk->id}}"><i class="fas fa-plus"></i></button>
@@ -188,18 +186,14 @@ active
                                 <td>Jumlah</td>
                               </thead>
                               <tbody>
+                                @foreach ($reseps as $resep)
+                                @if ($resep->produk_id == $produk->id)
                                 <tr>
-                                  <td>Singkong</td>
-                                  <td>89</td>
+                                  <td>{{$resep->bahanbaku->nama}}</td>
+                                  <td>{{$resep->jumlah}}</td>
                                 </tr>
-                                <tr>
-                                  <td>Singkong</td>
-                                  <td>89</td>
-                                </tr>
-                                <tr>
-                                  <td>Singkong</td>
-                                  <td>89</td>
-                                </tr>
+                                @endif
+                                @endforeach
                               </tbody>
                             </table>
                           </div>
