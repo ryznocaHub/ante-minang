@@ -69,6 +69,7 @@ active
                               @csrf
                               @method('PUT')
                               <input type="hidden" name="id" value="{{$bahanbaku->id}}">
+                              <input type="hidden" name="satuan" value="{{$bahanbaku->satuan}}">
                               <div class="card bg-info text-center ">
                                 <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$bahanbaku->nama}} saat ini</h1>
                                 <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}}</h1>

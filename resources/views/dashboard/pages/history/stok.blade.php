@@ -17,31 +17,31 @@ History {{ $jenis == '1' ? "Bahan baku" : "produk"}} {{$kategori == '1' ? "Masuk
 
 {{-- manajemen menu aktif --}}
 @if ($jenis == '1')
-  @section('bahanbaku_open')
-    menu-open
-  @endsection
-  @if ($kategori == '1')
-    @section('bbm_aktif')
-      active
-    @endsection
-  @else
-    @section('bbk_aktif')
-      active
-    @endsection  
-  @endif
+@section('bahanbaku_open')
+menu-open
+@endsection
+@if ($kategori == '1')
+@section('bbm_aktif')
+active
+@endsection
 @else
-  @section('produk_open')
-    menu-open
-  @endsection
-  @if ($kategori == '1')
-    @section('pm_aktif')
-      active
-    @endsection
-  @else
-    @section('pk_aktif')
-      active
-    @endsection  
-  @endif
+@section('bbk_aktif')
+active
+@endsection
+@endif
+@else
+@section('produk_open')
+menu-open
+@endsection
+@if ($kategori == '1')
+@section('pm_aktif')
+active
+@endsection
+@else
+@section('pk_aktif')
+active
+@endsection
+@endif
 @endif
 {{-- end manajemen --}}
 
@@ -84,7 +84,7 @@ History {{ $jenis == '1' ? "Bahan baku" : "produk"}} {{$kategori == '1' ? "Masuk
                 <tr>
                   <td>{{$history->kode}}</td>
                   <td>{{$history->nama}}</td>
-                  <td>{{$history->jumlah}}</td>
+                  <td>{{$history->jumlah}} <small>{{$history->satuan}}</small></td>
                   <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history->tanggal)->format('d-m-Y') }}</td>
                   <td>{{$history->keterangan}}</td>
                   <td>{{$history->user->name}}</td>

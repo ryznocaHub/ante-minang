@@ -19,6 +19,7 @@ class CreateHistoryBahanBakusTable extends Migration
             $table->string('nama');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('jumlah');
+            $table->string('satuan');
             $table->text('keterangan');
             $table->string('kategori');
             $table->timestamp('tanggal')->useCurrent();
