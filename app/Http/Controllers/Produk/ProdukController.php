@@ -84,6 +84,24 @@ class ProdukController extends Controller
         return redirect()->route('produk.index')->with('status', 'Produk berhasil ditambah');
     }
 
+    public function destroy(Request $request)
+    {
+        $produk = Produk::where('id', $request->get('id'))->first();
+
+        HistoryManagementProduk::create(
+            [
+                'kode'          => $produk->kode,
+                'nama'          => $produk->nama,
+                'user_id'       => auth()->user()->id,
+                'aksi'          => 'Hapus'
+            ]
+        );
+
+        Produk::where('id', $request->get('id'))->delete();
+
+        return redirect()->route('produk.index')->with('status', 'Produk berhasil dihapus');
+    }
+
     public function masuk()
     {
         $histories = HistoryProduk::with('user')
