@@ -31,6 +31,11 @@ class BahanBakuController extends Controller
         if ($request['satuantambah'] == 'select') {
             $satuan = $request->get('satuanSelect');
         } else if ($request['satuantambah'] == 'text') {
+            $request->validate(
+                [
+                    'satuanText'    => ['required']
+                ]
+            );
             $satuan = $request->get('satuanText');
         }
 
@@ -68,6 +73,11 @@ class BahanBakuController extends Controller
         if ($request['radioKeterangan'] == 'select') {
             $keterangan = $request->get('keteranganSelect');
         } else if ($request['radioKeterangan'] == 'text') {
+            $request->validate(
+                [
+                    'keteranganText'    => ['required']
+                ]
+            );
             $keterangan = $request->get('keteranganText');
         }
 
@@ -88,6 +98,7 @@ class BahanBakuController extends Controller
                             'nama'          => $bahanBaku->nama,
                             'user_id'       => auth()->user()->id,
                             'jumlah'        => $request->get('jumlah'),
+                            'satuan'        => $request->get('satuan'),
                             'keterangan'    => $keterangan,
                             'kategori'      => 'Masuk'
                         ]
@@ -116,6 +127,7 @@ class BahanBakuController extends Controller
                             'nama'          => $bahanBaku->nama,
                             'user_id'       => auth()->user()->id,
                             'jumlah'        => $request->get('jumlah'),
+                            'satuan'        => $request->get('satuan'),
                             'keterangan'    => $keterangan,
                             'kategori'      => 'Keluar'
                         ]
@@ -137,6 +149,11 @@ class BahanBakuController extends Controller
         if ($request['ubah'] == 'select') {
             $satuan = $request->get('satuanSelect');
         } else if ($request['ubah'] == 'text') {
+            $request->validate(
+                [
+                    'satuanText'    => ['required']
+                ]
+            );
             $satuan = $request->get('satuanText');
         }
 
