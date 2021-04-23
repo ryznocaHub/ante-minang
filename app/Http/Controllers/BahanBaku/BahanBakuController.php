@@ -17,7 +17,9 @@ class BahanBakuController extends Controller
     public function index()
     {
         $bahanbakus = BahanBaku::all();
-        return view('dashboard.pages.manajemen.bahanbaku', compact('bahanbakus'));
+        $reseps = Resep::with('produk')->get();
+
+        return view('dashboard.pages.manajemen.bahanbaku', compact('bahanbakus', 'reseps'));
     }
 
     public function store(Request $request)
