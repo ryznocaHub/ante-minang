@@ -12,6 +12,13 @@
 <li class="breadcrumb-item active">@yield('title')</li>
 @endsection
 
+@section('css')
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="{{ asset('css/Template/bootstrap-4.min.css') }}">
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ asset('css/Template/toastr.min.css') }}">
+@endsection
+
 @section('isi')
 <section class="content">
     <div class="container-fluid">
@@ -101,6 +108,36 @@
           <!-- /.card -->
         </section>
         <!-- /.Left col -->
+
+        <div class="card card-success card-outline">
+          <div class="card-header">
+          <h3 class="card-title">
+              <i class="fas fa-edit"></i>
+              SweetAlert2 Examples
+          </h3>
+          </div>
+          <div class="card-body">
+          <button type="button" class="btn btn-success swalDefaultSuccess">
+              Launch Success Toast
+          </button>
+          <button type="button" class="btn btn-info swalDefaultInfo">
+              Launch Info Toast
+          </button>
+          <button type="button" class="btn btn-danger swalDefaultError">
+              Launch Error Toast
+          </button>
+          <button type="button" class="btn btn-warning swalDefaultWarning">
+              Launch Warning Toast
+          </button>
+          <button type="button" class="btn btn-default swalDefaultQuestion">
+              Launch Question Toast
+          </button>
+          <div class="text-muted mt-3">
+              For more examples look at <a href="https://sweetalert2.github.io/">https://sweetalert2.github.io/</a>
+          </div>
+          </div>
+          <!-- /.card -->
+      </div>
       </div>
       <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
@@ -110,6 +147,127 @@
 @section('js_bawah')
 <!-- FLOT CHARTS -->
 <script src="{{ asset('js/Template/jquery.flot.js') }}"></script>
+<!-- SweetAlert2 -->
+<script src="{{ asset('js/Template/sweetalert2.min.js') }}"></script>
+<!-- Toastr -->
+<script src="{{ asset('js/Template/toastr.min.js') }}"></script>
+
+{{-- javascript trigger toast --}}
+<script>
+  $(function() {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+
+    $('.swalDefaultSuccess').click(function() {
+      Toast.fire({
+        icon: 'success',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.swalDefaultInfo').click(function() {
+      Toast.fire({
+        icon: 'info',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.swalDefaultError').click(function() {
+      Toast.fire({
+        icon: 'error',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.swalDefaultWarning').click(function() {
+      Toast.fire({
+        icon: 'warning',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+    $('.swalDefaultQuestion').click(function() {
+      Toast.fire({
+        icon: 'question',
+        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+      })
+    });
+  });
+</script>
+
+
+{{-- javascript tugas maba --}}
+<script>
+  // Ajax Send
+  function insertTugas(idTugas) {
+
+    // console.log("id tugas : " + idTugas);
+
+    $(document).ready(function(){
+
+        // var data = $('#formTugas').serialize();
+        var form = $('#formTugas' + idTugas)[0];
+        var file = new FormData(form);
+
+        // for(var pair of file.entries()){
+        //     console.log(pair[0] + " : " +  pair[1]);
+        // }
+
+        $("#uploadProses" + idTugas).css('display', 'block');
+        $("#uploadProses" + idTugas).css('background-color', '#ffc107');
+        $("#uploadProses" + idTugas).html('Tunggu. Sedang Upload...');
+        $('#unggahTugas' + idTugas).css('display', 'none');
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            enctype     : 'multipart/form-data',
+            url         : '{{ URL::route('uploadtugas', '') }}' + "/" + idTugas,
+            type        : 'POST',
+            data        : file,
+            dataType    : 'JSON',
+            contentType : false,
+            cache       : false,
+            processData : false,
+            timeout     : 50000,
+
+            success: (response) => {
+                $("#uploadProses" + idTugas).html('Upload Success');
+                $("#uploadProses" + idTugas).css('background-color', '#31ec92');
+                $('#unggahTugas' + idTugas).css('display', 'block');
+                $('#borderStatus' + idTugas).css('color', '#31EC92');
+                $('#borderstyles' + idTugas).css('border', '2px solid #31EC92')
+                $('#borderstyless' + idTugas).css('border', '6px solid #31EC92')
+                $('#borderStatus' + idTugas).addClass('fa-check-circle').removeClass('fa-times-circle');
+
+                console.log('success insert');
+                // console.log(response.msg);
+            },
+
+            error: function(response, jqXHR, textStatus) {
+                if(textStatus === 'timeout'){
+                    $("#uploadProses" + idTugas).html(textStatus + ". Coba kembali");
+                } else {
+                    $("#uploadProses" + idTugas).html(response.responseJSON.errors.fileToUpload);
+                }
+                $("#uploadProses" + idTugas).css('background-color', '#ec3131');
+                $('#borderStatus' + idTugas).css('color', '#dd7b76');
+                $('#unggahTugas' + idTugas).css('display', 'block');
+                $('#borderStatus' + idTugas).addClass('fa-times-circle');
+                // console.log(response);
+            },
+
+        });
+    });
+  }
+</script>
+
+
+
 <script>
     $(function () {
       /*
