@@ -58,31 +58,32 @@ active
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header bg-info">
-                            <h4 class="modal-title">Tambah Stok {{$produk->nama_barang}}</h4>
+                            <h4 class="modal-title">Tambah Stok {{$produk->nama}}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form method="POST" action="{{ route('manajemen.update', $produk->id) }}">
+                            <form method="POST" action="{{ route('produk.update', $produk->id) }}">
                               <!-- text input -->
                               @csrf
                               @method('PUT')
                               <input type="hidden" name="id" value="{{$produk->id}}">
+                              <input type="hidden" name="satuan" value="{{$produk->satuan}}">
                               <div class="card bg-info text-center ">
-                                <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$produk->nama_barang}} saat ini</h1>
-                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$produk->jumlah}} <small>{{$produk->satuan}}</small></h1>
+                                <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$produk->nama}} saat ini</h1>
+                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$produk->jumlah}} <small>{{$produk->satuan}}</small> </h1>
                                 <i class="fas fa-cubes fa-3x my-3"></i>
                               </div>
                               <div class="form-group">
                                 <label>Jumlah</label>
-                                <input type="number" name="jumlah" class="form-control" placeholder="Enter ...">
+                                <input type="number" min="1" value="0" name="jumlah" class="form-control" placeholder="Enter ...">
                               </div>
                               <div class="form-group mt-4">
                                 <label>Keterangan</label>
                                 <div class="custom-control custom-radio">
-                                  <input class="custom-control-input" type="radio" id="radiotambah1-{{$produk->id}}" name="tambah{{$produk->id}}" value="select" checked>
-                                  <label for="radiotambah1-{{$produk->id}}" class="custom-control-label col-6">
+                                  <input class="custom-control-input" type="radio" id="radiotambah1" name="radioKeterangan" value="select" checked>
+                                  <label for="radiotambah1" class="custom-control-label col-6">
                                     <select name="keteranganSelect" class="form-control select2" style="width: 100%;">
                                       <option selected value="Barang Masuk">Barang Masuk</option>
                                       <option value="Tidak Sesuai Stok">Tidak Sesuai Stok</option>
@@ -91,13 +92,13 @@ active
                                   </label>
                                 </div>
                                 <div class="custom-control custom-radio mt-2">
-                                  <input class="custom-control-input" type="radio" id="radiotambah2-{{$produk->id}}" name="tambah{{$produk->id}}" value="text">
-                                  <label for="radiotambah2-{{$produk->id}}" class="custom-control-label col-6">
+                                  <input class="custom-control-input" type="radio" id="radiotambah2" name="radioKeterangan" value="text">
+                                  <label for="radiotambah2" class="custom-control-label col-6">
                                     <input type="text" name="keteranganText" class="form-control " placeholder="Keterangan Lain">
                                   </label>
                                 </div>
                               </div>
-                              <button type="submit" name="action" value="tambah" class="btn btn-info">Tambah</button>
+                              <button type="submit" name="update" value="tambah" class="btn btn-info">Tambah</button>
                             </form>
                           </div>
                           <div class="modal-footer justify-content-between">
@@ -122,10 +123,11 @@ active
                             </button>
                           </div>
                           <div class="modal-body">
-                            <form method="POST" action="{{ route('manajemen.update', $produk->id) }}">
+                            <form method="POST" action="{{ route('produk.update', $produk->id) }}">
                               @csrf
                               @method('PUT')
                               <input type="hidden" name="id" value="{{$produk->id}}">
+                              <input type="hidden" name="satuan" value="{{$produk->satuan}}">
                               <!-- text input -->
                               <div class="card bg-warning text-center ">
                                 <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$produk->nama_barang}} saat ini</h1>
@@ -134,12 +136,12 @@ active
                               </div>
                               <div class="form-group">
                                 <label>Jumlah</label>
-                                <input type="number" name="jumlah" class="form-control" placeholder="Enter ...">
+                                <input type="number" min="1" value="0" max="{{$produk->jumlah}}" name="jumlah" class="form-control" placeholder="Enter ...">
                               </div>
                               <div class="form-group mt-4">
                                 <label>Keterangan</label>
                                 <div class="custom-control custom-radio">
-                                  <input class="custom-control-input" type="radio" id="radiokurang1-{{$produk->id}}" name="kurang{{$produk->id}}" value="select" checked>
+                                  <input class="custom-control-input" type="radio" id="radiokurang1-{{$produk->id}}" name="radioKeterangan" value="select" checked>
                                   <label for="radiokurang1-{{$produk->id}}" class="custom-control-label col-6">
                                     <select name="keteranganSelect" class="form-control select2" style="width: 100%;">
                                       <option selected="selected">Busuk</option>
@@ -149,13 +151,13 @@ active
                                   </label>
                                 </div>
                                 <div class="custom-control custom-radio mt-2">
-                                  <input class="custom-control-input" type="radio" id="radiokurang2-{{$produk->id}}" name="kurang{{$produk->id}}" value="text">
+                                  <input class="custom-control-input" type="radio" id="radiokurang2-{{$produk->id}}" name="radioKeterangan" value="text">
                                   <label for="radiokurang2-{{$produk->id}}" class="custom-control-label col-6">
                                     <input name="keteranganText" type="text" class="form-control " placeholder="Keterangan Lain">
                                   </label>
                                 </div>
                               </div>
-                              <button type="submit" name="action" value="kurang" class="btn btn-warning">Kurang</button>
+                              <button type="submit" name="update" value="kurang" class="btn btn-warning">Kurang</button>
                             </form>
                           </div>
                           <div class="modal-footer justify-content-between">
@@ -174,7 +176,7 @@ active
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header bg-secondary">
-                            <h4 class="modal-title">Resep {{$produk->nama_barang}}</h4>
+                            <h4 class="modal-title">Resep {{$produk->nama}}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>

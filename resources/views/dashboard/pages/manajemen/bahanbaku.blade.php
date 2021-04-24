@@ -75,7 +75,7 @@ active
                               </div>
                               <div class="form-group">
                                 <label>Jumlah</label>
-                                <input type="number" name="jumlah" class="form-control" placeholder="Enter ...">
+                                <input type="number" min="1" value="0" name="jumlah" class="form-control" placeholder="Enter ...">
                               </div>
                               <div class="form-group mt-4">
                                 <label>Keterangan</label>
@@ -131,7 +131,7 @@ active
                               </div>
                               <div class="form-group">
                                 <label>Jumlah</label>
-                                <input type="number" name="jumlah" max="{{$bahanbaku->jumlah}}" class="form-control" placeholder="Enter ...">
+                                <input type="number" name="jumlah" min="1" value="0" max="{{$bahanbaku->jumlah}}" class="form-control" placeholder="Enter ...">
                               </div>
                               <div class="form-group mt-4">
                                 <label>Keterangan</label>
