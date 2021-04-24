@@ -37,12 +37,10 @@ active
           <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
               <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nama</th>
-                  <th>Stok</th>
-                  <th>Manajemen Stok</th>
-                </tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Stok</th>
+                <th>Manajemen Stok</th>
               </thead>
               <tbody>
                 @foreach($bahanbakus as $bahanbaku)
@@ -52,7 +50,7 @@ active
                   <td>{{$bahanbaku->jumlah}} <small>{{$bahanbaku->satuan}}</small> </td>
                   <td>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-outline-primary mr-2" data-toggle="modal" data-target="#tambah{{$bahanbaku->id}}"><i class="fas fa-plus"></i></button>
+                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#tambah{{$bahanbaku->id}}"><i class="fas fa-plus"></i></button>
 
                     <div class="modal fade" id="tambah{{$bahanbaku->id}}">
                       <div class="modal-dialog">
@@ -72,7 +70,7 @@ active
                               <input type="hidden" name="satuan" value="{{$bahanbaku->satuan}}">
                               <div class="card bg-info text-center ">
                                 <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$bahanbaku->nama}} saat ini</h1>
-                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}}</h1>
+                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}} <small class="ml-2">{{$bahanbaku->satuan}}</small></h1>
                                 <i class="fas fa-cubes fa-3x my-3"></i>
                               </div>
                               <div class="form-group">
@@ -109,7 +107,7 @@ active
                       <!-- /.modal-dialog -->
                     </div>
                     <!-- /.modal -->
-                    <button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#kurang{{$bahanbaku->id}}"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-outline-warning mx-2" data-toggle="modal" data-target="#kurang{{$bahanbaku->id}}"><i class="fas fa-minus"></i></button>
 
                     <div class="modal fade" id="kurang{{$bahanbaku->id}}">
                       <div class="modal-dialog">
@@ -128,7 +126,7 @@ active
                               <!-- text input -->
                               <div class="card bg-warning text-center ">
                                 <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$bahanbaku->nama}} saat ini</h1>
-                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}}</h1>
+                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}}<small class="ml-2">{{$bahanbaku->satuan}}</small></h1>
                                 <i class="fas fa-cubes fa-3x my-3"></i>
                               </div>
                               <div class="form-group">
@@ -180,13 +178,11 @@ active
                           </div>
                           <div class="modal-body">
                             <table id="example2" class="table table-bordered table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Bahan Baku</th>
-                                  <th>Jumlah</th>
-                                </tr>
-                              </thead>
                               <tbody>
+                                <tr>
+                                  <td><b>Bahan Baku</b></td>
+                                  <td><b>Jumlah</b></td>
+                                </tr>
                                 @foreach($reseps as $resep)
                                 @if ($resep->bahan_baku_id == $bahanbaku->id)
                                 <tr>
@@ -207,8 +203,8 @@ active
                     </div>
                     {{-- end modal resep produk --}}
                   </td>
-                  @endforeach
                 </tr>
+                @endforeach
               </tbody>
               <!-- <tfoot>
                     <tr>
@@ -292,7 +288,7 @@ active
                     <label for="namabaru">Nama Baru</label>
                     <input name="nama" type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">
                   </div>
-                  <label>Satuan Baru</label>
+                  <label>Satuan</label>
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" id="ubahSatuanSelect" name="ubah" value="select" checked>
                     <label for="ubahSatuanSelect" class="custom-control-label col-4">
@@ -310,7 +306,7 @@ active
                     </label>
                   </div>
                   <!-- /.card-body -->
-                  <button type="submit" class="btn btn-warning bg-gradient">Ubah</button>
+                  <button type="submit" class="btn btn-outline-warning bg-gradient mt-2">Ubah</button>
                 </form>
               </div>
             </div>
@@ -328,7 +324,7 @@ active
                 <form method="POST" action="{{ route('bahanbaku.destroy') }}">
                   @csrf
                   <div class="form-group">
-                    <label>Nama Bahan Baku</label>
+                    <label>Nama</label>
                     <select name="id" class="form-control select2" style="width: 100%;" required>
                       <option selected disabled value="">Pilih bahan baku</option>
                       @foreach($bahanbakus as $bahanbaku)
@@ -337,7 +333,7 @@ active
                     </select>
                   </div>
                   <!-- /.card-body -->
-                  <button type="submit" class="btn btn-danger bg-gradient">Hapus</button>
+                  <button type="submit" class="btn btn-outline-danger bg-gradient">Hapus</button>
                 </form>
               </div>
             </div>
