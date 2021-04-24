@@ -44,6 +44,5 @@ Route::get('manajemen/produk/history/data',      [ProdukController::class, 'hist
 Route::resource('manajemen/produk', ProdukController::class)->only(['index', 'store', 'update']);
 
 Route::resource('users',            UserController::class)->except(['edit']);
-Route::resource('manajemen',        ManagementBarangController::class)->except(['show', 'edit', 'create']);
 Route::get('history/masuk',         [ManagementBarangController::class, 'masuk'])->name('history.masuk');
 Route::get('history/keluar',         [ManagementBarangController::class, 'keluar'])->name('history.keluar');

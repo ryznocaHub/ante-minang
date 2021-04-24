@@ -72,12 +72,12 @@ active
                               <input type="hidden" name="satuan" value="{{$bahanbaku->satuan}}">
                               <div class="card bg-info text-center ">
                                 <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$bahanbaku->nama}} saat ini</h1>
-                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}}</h1>
+                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}} <small>{{$bahanbaku->satuan}}</small></h1>
                                 <i class="fas fa-cubes fa-3x my-3"></i>
                               </div>
                               <div class="form-group">
                                 <label>Jumlah</label>
-                                <input type="number" name="jumlah" class="form-control" placeholder="Enter ...">
+                                <input type="number" min="1" value="0" name="jumlah" class="form-control" placeholder="Enter ...">
                               </div>
                               <div class="form-group mt-4">
                                 <label>Keterangan</label>
@@ -128,12 +128,12 @@ active
                               <!-- text input -->
                               <div class="card bg-warning text-center ">
                                 <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$bahanbaku->nama}} saat ini</h1>
-                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}}</h1>
+                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$bahanbaku->jumlah}} <small>{{$bahanbaku->satuan}}</small></h1>
                                 <i class="fas fa-cubes fa-3x my-3"></i>
                               </div>
                               <div class="form-group">
                                 <label>Jumlah</label>
-                                <input type="number" name="jumlah" max="{{$bahanbaku->jumlah}}" class="form-control" placeholder="Enter ...">
+                                <input type="number" name="jumlah" min="1" value="0" max="{{$bahanbaku->jumlah}}" class="form-control" placeholder="Enter ...">
                               </div>
                               <div class="form-group mt-4">
                                 <label>Keterangan</label>
