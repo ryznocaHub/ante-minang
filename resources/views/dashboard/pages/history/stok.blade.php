@@ -73,7 +73,7 @@ active
                   {{-- jumlah barang --}}
                   <th>Jumlah</th>
                   {{-- tanggal masuk/keluar --}}
-                  <th>Tanggal</th>
+                  <th>Waktu</th>
 
                   <th>Keterangan</th>
                   <th>Pegawai</th>
@@ -85,7 +85,7 @@ active
                   <td>{{$history->kode}}</td>
                   <td>{{$history->nama}}</td>
                   <td>{{$history->jumlah}} <small>{{$history->satuan}}</small></td>
-                  <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history->tanggal)->format('d-m-Y') }}</td>
+                  <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history->tanggal)->format('d - m - Y || H:i:s') }}</td>
                   <td>{{$history->keterangan}}</td>
                   <td>{{$history->user->name}}</td>
                 </tr>
