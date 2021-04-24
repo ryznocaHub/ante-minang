@@ -71,7 +71,7 @@ active
                               <input type="hidden" name="id" value="{{$produk->id}}">
                               <div class="card bg-info text-center ">
                                 <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$produk->nama_barang}} saat ini</h1>
-                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$produk->jumlah}}</h1>
+                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$produk->jumlah}} <small>{{$produk->satuan}}</small></h1>
                                 <i class="fas fa-cubes fa-3x my-3"></i>
                               </div>
                               <div class="form-group">
@@ -129,7 +129,7 @@ active
                               <!-- text input -->
                               <div class="card bg-warning text-center ">
                                 <h1 class="card-title mt-2" style="font-size: 1rem;">Stok {{$produk->nama_barang}} saat ini</h1>
-                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$produk->jumlah}}</h1>
+                                <h1 class="card-title mt-3" style="font-size: 3rem;">{{$produk->jumlah}} <small>{{$produk->satuan}}</small></h1>
                                 <i class="fas fa-cubes fa-3x my-3"></i>
                               </div>
                               <div class="form-group">
@@ -181,13 +181,11 @@ active
                           </div>
                           <div class="modal-body">
                             <table id="example2" class="table table-bordered table-striped">
-                              <thead>
-                                <tr>
-                                  <th>Bahan Baku</th>
-                                  <th>Jumlah</th>
-                                </tr>
-                              </thead>
                               <tbody>
+                                <tr>
+                                  <td><b>Bahan Baku</b></td>
+                                  <td><b>Jumlah</b></td>
+                                </tr>
                                 @foreach ($reseps as $resep)
                                 @if ($resep->produk_id == $produk->id)
                                 <tr>
@@ -261,7 +259,7 @@ active
                       <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
                     </label>
                   </div>
-                  <label>Jumlah</label>
+                  <label>Bahan Baku</label>
                   <span id="dynamic_tambah">
                     <div class="form-group d-flex" id="bahantambah1">
                       <select name="bahanbaku[1]" class="form-control select2 col-7" style="width: 100%;" required>
@@ -270,7 +268,7 @@ active
                         <option value="{{$bahanbaku->id}}">{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small></option>
                         @endforeach
                       </select>
-                      <input name="jumlah[1]" type="number" min="1" class="form-control col-3 ml-2" placeholder="Input Jumlah" required>
+                      <input name="jumlah[1]" type="number" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>
                     </div>
                   </span>
                   <button type="button" name="addi" id="addi" class="btn btn-info col-12 p-2"><i class="fas fa-plus mr-2"></i>Tambah Bahan Baku</button>
@@ -324,46 +322,39 @@ active
                   </div>
                   <div class="card card-outline card-warning">
                     <div class="card-body">
-                      <span id="dynamic_edit">
-                        <div class="d-flex">
-                          <div class="col-7">
-                            <label>Bahan Baku</label>
+                      <label>Bahan Baku</label>
+                        <span id="dynamic_edit">
+                          <div class="form-group d-flex" id="bahanedit1">
+                            <select name="#" class="form-control select2 col-7" style="width: 100%;" required>
+                              <option selected disabled value="">Pilih Bahan Baku</option>
+                              @foreach ($bahanbakus as $bahanbaku)
+                              <option value="{{$bahanbaku->id}}">{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small></option>
+                              @endforeach
+                            </select>
+                            <input name="edit[2]" type="number" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>
+                            <button type="button" id="edit1" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>
                           </div>
-                          <div class="col-4 ml-2">
-                            <label>Jumlah</label>
+                          <div class="form-group d-flex" id="bahanedit1">
+                            <select name="#" class="form-control select2 col-7" style="width: 100%;" required>
+                              <option selected disabled value="">Pilih Bahan Baku</option>
+                              @foreach ($bahanbakus as $bahanbaku)
+                              <option value="{{$bahanbaku->id}}">{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small></option>
+                              @endforeach
+                            </select>
+                            <input name="edit[3]" type="number" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>
+                            <button type="button" id="edit1" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>
                           </div>
-                        </div>
-                        <div class="form-group d-flex" id="bahanedit1">
-                          <select class="form-control select2 col-7" style="width: 100%;">
-                            <option selected="selected">Singkong (kg)</option>
-                            <option>Biji Plastik (pcs)</option>
-                            <option>Kreipik Sanjai (gr)</option>
-                            <option>Plastik (ons)</option>
-                          </select>
-                          <input type="text" class="form-control col-3 ml-2" value="55">
-                          <button type="button" id="edit1" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>
-                        </div>
-                        <div class="form-group d-flex" id="bahanedit2">
-                          <select class="form-control select2 col-7" style="width: 100%;">
-                            <option>Singkong (kg)</option>
-                            <option selected="selected">Biji Plastik (pcs)</option>
-                            <option>Kreipik Sanjai (gr)</option>
-                            <option>Plastik (ons)</option>
-                          </select>
-                          <input type="text" class="form-control col-3 ml-2" value="43">
-                          <button type="button" id="edit2" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>
-                        </div>
-                        <div class="form-group d-flex" id="bahanedit3">
-                          <select class="form-control select2 col-7" style="width: 100%;">
-                            <option>Singkong (kg)</option>
-                            <option>Biji Plastik (pcs)</option>
-                            <option selected="selected">Kreipik Sanjai (gr)</option>
-                            <option>Plastik (ons)</option>
-                          </select>
-                          <input type="text" class="form-control col-3 ml-2" value="36">
-                          <button type="button" id="edit3" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>
-                        </div>
-                      </span>
+                          <div class="form-group d-flex" id="bahanedit1">
+                            <select name="#" class="form-control select2 col-7" style="width: 100%;" required>
+                              <option selected disabled value="">Pilih Bahan Baku</option>
+                              @foreach ($bahanbakus as $bahanbaku)
+                              <option value="{{$bahanbaku->id}}">{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small></option>
+                              @endforeach
+                            </select>
+                            <input name="edit[4]" type="number" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>
+                            <button type="button" id="edit1" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>
+                          </div>
+                        </span>
                       <button type="button" name="add" id="add" class="btn btn-warning col-12 p-2"><i class="fas fa-plus mr-2"></i>Tambah Bahan Baku</button>
                     </div>
                   </div>
@@ -461,7 +452,7 @@ active
         '@foreach($bahanbakus as $bahanbaku)' +
         '<option value="{{$bahanbaku->id}}">' + '{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small>' + '</option>' +
         '@endforeach' + '</select>' +
-        '<input type="number" name="jumlah[' + j + ']" min="1" class="form-control col-3 ml-2" placeholder="Input Jumlah" required>' +
+        '<input type="number" name="jumlah[' + j + ']" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>' +
         '<button type="button" id="tambah' + j + '" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>' +
         '</div>'
       );
@@ -478,7 +469,7 @@ active
         '<option>Kreipik Sanjai (gr)</option>' +
         '<option>Plastik (ons)</option>' +
         '</select>' +
-        '<input type="text" class="form-control col-3 ml-2" placeholder="Input Jumlah">' +
+        '<input type="text" class="form-control col-3 ml-2" placeholder="Jumlah">' +
         '<button type="button" id="edit' + i + '" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>' +
         '</div>'
       );
