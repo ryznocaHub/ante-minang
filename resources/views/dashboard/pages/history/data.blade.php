@@ -60,7 +60,7 @@ active
                   <th>ID</th>
                   <th>Nama</th>
                   <th>Aksi</th>
-                  <th>Tanggal</th>
+                  <th>Waktu</th>
                   <th>Pegawai</th>
                 </tr>
               </thead>
@@ -70,7 +70,7 @@ active
                   <td>{{$history->kode}}</td>
                   <td>{{$history->nama}}</td>
                   <td>{{$history->aksi}}</td>
-                  <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history->tanggal)->format('d-m-Y') }}</td>
+                  <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history->tanggal)->format('d - m - Y || H:i:s') }}</td>
                   <td>{{$history->user->name}}</td>
                 </tr>
                 @endforeach
