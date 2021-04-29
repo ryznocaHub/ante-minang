@@ -236,15 +236,16 @@ active
                 <form method="POST" action="{{ route('bahanbaku.store') }}">
                   @csrf
                   <div class="form-group">
-                    <label for="namabarang">Nama Bahan Baku</label>
+                    <label for="namabarang">Nama</label>
                     <input name="nama" type="text" class="form-control" id="namabarang" placeholder="Input Nama Barang">
                   </div>
                   <label>Satuan</label>
                   <div class="custom-control custom-radio">
                     <input class="custom-control-input" type="radio" id="radiosatuan1" name="satuantambah" value="select" checked>
                     <label for="radiosatuan1" class="custom-control-label col-4">
-                      <select name="satuanSelect" class="form-control select2" style="width: 100%;">
+                      <select name="satuanSelect" class="form-control select2" style="width: 100%;" id>
                         <option selected value="pcs">pcs</option>
+                        <option value="ton">ton</option>
                         <option value="kg">kg</option>
                         <option value="gr">gr</option>
                       </select>
@@ -275,36 +276,15 @@ active
                 <form action="{{ route('bahanbaku.updatedata') }}" method="POST">
                   @csrf
                   <div class="form-group">
-                    <label>Nama Bahan Baku</label>
-                    <select name="id" class="form-control select2" style="width: 100%;" required>
+                    <label>Nama</label>
+                    <select name="id" class="form-control select2 dropdownbahan" style="width: 100%;" required>
                       <option selected disabled value="">Pilih bahan baku</option>
                       @foreach ($bahanbakus as $bahanbaku)
                       <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
                       @endforeach
                     </select>
                   </div>
-
-                  <div class="form-group">
-                    <label for="namabaru">Nama Baru</label>
-                    <input name="nama" type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">
-                  </div>
-                  <label>Satuan</label>
-                  <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="ubahSatuanSelect" name="ubah" value="select" checked>
-                    <label for="ubahSatuanSelect" class="custom-control-label col-4">
-                      <select name="satuanSelect" class="form-control select2" style="width: 100%;">
-                        <option selected value="pcs">pcs</option>
-                        <option value="kg">kg</option>
-                        <option value="gr">gr</option>
-                      </select>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio my-2">
-                    <input class="custom-control-input" type="radio" id="ubahSatuanText" name="ubah" value="text">
-                    <label for="ubahSatuanText" class="custom-control-label col-4">
-                      <input name="satuanText" type="text" class="form-control " placeholder="Satuan Lain">
-                    </label>
-                  </div>
+                  <div id="radio"></div>
                   <!-- /.card-body -->
                   <button type="submit" class="btn btn-outline-warning bg-gradient mt-2">Ubah</button>
                 </form>
@@ -325,7 +305,7 @@ active
                   @csrf
                   <div class="form-group">
                     <label>Nama</label>
-                    <select name="id" class="form-control select2" style="width: 100%;" required>
+                    <select name="id" class="form-control select2 dropdownbahan" style="width: 100%;" required>
                       <option selected disabled value="">Pilih bahan baku</option>
                       @foreach($bahanbakus as $bahanbaku)
                       <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
@@ -365,6 +345,59 @@ active
 <script src="{{ asset('js/Template/table/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('js/Template/table/buttons.print.min.js') }}"></script>
 <script src="{{ asset('js/Template/table/buttons.colVis.min.js') }}"></script>
+
+{{-- dynamic form --}}
+<script>
+  $(document).ready(function(){
+    $(document).on('change','.dropdownbahan',function(){
+      // console.log("Nice")
+      var idBahan = $(this).val();
+      $.ajax({
+        type      :'get',
+        url       :'{{ URL::route('getdatabahan') }}',
+        data      :{'id':idBahan},
+        dataType  :'JSON',
+        success:function(dataBahan){
+          $('#radio').html(" ");
+          $('#radio').append(''+
+          '<div class="form-group">' +
+            '<label for="namabaru">Nama Baru</label>' +
+            '<input name="nama" type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">' +
+          '</div>' +
+          '<label>Satuan</label>' +
+          '<div class="custom-control custom-radio">' + 
+            '<input class="custom-control-input" type="radio" id="ubahSatuanSelect" name="ubah" value="select">' +
+            '<label for="ubahSatuanSelect" class="custom-control-label col-4">' +
+              '<select name="satuanSelect" class="form-control select2 listBahanBaku" style="width: 100%;">' +
+                '<option id="pcs" value="pcs">pcs</option>' +
+                '<option id="ton" value="ton">ton</option>' +
+                '<option id="kg" value="kg">kg</option>' +
+                '<option id="gr" value="gr">gr</option>' +
+              '</select>' +
+            '</label>' +
+          '</div>' +
+          '<div class="custom-control custom-radio my-2">' +
+            '<input class="custom-control-input" type="radio" id="ubahSatuanText" name="ubah" value="text">' +
+            '<label for="ubahSatuanText" class="custom-control-label col-4">' +
+              '<input id="inputsatuan"" name="satuanText" type="text" class="form-control" placeholder="Satuan Lain">' +
+            '</label>' +
+          '</div>');
+          if(dataBahan.satuan == "ton" || dataBahan.satuan == "kg" || dataBahan.satuan == "gr" || dataBahan.satuan == "pcs"){
+            $('#ubahSatuanSelect').attr("checked",true);
+            $('#' + dataBahan.satuan).attr("selected","selected");
+          }else{
+            $('#ubahSatuanText').attr("checked",true);
+            $('#inputsatuan').attr("value",''+ dataBahan.satuan)
+          }
+        },
+        error:function(){
+          console.log("error");
+        }
+      });
+    });
+  });
+</script>
+
 <script>
   $(function() {
     $("#example1").DataTable({
