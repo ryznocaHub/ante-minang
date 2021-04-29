@@ -29,6 +29,7 @@ Auth::routes(['register' => 'false']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('manajemen/bahanbaku/getData',           [BahanBakuController::class, 'getDataBahan'])->name('getdatabahan');
 Route::get('manajemen/bahanbaku/history/masuk',     [BahanBakuController::class, 'masuk'])->name('history.bahanbaku.masuk');
 Route::get('manajemen/bahanbaku/history/keluar',    [BahanBakuController::class, 'keluar'])->name('history.bahanbaku.keluar');
 Route::post('manajemen/bahanbaku/updatebahan',      [BahanBakuController::class, 'updateBahanBaku'])->name('bahanbaku.updatedata');
