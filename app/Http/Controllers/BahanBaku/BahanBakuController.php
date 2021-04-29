@@ -251,4 +251,10 @@ class BahanBakuController extends Controller
 
         return view('dashboard.pages.history.data', compact('histories', 'kategori'));
     }
+
+    public function getDataBahan(Request $request)
+    {
+        $dataBahan = BahanBaku::where('id', $request->id)->first();
+        return response()->json($dataBahan);
+    }
 }
