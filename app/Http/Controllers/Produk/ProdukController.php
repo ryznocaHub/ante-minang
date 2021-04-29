@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Produk;
 
 use App\Http\Controllers\Controller;
 use App\Models\BahanBaku;
+use App\Models\HistoryBahanBaku;
 use App\Models\HistoryManagementProduk;
 use App\Models\HistoryProduk;
 use App\Models\Produk;
@@ -122,10 +123,22 @@ class ProdukController extends Controller
                         $resep = Resep::where('produk_id', $id)
                             ->where('bahan_baku_id', $bahanBaku->id)
                             ->first();
-
+                        
                         BahanBaku::where('id', $bahanBaku->id)->update(
                             [
                                 'jumlah' => $bahanBaku->jumlah - ($resep->jumlah * $request->get('jumlah'))
+                            ]
+                        );
+
+                        HistoryBahanBaku::create(
+                            [
+                                'kode'          => $bahanBaku->kode,
+                                'nama'          => $bahanBaku->nama,
+                                'user_id'       => auth()->user()->id,
+                                'jumlah'        => $resep->jumlah * $request->get('jumlah'),
+                                'satuan'        => $request->get('satuan'),
+                                'keterangan'    => 'Bahan produksi ' . $produk->nama,
+                                'kategori'      => 'Keluar'
                             ]
                         );
                     }
