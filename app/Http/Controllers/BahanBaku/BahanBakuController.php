@@ -208,18 +208,22 @@ class BahanBakuController extends Controller
     {
         $bahanBaku = BahanBaku::where('id', $request->get('id'))->first();
 
-        HistoryManagementBahanBaku::create(
-            [
-                'kode'          => $bahanBaku->kode,
-                'nama'          => $bahanBaku->nama,
-                'user_id'       => auth()->user()->id,
-                'aksi'          => 'Hapus'
-            ]
-        );
-
-        BahanBaku::where('id', $request->get('id'))->delete();
-
-        return redirect()->route('bahanbaku.index')->with('status', 'Sukses menghapus bahan baku');
+        if($bahanBaku->jumlah > 0){
+            return redirect()->route('bahanbaku.index')->with('status', 'Masih terdapat stok bahan baku, Gagal menghapus bahan baku');
+        }else{
+            HistoryManagementBahanBaku::create(
+                [
+                    'kode'          => $bahanBaku->kode,
+                    'nama'          => $bahanBaku->nama,
+                    'user_id'       => auth()->user()->id,
+                    'aksi'          => 'Hapus'
+                ]
+            );
+    
+            BahanBaku::where('id', $request->get('id'))->delete();
+    
+            return redirect()->route('bahanbaku.index')->with('status', 'Sukses menghapus bahan baku');
+        }
     }
 
     public function masuk()
@@ -254,7 +258,8 @@ class BahanBakuController extends Controller
 
     public function getDataBahan(Request $request)
     {
-        $dataBahan = BahanBaku::where('id', $request->id)->first();
+        $dataBahan = BahanBaku::with('resep')->where('id', $request->id)->first();
+        // $dataResep = Resep::where('bahan_baku_id',$request->id)->get();
         return response()->json($dataBahan);
     }
 }

@@ -358,11 +358,13 @@ active
         data      :{'id':idBahan},
         dataType  :'JSON',
         success:function(dataBahan){
+          // console.log(dataBahan);
+          // console.log(dataBahan.resep.length);
           $('#radio').html(" ");
           $('#radio').append(''+
           '<div class="form-group">' +
-            '<label for="namabaru">Nama Baru</label>' +
-            '<input name="nama" type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Barang">' +
+            '<label for="namabaru">Nama</label>' +
+            '<input name="nama" type="text" class="form-control" id="namabaru" placeholder="Nama saat ini : '+ dataBahan.nama +'">' +
           '</div>' +
           '<label>Satuan</label>' +
           '<div class="custom-control custom-radio">' + 
@@ -379,7 +381,7 @@ active
           '<div class="custom-control custom-radio my-2">' +
             '<input class="custom-control-input" type="radio" id="ubahSatuanText" name="ubah" value="text">' +
             '<label for="ubahSatuanText" class="custom-control-label col-4">' +
-              '<input id="inputsatuan"" name="satuanText" type="text" class="form-control" placeholder="Satuan Lain">' +
+              '<input id="inputsatuan" name="satuanText" type="text" class="form-control" placeholder="Satuan Lain">' +
             '</label>' +
           '</div>');
           if(dataBahan.satuan == "ton" || dataBahan.satuan == "kg" || dataBahan.satuan == "gr" || dataBahan.satuan == "pcs"){

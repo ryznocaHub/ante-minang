@@ -211,15 +211,6 @@ active
                   @endforeach
                 </tr>
               </tbody>
-              <!-- <tfoot>
-                    <tr>
-                      <th>Rendering engine</th>
-                      <th>Browser</th>
-                      <th>Platform(s)</th>
-                      <th>Engine version</th>
-                      <th></th>
-                    </tr>
-                    </tfoot> -->
             </table>
           </div>
           <!-- /.card-body -->
@@ -292,76 +283,17 @@ active
               <div class="card-body">
                 <form>
                   <div class="form-group">
-                    <label>Nama Produk</label>
-                    <select class="form-control select2" style="width: 100%;">
-                      <option selected="selected">Singkong</option>
-                      <option>Biji Plastik</option>
-                      <option>Kreipik Sanjai</option>
-                      <option>Plastik</option>
+                    <label>Pilih Produk</label>
+                    <select name="id" class="form-control select2 dropdownproduk" style="width: 100%;" required>
+                      <option selected disabled value="">Pilih Produk</option>
+                      @foreach ($produks as $produk)
+                      <option value="{{ $produk->id }}">{{ $produk->nama }}</option>
+                      @endforeach
                     </select>
                   </div>
-
-                  <div class="form-group">
-                    <label for="namabarang">Nama Baru</label>
-                    <input type="text" class="form-control" id="namabaru" placeholder="Input Nama Baru Produk">
-                  </div>
-                  <label>Satuan</label>
-                  <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="radiosatuan3" name="satuanedit" value="select" checked>
-                    <label for="radiosatuan3" class="custom-control-label col-4">
-                      <select name="keteranganSelect" class="form-control select2" style="width: 100%;">
-                        <option selected="selected">pcs</option>
-                        <option>kg</option>
-                        <option>gr</option>
-                      </select>
-                    </label>
-                  </div>
-                  <div class="custom-control custom-radio my-2">
-                    <input class="custom-control-input" type="radio" id="radiosatuan4" name="satuanedit" value="text">
-                    <label for="radiosatuan4" class="custom-control-label col-4">
-                      <input name="keteranganText" type="text" class="form-control " placeholder="Satuan Lain">
-                    </label>
-                  </div>
-                  <div class="card card-outline card-warning">
-                    <div class="card-body">
-                      <label>Bahan Baku</label>
-                        <span id="dynamic_edit">
-                          <div class="form-group d-flex" id="bahanedit1">
-                            <select name="#" class="form-control select2 col-7" style="width: 100%;" required>
-                              <option selected disabled value="">Pilih Bahan Baku</option>
-                              @foreach ($bahanbakus as $bahanbaku)
-                              <option value="{{$bahanbaku->id}}">{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small></option>
-                              @endforeach
-                            </select>
-                            <input name="edit[2]" type="number" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>
-                            <button type="button" id="edit1" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>
-                          </div>
-                          <div class="form-group d-flex" id="bahanedit1">
-                            <select name="#" class="form-control select2 col-7" style="width: 100%;" required>
-                              <option selected disabled value="">Pilih Bahan Baku</option>
-                              @foreach ($bahanbakus as $bahanbaku)
-                              <option value="{{$bahanbaku->id}}">{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small></option>
-                              @endforeach
-                            </select>
-                            <input name="edit[3]" type="number" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>
-                            <button type="button" id="edit1" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>
-                          </div>
-                          <div class="form-group d-flex" id="bahanedit1">
-                            <select name="#" class="form-control select2 col-7" style="width: 100%;" required>
-                              <option selected disabled value="">Pilih Bahan Baku</option>
-                              @foreach ($bahanbakus as $bahanbaku)
-                              <option value="{{$bahanbaku->id}}">{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small></option>
-                              @endforeach
-                            </select>
-                            <input name="edit[4]" type="number" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>
-                            <button type="button" id="edit1" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>
-                          </div>
-                        </span>
-                      <button type="button" name="add" id="add" class="btn btn-warning col-12 p-2"><i class="fas fa-plus mr-2"></i>Tambah Bahan Baku</button>
-                    </div>
-                  </div>
-                  <!-- /.card-body -->
-                  <button type="submit" class="btn btn-outline-warning bg-gradient">Ubah</button>
+                  <div id="radio"></div>
+                  {{-- <span id="dynamic_bahan"></span>
+                  <button type="button" name="add" id="add" class="btn btn-warning col-12 p-2"><i class="fas fa-plus mr-2"></i>Tambah Bahan Baku</button> --}}
                 </form>
               </div>
             </div>
@@ -396,7 +328,6 @@ active
         </div>
       </div>
 
-
       <!-- /.col -->
     </div>
     <!-- /.row -->
@@ -420,6 +351,123 @@ active
 <script src="{{ asset('js/Template/table/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('js/Template/table/buttons.print.min.js') }}"></script>
 <script src="{{ asset('js/Template/table/buttons.colVis.min.js') }}"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on('change','.dropdownproduk',function(){
+      console.log("Nice")
+      var idProduk = $(this).val();
+      $.ajax({
+        type      :'get',
+        url       :'{{ URL::route('getdataproduk') }}',
+        data      :{'id':idProduk},
+        dataType  :'JSON',
+        success:function(dataProduk){
+          console.log(dataProduk);
+          // console.log(dataBahan.resep.length);
+          $('#radio').html(" ");
+          $('#radio').append(''+
+            '<div class="form-group">' +
+            '<label for="namabarang">Nama</label>' +
+            '<input type="text" class="form-control" id="namabaru" value="' + dataProduk.nama + '">' +
+            '</div>' +
+            '<label>Satuan</label>' +
+            '<div class="custom-control custom-radio">' +
+            '<input class="custom-control-input" type="radio" id="ubahSatuanSelect" name="satuanedit" value="select">' +
+            '<label for="radiosatuan3" class="custom-control-label col-4">' +
+                '<select name="satuanSelect" class="form-control select2 listBahanBaku" style="width: 100%;">' +
+                '<option id="pcs" value="pcs">pcs</option>' +
+                '<option id="ton" value="ton">ton</option>' +
+                '<option id="kg" value="kg">kg</option>' +
+                '<option id="gr" value="gr">gr</option>' +
+            '</select>' +
+            '</label>' +
+            '</div>' +
+            '<div class="custom-control custom-radio my-2">' +
+            '<input class="custom-control-input" type="radio" id="ubahSatuanText" name="satuanedit" value="text">' +
+            '<label for="radiosatuan4" class="custom-control-label col-4">' +
+                '<input id="inputsatuan" name="keteranganText" type="text" class="form-control " placeholder="Satuan Lain">' +
+            '</label>' +
+            '</div>' +
+            '<label class="mt-2">Bahan Baku</label>'+
+            '<span id="dynamic_edit"></span>' +
+            '<span id="listbahanbaku"></span>' +
+            '<span id="aksi_edit"></span>'
+          );
+          if(dataProduk.satuan == "ton" || dataProduk.satuan == "kg" || dataProduk.satuan == "gr" || dataProduk.satuan == "pcs"){
+            $('#ubahSatuanSelect').attr("checked",true);
+            $('#' + dataProduk.satuan).attr("selected","selected");
+          }else{
+            $('#ubahSatuanText').attr("checked",true);
+            $('#inputsatuan').attr("value",''+ dataProduk.satuan)
+          }
+          var iterasi;
+          for (iterasi = 0; iterasi < dataProduk.resep.length; iterasi++) {
+            $('#dynamic_edit').append(''+
+              '<div class="form-group d-flex" id="bahanedit'+ iterasi +'">' +
+                '<select name="listBahanBaku'+iterasi+'" class="form-control select2 col-7" style="width: 100%;" required>' +
+                  '@foreach ($bahanbakus as $bahanbaku)' +
+                    '<option id="'+iterasi+'{{$bahanbaku->id}}" value="{{$bahanbaku->id}}">{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small></option>'+
+                  '@endforeach' +
+                '</select>' +
+                '<input name="edit['+iterasi+']" type="number" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>' +
+                '<button type="button" id="edit1'+iterasi+'" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>'+
+              '</div>'
+            ); 
+            $('#'+ iterasi + dataProduk.resep[iterasi].bahan_baku_id).attr("selected","selected");
+          }
+          $('#aksi_edit').append(''+
+            '<button type="button" name="add" id="add" class="btn btn-warning col-12 p-2"><i class="fas fa-plus mr-2"></i>Tambah Bahan Baku</button>' +
+            '<button type="submit" class="btn btn-outline-warning bg-gradient mt-3">Ubah</button>'
+          );
+        },
+        error:function(){
+          console.log("error");
+        }
+      });
+    });
+
+    var j = 100;
+    var i = 100;
+    $('#addi').click(function() {
+      console.log("click");
+      j++;
+      $('#dynamic_tambah').append('' +
+        '<div class="form-group d-flex" id="bahantambah' + j + '">' +
+        '<select name="bahanbaku[' + j + ']" class="form-control select2 col-7" style="width: 100%;" required>' +
+        '<option selected disabled value="">Pilih Bahan Baku</option>' +
+        '@foreach($bahanbakus as $bahanbaku)' +
+        '<option value="{{$bahanbaku->id}}">' + '{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small>' + '</option>' +
+        '@endforeach' + '</select>' +
+        '<input type="number" name="jumlah[' + j + ']" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>' +
+        '<button type="button" id="tambah' + j + '" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>' +
+        '</div>'
+      );
+    });
+    $(document).on('click', '#add', function() {
+      i++;
+      console.log("click" + i);
+      //penambahan pemilihan bahan baku tambahan
+      $('#dynamic_edit').append('' +
+        '<div class="form-group d-flex" id="bahanedit' + i + '">' +
+          '<select name="listBahanBaku'+ i +'" class="form-control select2 col-7" style="width: 100%;" required>' +
+            '<option value=" ">Pilih Bahan Baku Baru</option>'+
+            '@foreach ($bahanbakus as $bahanbaku)' +
+              '<option id="'+ i +'{{$bahanbaku->id}}" value="{{$bahanbaku->id}}">{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small></option>'+
+            '@endforeach' +
+          '</select>' +
+        '<input name="edit['+ i +']" type="number" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>' +
+        '<button type="button" id="edit' + i + '" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>' +
+        '</div>'
+      );
+    });
+    $(document).on('click', '.hps-bahan', function() {
+      var button_id = $(this).attr("id");
+      $('#bahan' + button_id + '').remove();
+    })
+  });
+</script>
+
 <script>
   $(function() {
     $("#example1").DataTable({
@@ -441,52 +489,4 @@ active
 </script>
 
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    var j = 1;
-    var i = 1;
-    $('#addi').click(function() {
-      j++;
-      $('#dynamic_tambah').append('' +
-        '<div class="form-group d-flex" id="bahantambah' + j + '">' +
-        '<select name="bahanbaku[' + j + ']" class="form-control select2 col-7" style="width: 100%;" required>' +
-        '<option selected disabled value="">Pilih Bahan Baku</option>' +
-        '@foreach($bahanbakus as $bahanbaku)' +
-        '<option value="{{$bahanbaku->id}}">' + '{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small>' + '</option>' +
-        '@endforeach' + '</select>' +
-        '<input type="number" name="jumlah[' + j + ']" min="1" class="form-control col-3 ml-2" placeholder="Jumlah" required>' +
-        '<button type="button" id="tambah' + j + '" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>' +
-        '</div>'
-      );
-    })
-    $('#add').click(function() {
-      i++;
-      //penambahan pemilihan bahan baku tambahan
-      $('#dynamic_edit').append('' +
-        '<div class="form-group d-flex" id="bahanedit' + i + '">' +
-        '<select class="form-control select2 col-7" style="width: 100%;">' +
-        '<option selected="selected">Pilih Bahan Baku Baru</option>' +
-        '<option>Singkong (kg)</option>' +
-        '<option>Biji Plastik (pcs)</option>' +
-        '<option>Kreipik Sanjai (gr)</option>' +
-        '<option>Plastik (ons)</option>' +
-        '</select>' +
-        '<input type="text" class="form-control col-3 ml-2" placeholder="Jumlah">' +
-        '<button type="button" id="edit' + i + '" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>' +
-        '</div>'
-      );
-    })
-    $(document).on('click', '.hps-bahan', function() {
-      var button_id = $(this).attr("id");
-      $('#bahan' + button_id + '').remove();
-    })
-  });
-</script>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-
-
-  });
-</script>
 @endsection

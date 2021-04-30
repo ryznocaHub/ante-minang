@@ -37,6 +37,7 @@ Route::post('manajemen/bahanbaku/destroy',          [BahanBakuController::class,
 Route::get('manajemen/bahanbaku/history/data',      [BahanBakuController::class, 'history'])->name('history.bahanbaku.data');
 Route::resource('manajemen/bahanbaku', BahanBakuController::class)->only(['index', 'store', 'update']);
 
+Route::get('manajemen/produk/getData',           [ProdukController::class, 'getDataProduk'])->name('getdataproduk');
 Route::get('manajemen/produk/history/masuk',     [ProdukController::class, 'masuk'])->name('history.produk.masuk');
 Route::get('manajemen/produk/history/keluar',    [ProdukController::class, 'keluar'])->name('history.produk.keluar');
 Route::post('manajemen/produk/updatebahan',      [ProdukController::class, 'updateBahanBaku'])->name('produk.updatedata');

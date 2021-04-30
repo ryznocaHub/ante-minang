@@ -188,23 +188,27 @@ class ProdukController extends Controller
         }
         return redirect()->route('produk.index')->with('status', 'Sukses merubah data');
     }
-
+    
     public function destroy(Request $request)
     {
         $produk = Produk::where('id', $request->get('id'))->first();
-
-        HistoryManagementProduk::create(
-            [
-                'kode'          => $produk->kode,
-                'nama'          => $produk->nama,
-                'user_id'       => auth()->user()->id,
-                'aksi'          => 'Hapus'
-            ]
-        );
-
-        Produk::where('id', $request->get('id'))->delete();
-
-        return redirect()->route('produk.index')->with('status', 'Produk berhasil dihapus');
+        
+        if($produk->jumlah > 0){
+            return redirect()->route('produk.index')->with('status', 'Masih terdapat stok, Produk gagal dihapus');
+        }else{
+            HistoryManagementProduk::create(
+                [
+                    'kode'          => $produk->kode,
+                    'nama'          => $produk->nama,
+                    'user_id'       => auth()->user()->id,
+                    'aksi'          => 'Hapus'
+                ]
+            );
+    
+            Produk::where('id', $request->get('id'))->delete();
+    
+            return redirect()->route('produk.index')->with('status', 'Produk berhasil dihapus');
+        }
     }
 
     public function masuk()
@@ -235,5 +239,12 @@ class ProdukController extends Controller
         $kategori = 2;
 
         return view('dashboard.pages.history.data', compact('histories', 'kategori'));
+    }
+
+    public function getDataProduk(Request $request)
+    {
+        // $dataProduk = Produk::where('id', $request->id)->first();
+        $dataProduk = Produk::with('resep')->where('id', $request->id)->first();
+        return response()->json($dataProduk);
     }
 }
