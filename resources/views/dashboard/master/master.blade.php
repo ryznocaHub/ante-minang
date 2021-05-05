@@ -95,7 +95,7 @@
               </ul>
             </li>
 
-            <li class="nav-header">HISTORI</li>
+            <li class="nav-header">History</li>
             <li class="nav-item @yield('bahanbaku_open')">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-cubes"></i>
