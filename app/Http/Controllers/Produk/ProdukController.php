@@ -123,7 +123,7 @@ class ProdukController extends Controller
                         $resep = Resep::where('produk_id', $id)
                             ->where('bahan_baku_id', $bahanBaku->id)
                             ->first();
-                        
+
                         BahanBaku::where('id', $bahanBaku->id)->update(
                             [
                                 'jumlah' => $bahanBaku->jumlah - ($resep->jumlah * $request->get('jumlah'))
@@ -188,14 +188,70 @@ class ProdukController extends Controller
         }
         return redirect()->route('produk.index')->with('status', 'Sukses merubah data');
     }
-    
+
+    public function updateProduk(Request $request)
+    {
+        $request->validate(
+            [
+                'editNama'          => ['required', Rule::unique('produks', 'nama')->ignore($request->get('id'))],
+            ]
+        );
+
+        if ($request['satuanedit'] == 'select') {
+            $satuan = $request->get('satuanSelect');
+        } else if ($request['satuanedit'] == 'text') {
+            $request->validate(
+                [
+                    'satuanText'    => ['required']
+                ]
+            );
+            $satuan = $request->get('satuanText');
+        }
+
+        Resep::where('produk_id', $request->get('id'))->delete();
+
+        $bahanBaku = array_unique($request->get('editBahanBaku'));
+
+        DB::transaction(function () use ($request, $satuan, $bahanBaku) {
+            $produk = Produk::where('id', $request->get('id'))->update(
+                [
+                    'nama'      => $request->get('editNama'),
+                    'satuan'    => $satuan,
+                ]
+            );
+
+            $produk = Produk::where('id', $request->get('id'))->first();
+
+            foreach ($bahanBaku as $key => $value) {
+                Resep::create(
+                    [
+                        'produk_id'     => $produk->id,
+                        'bahan_baku_id' => $value,
+                        'jumlah'        => $request->get('jumlahEdit')[$key]
+                    ]
+                );
+            }
+
+            HistoryManagementProduk::create(
+                [
+                    'kode'      => $produk->kode,
+                    'nama'      => $produk->nama,
+                    'user_id'   => auth()->user()->id,
+                    'aksi'      => 'Edit'
+                ]
+            );
+        });
+
+        return redirect()->route('produk.index')->with('status', 'Produk berhasil diubah');
+    }
+
     public function destroy(Request $request)
     {
         $produk = Produk::where('id', $request->get('id'))->first();
-        
-        if($produk->jumlah > 0){
+
+        if ($produk->jumlah > 0) {
             return redirect()->route('produk.index')->with('status', 'Masih terdapat stok, Produk gagal dihapus');
-        }else{
+        } else {
             HistoryManagementProduk::create(
                 [
                     'kode'          => $produk->kode,
@@ -204,9 +260,9 @@ class ProdukController extends Controller
                     'aksi'          => 'Hapus'
                 ]
             );
-    
+
             Produk::where('id', $request->get('id'))->delete();
-    
+
             return redirect()->route('produk.index')->with('status', 'Produk berhasil dihapus');
         }
     }

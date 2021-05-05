@@ -167,7 +167,7 @@ class BahanBakuController extends Controller
         } else {
             $request->validate(
                 [
-                    'nama' => [Rule::unique('bahan_bakus', 'nama')]
+                    'nama' => [Rule::unique('bahan_bakus', 'nama')->ignore($bahanBaku->id)]
                 ]
             );
         }
@@ -208,9 +208,9 @@ class BahanBakuController extends Controller
     {
         $bahanBaku = BahanBaku::where('id', $request->get('id'))->first();
 
-        if($bahanBaku->jumlah > 0){
+        if ($bahanBaku->jumlah > 0) {
             return redirect()->route('bahanbaku.index')->with('status', 'Masih terdapat stok bahan baku, Gagal menghapus bahan baku');
-        }else{
+        } else {
             HistoryManagementBahanBaku::create(
                 [
                     'kode'          => $bahanBaku->kode,
@@ -219,9 +219,9 @@ class BahanBakuController extends Controller
                     'aksi'          => 'Hapus'
                 ]
             );
-    
+
             BahanBaku::where('id', $request->get('id'))->delete();
-    
+
             return redirect()->route('bahanbaku.index')->with('status', 'Sukses menghapus bahan baku');
         }
     }
