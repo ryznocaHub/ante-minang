@@ -23,6 +23,8 @@
   <link rel="stylesheet" href="{{ asset('css/Template/OverlayScrollbars.min.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('css/Template/summernote-bs4.min.css') }}">
+  <!-- loading spin -->
+  <link rel="stylesheet" href="{{ asset('css/Template/loading.css') }}">
   <!-- ExtraCSS -->
   @yield('css')
   <!-- ExtraJS -->
@@ -231,7 +233,18 @@
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-
+  <script>
+    function preLoad(classReq, color , sizeReq) {
+      $(classReq).html(' ');
+      $(classReq).addClass('d-flex justify-content-center');
+      // $(classReq).css('color', color);
+      $(classReq).html('<i class="fas fa-'+sizeReq+' '+color+' fa-sync-alt my-5 loading-spin"></i>');
+    }
+    function afterLoad(classReq) {
+      $(classReq).removeClass('d-flex justify-content-center');
+      $(classReq).html(' ');
+    }
+  </script>
   <!-- jQuery -->
   <script src="{{ asset('js/Template/jquery.min.js') }}"></script>
   <!-- jQuery UI 1.11.4 -->
