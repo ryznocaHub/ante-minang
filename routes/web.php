@@ -24,27 +24,25 @@ Route::group(['middleware' => 'Admin'], function () {
     Route::resource('users',         UserController::class)->except(['edit']);
 });
 
+Route::group(['middleware' => 'Pegawai'], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::get('manajemen/bahanbaku/getData',           [BahanBakuController::class, 'getDataBahan'])->name('getdatabahan');
+    Route::get('manajemen/bahanbaku/history/masuk',     [BahanBakuController::class, 'masuk'])->name('history.bahanbaku.masuk');
+    Route::get('manajemen/bahanbaku/history/keluar',    [BahanBakuController::class, 'keluar'])->name('history.bahanbaku.keluar');
+    Route::post('manajemen/bahanbaku/updatebahan',      [BahanBakuController::class, 'updateBahanBaku'])->name('bahanbaku.updatedata');
+    Route::post('manajemen/bahanbaku/destroy',          [BahanBakuController::class, 'destroy'])->name('bahanbaku.destroy');
+    Route::get('manajemen/bahanbaku/history/data',      [BahanBakuController::class, 'history'])->name('history.bahanbaku.data');
+    Route::resource('manajemen/bahanbaku',              BahanBakuController::class)->only(['index', 'store', 'update']);
+
+    Route::get('manajemen/produk/getData',           [ProdukController::class, 'getDataProduk'])->name('getdataproduk');
+    Route::get('manajemen/produk/history/masuk',     [ProdukController::class, 'masuk'])->name('history.produk.masuk');
+    Route::get('manajemen/produk/history/keluar',    [ProdukController::class, 'keluar'])->name('history.produk.keluar');
+    Route::post('manajemen/produk/updateproduk',     [ProdukController::class, 'updateProduk'])->name('produk.updatedata');
+    Route::post('manajemen/produk/destroy',          [ProdukController::class, 'destroy'])->name('produk.destroy');
+    Route::get('manajemen/produk/history/data',      [ProdukController::class, 'history'])->name('history.produk.data');
+    Route::resource('manajemen/produk',              ProdukController::class)->only(['index', 'store', 'update']);
+});
 
 Auth::routes(['register' => 'false']);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('manajemen/bahanbaku/getData',           [BahanBakuController::class, 'getDataBahan'])->name('getdatabahan');
-Route::get('manajemen/bahanbaku/history/masuk',     [BahanBakuController::class, 'masuk'])->name('history.bahanbaku.masuk');
-Route::get('manajemen/bahanbaku/history/keluar',    [BahanBakuController::class, 'keluar'])->name('history.bahanbaku.keluar');
-Route::post('manajemen/bahanbaku/updatebahan',      [BahanBakuController::class, 'updateBahanBaku'])->name('bahanbaku.updatedata');
-Route::post('manajemen/bahanbaku/destroy',          [BahanBakuController::class, 'destroy'])->name('bahanbaku.destroy');
-Route::get('manajemen/bahanbaku/history/data',      [BahanBakuController::class, 'history'])->name('history.bahanbaku.data');
-Route::resource('manajemen/bahanbaku', BahanBakuController::class)->only(['index', 'store', 'update']);
-
-Route::get('manajemen/produk/getData',           [ProdukController::class, 'getDataProduk'])->name('getdataproduk');
-Route::get('manajemen/produk/history/masuk',     [ProdukController::class, 'masuk'])->name('history.produk.masuk');
-Route::get('manajemen/produk/history/keluar',    [ProdukController::class, 'keluar'])->name('history.produk.keluar');
-Route::post('manajemen/produk/updateproduk',     [ProdukController::class, 'updateProduk'])->name('produk.updatedata');
-Route::post('manajemen/produk/destroy',          [ProdukController::class, 'destroy'])->name('produk.destroy');
-Route::get('manajemen/produk/history/data',      [ProdukController::class, 'history'])->name('history.produk.data');
-Route::resource('manajemen/produk', ProdukController::class)->only(['index', 'store', 'update']);
-
-Route::resource('users',            UserController::class)->except(['edit']);
-Route::get('history/masuk',         [ManagementBarangController::class, 'masuk'])->name('history.masuk');
-Route::get('history/keluar',         [ManagementBarangController::class, 'keluar'])->name('history.keluar');
