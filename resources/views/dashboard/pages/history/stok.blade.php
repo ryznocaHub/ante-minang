@@ -66,14 +66,14 @@ active
             <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <tr>
+                  {{-- tanggal masuk/keluar --}}
+                  <th>Waktu (T-B-H || J-M-D)</th>
                   {{-- kode barang BB->bahan baku , BJ->Produk --}}
                   <th>ID</th>
                   {{-- nama barang --}}
                   <th>Nama</th>
                   {{-- jumlah barang --}}
                   <th>Jumlah</th>
-                  {{-- tanggal masuk/keluar --}}
-                  <th>Waktu</th>
 
                   <th>Keterangan</th>
                   <th>Pegawai</th>
@@ -82,10 +82,10 @@ active
               <tbody>
                 @foreach($histories as $history)
                 <tr>
+                  <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history->tanggal)->format('Y - m - d || H:i:s') }}</td>
                   <td>{{$history->kode}}</td>
                   <td>{{$history->nama}}</td>
                   <td>{{$history->jumlah}} <small>{{$history->satuan}}</small></td>
-                  <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $history->tanggal)->format('d - m - Y || H:i:s') }}</td>
                   <td>{{$history->keterangan}}</td>
                   <td>{{$history->user->name}}</td>
                 </tr>

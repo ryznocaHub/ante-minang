@@ -286,7 +286,7 @@ active
                   </div>
                   <div id="radio"></div>
                   <!-- /.card-body -->
-                  <button type="submit" class="btn btn-outline-warning bg-gradient mt-2">Ubah</button>
+                  {{-- <button type="submit" class="btn btn-outline-warning bg-gradient mt-2">Ubah</button> --}}
                 </form>
               </div>
             </div>
@@ -305,7 +305,7 @@ active
                   @csrf
                   <div class="form-group">
                     <label>Nama</label>
-                    <select name="id" class="form-control select2 dropdownbahan" style="width: 100%;" required>
+                    <select name="id" class="form-control select2 dropdownhapus" style="width: 100%;" required>
                       <option selected disabled value="">Pilih bahan baku</option>
                       @foreach($bahanbakus as $bahanbaku)
                       <option value="{{ $bahanbaku->id }}">{{$bahanbaku->nama}}</option>
@@ -313,7 +313,8 @@ active
                     </select>
                   </div>
                   <!-- /.card-body -->
-                  <button type="submit" class="btn btn-outline-danger bg-gradient">Hapus</button>
+                  <div id="loadHapus"></div>
+                  {{-- <button type="submit" class="btn btn-outline-danger bg-gradient">Hapus</button> --}}
                 </form>
               </div>
             </div>
@@ -350,7 +351,7 @@ active
 <script>
   $(document).ready(function(){
     $(document).on('change','.dropdownbahan',function(){
-      // console.log("Nice")
+      preLoad("#radio","text-warning","7x");
       var idBahan = $(this).val();
       $.ajax({
         type      :'get',
@@ -358,19 +359,17 @@ active
         data      :{'id':idBahan},
         dataType  :'JSON',
         success:function(dataBahan){
-          // console.log(dataBahan);
-          // console.log(dataBahan.resep.length);
-          $('#radio').html(" ");
+          afterLoad("#radio");
           $('#radio').append(''+
           '<div class="form-group">' +
-            '<label for="namabaru">Nama</label>' +
-            '<input name="nama" type="text" class="form-control" id="namabaru" placeholder="Nama saat ini : '+ dataBahan.nama +'">' +
+            '<label for="namabaru">Nama Baru</label>' +
+            '<input name="nama" type="text" class="form-control produk-ganti" id="namabaru" placeholder="Nama saat ini : '+ dataBahan.nama +'">' +
           '</div>' +
           '<label>Satuan</label>' +
           '<div class="custom-control custom-radio">' + 
             '<input class="custom-control-input" type="radio" id="ubahSatuanSelect" name="ubah" value="select">' +
             '<label for="ubahSatuanSelect" class="custom-control-label col-4">' +
-              '<select name="satuanSelect" class="form-control select2 listBahanBaku" style="width: 100%;">' +
+              '<select name="satuanSelect" class="form-control select2 listBahanBaku produk-ganti" style="width: 100%;">' +
                 '<option id="pcs" value="pcs">pcs</option>' +
                 '<option id="ton" value="ton">ton</option>' +
                 '<option id="kg" value="kg">kg</option>' +
@@ -381,9 +380,10 @@ active
           '<div class="custom-control custom-radio my-2">' +
             '<input class="custom-control-input" type="radio" id="ubahSatuanText" name="ubah" value="text">' +
             '<label for="ubahSatuanText" class="custom-control-label col-4">' +
-              '<input id="inputsatuan" name="satuanText" type="text" class="form-control" placeholder="Satuan Lain">' +
+              '<input id="inputsatuan" name="satuanText" type="text" class="form-control produk-ganti" placeholder="Satuan Lain">' +
             '</label>' +
-          '</div>');
+          '</div>'+
+          '<button id="buttonedit" type="submit" class="btn btn-outline-warning bg-gradient mt-2" disabled>Ubah</button>');
           if(dataBahan.satuan == "ton" || dataBahan.satuan == "kg" || dataBahan.satuan == "gr" || dataBahan.satuan == "pcs"){
             $('#ubahSatuanSelect').attr("checked",true);
             $('#' + dataBahan.satuan).attr("selected","selected");
@@ -397,6 +397,37 @@ active
         }
       });
     });
+
+    // Pengaturan tombol edit agar tidak dapat dipencet jika belum mengganti isi form
+    $(document).on('change','.produk-ganti', function () {
+      $('#buttonedit').attr("disabled",false)
+    });
+
+    // pengaturan tombol hapus jika stok masih ada tidak dapat menghapus data
+    $(document).on('change','.dropdownhapus',function(){
+      preLoad("#loadHapus","text-danger","5x");
+      var idpro = $(this).val();
+      $.ajax({
+        type      :'get',
+        url       :'{{ URL::route('getdatabahan') }}',
+        data      :{'id':idpro},
+        dataType  :'JSON',
+        success:function(dataBahan){
+          afterLoad("#loadHapus");
+          
+          if (dataBahan.jumlah > 0) {
+            $('#loadHapus').addClass('d-flex justify-content-center');
+            $('#loadHapus').html('<span class="text-danger">Tersisa <b>'+ dataBahan.jumlah +'</b> Stok <b>'+ dataBahan.nama +',</b> tidak dapat menghapus data</span>');
+          }else{
+            $('#loadHapus').html('<button type="submit" class="btn btn-danger bg-gradient">Hapus</button>');
+          }
+          console.log("masuk ajax");
+        },
+        error:function(){
+          console.log("error ajax");
+        }
+      });
+    })
   });
 </script>
 

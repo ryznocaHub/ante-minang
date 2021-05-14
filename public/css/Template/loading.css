@@ -1,0 +1,14 @@
+@media (prefers-reduced-motion: no-preference) {
+    .loading-spin{
+      animation: loading-spin infinite 0.5s backwards;
+    }
+  }
+
+  @keyframes loading-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
