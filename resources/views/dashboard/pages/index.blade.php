@@ -28,9 +28,8 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>150</h3>
-
-              <p>Kripik Terjual</p>
+                <h3>{{$terjual}}</h3>
+                <p>{{$produk->nama}} Terjual Bulan Ini</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -43,9 +42,9 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px"></sup></h3>
+              <h3>{{$produk1->jumlah}}<sup style="font-size: 20px"></sup></h3>
 
-              <p>Stok Kripik</p>
+              <p>Stok {{$produk1->nama}}</p>
             </div>
             <div class="icon">
               <i class="fas fa-bacon"></i>
@@ -58,9 +57,9 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+              <h3>{{$bahan1->jumlah}}</h3>
 
-              <p>Stok Singkong</p>
+              <p>Stok {{$bahan1->nama}}</p>
             </div>
             <div class="icon">
               <i class="fas fa-cubes"></i>
@@ -73,9 +72,9 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>65</h3>
+              <h3>{{$bahan2->jumlah}}</h3>
 
-              <p>Stok Plastik</p>
+              <p>Stok {{$bahan2->nama}}</p>
             </div>
             <div class="icon">
               <i class="fas fa-shopping-bag"></i>
