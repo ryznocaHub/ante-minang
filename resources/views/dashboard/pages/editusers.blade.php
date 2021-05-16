@@ -180,10 +180,10 @@ active
 <script type="text/javascript">
   $(document).ready(function(){
     $(document).on('change','.dropdownproduk',function(){
-      console.log("masukpertama");
+      // console.log("masukpertama");
       preLoad("#radio","text-warning","7x");
       var idUser = $(this).val();
-      alert(idUser);
+      // alert(idUser);
       $.ajax({
         type      :'get',
         url       :'{{ URL::route('getdatauser') }}',
@@ -198,6 +198,17 @@ active
             '<input type="text" class="form-control produk-ganti" placeholder="'+dataUser.name+'" >' +
           '</div>' +
           '<div class="form-group">' +
+            '<label>Password</label>' +
+            '<input name="password" type="password" class="form-control autocomplete="off" placeholder="'+dataUser.password+'">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label>Jabatan</label>' +
+            '<select id="jabatan" name="jabatan" class="form-control select2" style="width: 100%;">' +
+              '<option id="pegawai" value="pegawai">Pegawai</option>' +
+              '<option id="resign" value="resign">Resign</option>' +
+            '</select>' +
+          '</div>' +
+          '<div class="form-group">' +
             '<label>Email</label>' +
             '<input type="email" class="form-control produk-ganti" placeholder="'+dataUser.email+'" >' +
           '</div>' +
@@ -207,6 +218,12 @@ active
           '</div>' +
           '<button type="submit" class="btn btn-outline-warning bg-gradient mt-3" id="buttonedit" disabled>Ubah</button>'
           );
+
+          if(dataUser.jabatan == "pegawai"){
+        $('#pegawai').attr("selected",true)
+      }else{
+        $('#pegawai').attr("selected",true)
+      }
         },
         error:function(){
           console.log("error");
