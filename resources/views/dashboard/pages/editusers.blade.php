@@ -47,35 +47,35 @@ active
                       <!-- text input -->
                       <div class="form-group">
                       <label>Username</label>
-                      <input name="username" type="text" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror" autocomplete="off" placeholder="Input Username">
+                      <input name="username" type="text" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror" autocomplete="off" placeholder="Input Username" require>
                       @error('username')
                       <div class="alert alert-danger mt-1">{{ $message }}</div>
                       @enderror
                       </div>
                       <div class="form-group">
                       <label>Password</label>
-                      <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" autocomplete="off" placeholder="Input Password">
+                      <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" autocomplete="off" placeholder="Input Password" require>
                       @error('password')
                       <div class="alert alert-danger mt-1">{{ $message }}</div>
                       @enderror
                       </div>
                       <div class="form-group">
                       <label>Nama Lengkap</label>
-                      <input name="name" type="text" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Input Nama Lengkap Pegawai">
+                      <input name="name" type="text" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" placeholder="Input Nama Lengkap Pegawai" require>
                       @error('name')
                       <div class="alert alert-danger mt-1">{{ $message }}</div>
                       @enderror
                       </div>
                       <div class="form-group">
                       <label>Email</label>
-                      <input name="email" type="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Input Email">
+                      <input name="email" type="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Input Email" require>
                       @error('email')
                       <div class="alert alert-danger mt-1">{{ $message }}</div>
                       @enderror
                       </div>
                       <div class="form-group">
                       <label>Nomor Handphone</label>
-                      <input name="no_hp" type="text" value="{{ old('no_hp') }}" class="form-control @error('no_hp') is-invalid @enderror" placeholder="Input Nomor Handphone">
+                      <input name="no_hp" type="text" value="{{ old('no_hp') }}" class="form-control @error('no_hp') is-invalid @enderror" placeholder="Input Nomor Handphone" require>
                       @error('no_hp')
                       <div class="alert alert-danger mt-1">{{ $message }}</div>
                       @enderror
@@ -186,26 +186,26 @@ active
           $('#radio').append(''+
           '<div class="form-group">' +
             '<label>Nama Lengkap</label>' +
-            '<input type="text" name="name" class="form-control produk-ganti" value="'+dataUser.name+'" >' +
+            '<input type="text" name="name" class="form-control produk-ganti" value="'+dataUser.name+'" require>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Password</label>' +
-            '<input name="password" type="password" class="form-control autocomplete="off" value="'+dataUser.password+'">' +
+            '<input name="password" type="password" class="form-control autocomplete="off" value="'+dataUser.password+'" require>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Jabatan</label>' +
-            '<select id="jabatan" name="status" class="form-control select2 produk-ganti" style="width: 100%;">' +
+            '<select id="jabatan" name="status" class="form-control select2 produk-ganti" style="width: 100%;" require>' +
               '<option id="pegawai" value="Pegawai">Pegawai</option>' +
               '<option id="resign" value="Resign">Resign</option>' +
             '</select>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Email</label>' +
-            '<input type="email" name="email" class="form-control produk-ganti" value="'+dataUser.email+'" >' +
+            '<input type="email" name="email" class="form-control produk-ganti" value="'+dataUser.email+'" require>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Nomor Handphone</label>' +
-            '<input type="text" name="no_hp" class="form-control produk-ganti" value="'+dataUser.no_hp+'" >' +
+            '<input type="text" name="no_hp" class="form-control produk-ganti" value="'+dataUser.no_hp+'" require>' +
           '</div>' +
           '<input type="hidden" value="'+dataUser.foto+'" name="oldfoto">' +
           '<button type="submit" class="btn btn-outline-warning bg-gradient mt-3" id="buttonedit" disabled>Ubah</button>'

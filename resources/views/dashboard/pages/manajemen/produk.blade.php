@@ -218,6 +218,7 @@ active
         </div>
         <!-- /.card -->
       </div>
+      @if(auth()->user()->role == 1)
       <div class="col-4">
         <div id="accordion">
           <div class="card card-info">
@@ -331,7 +332,7 @@ active
           </div>
         </div>
       </div>
-
+      @endif
       <!-- /.col -->
     </div>
     <!-- /.row -->
