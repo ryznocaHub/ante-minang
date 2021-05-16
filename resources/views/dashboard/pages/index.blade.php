@@ -87,9 +87,11 @@
       <!-- /.row -->
 
       <!-- Main row -->
-      <div class="row">
+      <div class="row d-flex justify-content-center align-items-center" style="height: 60vh;">
+      <img src="{{ asset('img/ante.png') }}" alt="AnteMinangLogo" with="200" height="150">
+
         <!-- Left col -->
-        <section class="col-md-12">
+        {{-- <section class="col-md-12">
           <!-- Custom tabs (Charts with tabs)-->
           <!-- interactive chart -->
           <div class="card card-primary card-outline">
@@ -103,40 +105,10 @@
               <div id="interactive" style="height: 300px;"></div>
             </div>
             <!-- /.card-body-->
-          </div>
+          </div> --}}
           <!-- /.card -->
         </section>
         <!-- /.Left col -->
-
-        <div class="card card-success card-outline">
-          <div class="card-header">
-          <h3 class="card-title">
-              <i class="fas fa-edit"></i>
-              SweetAlert2 Examples
-          </h3>
-          </div>
-          <div class="card-body">
-          <button type="button" class="btn btn-success swalDefaultSuccess">
-              Launch Success Toast
-          </button>
-          <button type="button" class="btn btn-info swalDefaultInfo">
-              Launch Info Toast
-          </button>
-          <button type="button" class="btn btn-danger swalDefaultError">
-              Launch Error Toast
-          </button>
-          <button type="button" class="btn btn-warning swalDefaultWarning">
-              Launch Warning Toast
-          </button>
-          <button type="button" class="btn btn-default swalDefaultQuestion">
-              Launch Question Toast
-          </button>
-          <div class="text-muted mt-3">
-              For more examples look at <a href="https://sweetalert2.github.io/">https://sweetalert2.github.io/</a>
-          </div>
-          </div>
-          <!-- /.card -->
-      </div>
       </div>
       <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
