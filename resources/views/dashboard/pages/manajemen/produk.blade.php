@@ -315,7 +315,7 @@ active
                 <form method="POST" action="{{ route('produk.destroy') }}">
                   @csrf
                   <div class="form-group">
-                    <label>Nama Bahan Baku</label>
+                    <label>Nama Produk</label>
                     <select name="id" class="form-control select2 dropdownhapus" style="width: 100%;" required>
                       <option selected disabled value="">Pilih Produk</option>
                       @foreach($produks as $produk)
@@ -361,6 +361,7 @@ active
     $(document).on('change','.dropdownproduk',function(){
       preLoad("#radio","text-warning","7x");
       var idProduk = $(this).val();
+      // alert(idProduk);
       $.ajax({
         type      :'get',
         url       :'{{ URL::route('getdataproduk') }}',

@@ -134,4 +134,10 @@ class UserController extends Controller
 
         return redirect()->route('user.index')->with('status', 'Sukses menghapus user');
     }
+
+    public function getDataUser(Request $request)
+    {
+        $dataUser = User::where('id', $request->id)->first();
+        return response()->json($dataUser);
+    }
 }

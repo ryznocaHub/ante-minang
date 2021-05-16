@@ -235,6 +235,7 @@
   <!-- ./wrapper -->
   <script>
     function preLoad(classReq, color , sizeReq) {
+      console.log("preload")
       $(classReq).html(' ');
       $(classReq).addClass('d-flex justify-content-center');
       // $(classReq).css('color', color);
