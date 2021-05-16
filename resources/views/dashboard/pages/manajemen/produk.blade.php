@@ -144,7 +144,8 @@ active
                                   <input class="custom-control-input" type="radio" id="radiokurang1-{{$produk->id}}" name="radioKeterangan" value="select" checked>
                                   <label for="radiokurang1-{{$produk->id}}" class="custom-control-label col-6">
                                     <select name="keteranganSelect" class="form-control select2" style="width: 100%;">
-                                      <option selected="selected">Busuk</option>
+                                      <option selected="selected">Terjual</option>
+                                      <option>Busuk</option>
                                       <option>Tidak Sesuai Stok</option>
                                       <option>Kesalahan Produksi</option>
                                     </select>
