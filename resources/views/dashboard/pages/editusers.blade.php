@@ -110,7 +110,7 @@ active
             </div>
             <div id="collapseTwo" class="collapse" data-parent="#accordion">
               <div class="card-body">
-                <form action="#" method="POST"> 
+                <form action="{{route('users.update')}}" method="POST"> 
                   @csrf
                   <div class="form-group">
                     <label>Username</label>
@@ -195,7 +195,7 @@ active
           $('#radio').append(''+
           '<div class="form-group">' +
             '<label>Nama Lengkap</label>' +
-            '<input type="text" class="form-control produk-ganti" placeholder="'+dataUser.name+'" >' +
+            '<input type="text" name="name" class="form-control produk-ganti" placeholder="'+dataUser.name+'" >' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Password</label>' +
@@ -203,19 +203,20 @@ active
           '</div>' +
           '<div class="form-group">' +
             '<label>Jabatan</label>' +
-            '<select id="jabatan" name="jabatan" class="form-control select2" style="width: 100%;">' +
-              '<option id="pegawai" value="pegawai">Pegawai</option>' +
-              '<option id="resign" value="resign">Resign</option>' +
+            '<select id="jabatan" name="status" class="form-control select2" style="width: 100%;">' +
+              '<option id="pegawai" value="Pegawai">Pegawai</option>' +
+              '<option id="resign" value="Resign">Resign</option>' +
             '</select>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Email</label>' +
-            '<input type="email" class="form-control produk-ganti" placeholder="'+dataUser.email+'" >' +
+            '<input type="email" name="email" class="form-control produk-ganti" placeholder="'+dataUser.email+'" >' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Nomor Handphone</label>' +
-            '<input type="text" class="form-control produk-ganti" placeholder="'+dataUser.no_hp+'" >' +
+            '<input type="text" name="no_hp" class="form-control produk-ganti" placeholder="'+dataUser.no_hp+'" >' +
           '</div>' +
+          '<input type="hidden" value="'+dataUser.foto+'" name="oldfoto">' +
           '<button type="submit" class="btn btn-outline-warning bg-gradient mt-3" id="buttonedit" disabled>Ubah</button>'
           );
 
