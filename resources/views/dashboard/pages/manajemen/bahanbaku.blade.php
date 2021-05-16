@@ -171,7 +171,7 @@ active
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header bg-secondary">
-                            <h4 class="modal-title">Produk dari Bahan Baku {{$bahanbaku->nama_barang}}</h4>
+                            <h4 class="modal-title">Produk dari Bahan Baku {{$bahanbaku->nama}}</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
