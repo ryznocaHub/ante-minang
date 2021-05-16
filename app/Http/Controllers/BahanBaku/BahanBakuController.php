@@ -129,7 +129,7 @@ class BahanBakuController extends Controller
                             'nama'          => $bahanBaku->nama,
                             'user_id'       => auth()->user()->id,
                             'jumlah'        => $request->get('jumlah'),
-                            'satuan'        => $request->get('satuan'),
+                            'satuan'        => $bahanBaku->satuan,
                             'keterangan'    => $keterangan,
                             'kategori'      => 'Keluar'
                         ]

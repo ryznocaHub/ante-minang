@@ -165,6 +165,7 @@
                 </p>
               </a>
             </li>
+            @if(auth()->user()->role == 1)
             <li class="nav-item">
               <a href="{{route('users.create')}}" class="nav-link @yield('mu_aktif')">
                 <i class="nav-icon fas fa-user-edit"></i>
@@ -173,7 +174,7 @@
                 </p>
               </a>
             </li>
-
+            @endif
             <li class="nav-item">
               <form action="{{route('logout')}}" method="POST">
                 @csrf

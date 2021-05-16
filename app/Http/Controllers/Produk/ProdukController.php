@@ -172,7 +172,7 @@ class ProdukController extends Controller
                             'nama'          => $produk->nama,
                             'user_id'       => auth()->user()->id,
                             'jumlah'        => $request->get('jumlah'),
-                            'satuan'        => $request->get('satuan'),
+                            'satuan'        => $produk->satuan,
                             'keterangan'    => $keterangan,
                             'kategori'      => 'Keluar'
                         ]
