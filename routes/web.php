@@ -22,7 +22,8 @@ Auth::routes();
 
 Route::group(['middleware' => 'Admin'], function () {
     Route::get('users/getData',      [UserController::class, 'getDataUser'])->name('getdatauser');
-    Route::resource('users',         UserController::class)->except(['edit']);
+    Route::post('users/update',      [UserController::class, 'update'])->name('users.update');
+    Route::resource('users',         UserController::class)->except(['edit', 'update']);
 });
 
 Route::group(['middleware' => 'Pegawai'], function () {
