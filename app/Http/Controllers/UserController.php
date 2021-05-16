@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $users = User::all();
+        $users = User::where('role', 2)->get();
         return view('dashboard.pages.editusers', compact('users'));
     }
 

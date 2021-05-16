@@ -129,7 +129,7 @@ active
               </div>
             </div>
           </div>
-          <div class="card card-danger">
+          {{-- <div class="card card-danger">
             <div class="card-header">
               <h4 class="card-title w-100">
                 <a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
@@ -150,22 +150,13 @@ active
                       @endforeach
                     </select>
                   </div>
+                  <button type="submit" class="btn btn-outline-danger bg-gradient mt-3" id="buttonhapus" disabled>Hapus</button>
                   <!-- /.card-body -->
-                  <div class="mb-3">
-                    <input id="formFileSm" type="file">
-                  </div>
                 </form>
               </div>
             </div>
-          </div>
+          </div> --}}
         </div>
-      </div>
-      <div class="col-4">
-          <!-- general form elements disabled -->
-          <div class="card bg-info bg-gradient text-center ">
-          <i class="fas fa-users fa-5x mt-5"></i>
-          <h1 class="card-title my-5" style="font-size: 5rem;">9</h1>
-          <h1 class="card-title mb-5" style="font-size: 2rem;">Pegawai Aktif</h1>
       </div>
       </div>
       <!-- /.card -->
@@ -195,26 +186,26 @@ active
           $('#radio').append(''+
           '<div class="form-group">' +
             '<label>Nama Lengkap</label>' +
-            '<input type="text" name="name" class="form-control produk-ganti" placeholder="'+dataUser.name+'" >' +
+            '<input type="text" name="name" class="form-control produk-ganti" value="'+dataUser.name+'" >' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Password</label>' +
-            '<input name="password" type="password" class="form-control autocomplete="off" placeholder="'+dataUser.password+'">' +
+            '<input name="password" type="password" class="form-control autocomplete="off" value="'+dataUser.password+'">' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Jabatan</label>' +
-            '<select id="jabatan" name="status" class="form-control select2" style="width: 100%;">' +
+            '<select id="jabatan" name="status" class="form-control select2 produk-ganti" style="width: 100%;">' +
               '<option id="pegawai" value="Pegawai">Pegawai</option>' +
               '<option id="resign" value="Resign">Resign</option>' +
             '</select>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Email</label>' +
-            '<input type="email" name="email" class="form-control produk-ganti" placeholder="'+dataUser.email+'" >' +
+            '<input type="email" name="email" class="form-control produk-ganti" value="'+dataUser.email+'" >' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Nomor Handphone</label>' +
-            '<input type="text" name="no_hp" class="form-control produk-ganti" placeholder="'+dataUser.no_hp+'" >' +
+            '<input type="text" name="no_hp" class="form-control produk-ganti" value="'+dataUser.no_hp+'" >' +
           '</div>' +
           '<input type="hidden" value="'+dataUser.foto+'" name="oldfoto">' +
           '<button type="submit" class="btn btn-outline-warning bg-gradient mt-3" id="buttonedit" disabled>Ubah</button>'
