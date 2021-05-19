@@ -191,11 +191,6 @@ class ProdukController extends Controller
 
     public function updateProduk(Request $request)
     {
-        $request->validate(
-            [
-                'editNama'          => ['required', Rule::unique('produks', 'nama')->ignore($request->get('id'))],
-            ]
-        );
 
         if ($request['satuanedit'] == 'select') {
             $satuan = $request->get('satuanSelect');
@@ -208,17 +203,24 @@ class ProdukController extends Controller
             $satuan = $request->get('satuanText');
         }
 
-        Resep::where('produk_id', $request->get('id'))->delete();
 
         $bahanBaku = array_unique($request->get('editBahanBaku'));
 
         DB::transaction(function () use ($request, $satuan, $bahanBaku) {
-            $produk = Produk::where('id', $request->get('id'))->update(
+            Resep::where('produk_id', $request->get('id'))->delete();
+            Produk::where('id', $request->get('id'))->update(
                 [
-                    'nama'      => $request->get('editNama'),
                     'satuan'    => $satuan,
                 ]
             );
+
+            if ($request->editNama) {
+                Produk::where('id', $request->get('id'))->update(
+                    [
+                        'nama'    => $request->editNama,
+                    ]
+                );
+            }
 
             $produk = Produk::where('id', $request->get('id'))->first();
 
