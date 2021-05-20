@@ -456,13 +456,13 @@ active
       //penambahan pemilihan bahan baku tambahan
       $('#dynamic_edit').append('' +
         '<div class="form-group d-flex" id="bahanedit1' + i + '">' +
-          '<select name="editBahanBaku'+ i +'" class="form-control select2 col-7 produk-ganti" style="width: 100%;" required>' +
+          '<select name="editBahanBaku['+ i +']" class="form-control select2 col-7 produk-ganti" style="width: 100%;" required>' +
             '<option value=" ">Pilih Bahan Baku Baru</option>'+
             '@foreach ($bahanbakus as $bahanbaku)' +
               '<option id="'+ i +'{{$bahanbaku->id}}" value="{{$bahanbaku->id}}">{{$bahanbaku->nama}} <small>({{$bahanbaku->satuan}})</small></option>'+
             '@endforeach' +
           '</select>' +
-        '<input name="edit['+ i +']" type="number" min="1" class="form-control col-3 ml-2 produk-ganti" placeholder="Jumlah" required>' +
+        '<input name="jumlahEdit['+ i +']" type="number" min="1" class="form-control col-3 ml-2 produk-ganti" placeholder="Jumlah" required>' +
         '<button type="button" id="edit1' + i + '" class="btn btn-tool hps-bahan"><i class="fas fa-times text-danger"> Hapus Bahan</i></button>' +
         '</div>'
       );

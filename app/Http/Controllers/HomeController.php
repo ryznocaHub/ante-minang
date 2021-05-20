@@ -27,8 +27,7 @@ class HomeController extends Controller
             ->sum('jumlah');
         }else{
             $produk = HistoryProduk::where('keterangan', 'Terjual')
-            ->get()
-            ->random(1)
+            ->inRandomOrder()
             ->first();
             $terjual = HistoryProduk::where('nama',$produk->nama)
             ->where('keterangan', 'Terjual')
