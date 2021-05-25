@@ -22,8 +22,8 @@ class UserSeeder extends Seeder
                 'email'     => 'admin@admin',
                 'jabatan'   => 'Superadmin',
                 'no_hp'     => '08221616161',
-                'foto'      => 'a',
-                'password'  => bcrypt('1')
+                'foto'      => asset('img/ante.png'),
+                'password'  => bcrypt('anteminangadmin')
             ]
         );
     }
