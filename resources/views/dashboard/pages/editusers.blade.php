@@ -129,7 +129,7 @@ active
               </div>
             </div>
           </div>
-          {{-- <div class="card card-danger">
+          <div class="card card-danger">
             <div class="card-header">
               <h4 class="card-title w-100">
                 <a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
@@ -150,12 +150,13 @@ active
                       @endforeach
                     </select>
                   </div>
-                  <button type="submit" class="btn btn-outline-danger bg-gradient mt-3" id="buttonhapus" disabled>Hapus</button>
+                  <div id="loadHapus"></div>
+                  {{-- <button type="submit" class="btn btn-outline-danger bg-gradient mt-3" id="buttonhapus" disabled>Hapus</button> --}}
                   <!-- /.card-body -->
                 </form>
               </div>
             </div>
-          </div> --}}
+          </div>
         </div>
       </div>
       </div>
@@ -186,36 +187,36 @@ active
           $('#radio').append(''+
           '<div class="form-group">' +
             '<label>Nama Lengkap</label>' +
-            '<input type="text" name="name" class="form-control produk-ganti" value="'+dataUser.name+'" require>' +
+            '<input type="text" name="nameedit" class="form-control produk-ganti" value="'+dataUser.name+'" required>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Password</label>' +
-            '<input name="password" type="password" class="form-control autocomplete="off" value="'+dataUser.password+'" require>' +
+            '<input name="passwordedit" type="password" class="form-control autocomplete="off" value="'+dataUser.password+'" required>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Jabatan</label>' +
-            '<select id="jabatan" name="status" class="form-control select2 produk-ganti" style="width: 100%;" require>' +
+            '<select id="jabatan" name="statusedit" class="form-control select2 produk-ganti" style="width: 100%;" required>' +
               '<option id="pegawai" value="Pegawai">Pegawai</option>' +
               '<option id="resign" value="Resign">Resign</option>' +
             '</select>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Email</label>' +
-            '<input type="email" name="email" class="form-control produk-ganti" value="'+dataUser.email+'" require>' +
+            '<input type="email" name="emailedit" class="form-control produk-ganti" value="'+dataUser.email+'" required>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Nomor Handphone</label>' +
-            '<input type="text" name="no_hp" class="form-control produk-ganti" value="'+dataUser.no_hp+'" require>' +
+            '<input type="text" name="no_hpedit" class="form-control produk-ganti" value="'+dataUser.no_hp+'" required>' +
           '</div>' +
           '<input type="hidden" value="'+dataUser.foto+'" name="oldfoto">' +
           '<button type="submit" class="btn btn-outline-warning bg-gradient mt-3" id="buttonedit" disabled>Ubah</button>'
           );
 
-          if(dataUser.jabatan == "pegawai"){
-        $('#pegawai').attr("selected",true)
-      }else{
-        $('#pegawai').attr("selected",true)
-      }
+          if(dataUser.jabatan === "Pegawai"){
+            $('#pegawai').attr("selected",true)
+          }else{
+            $('#resign').attr("selected",true)
+          }
         },
         error:function(){
           console.log("error");
@@ -228,6 +229,31 @@ active
     $(document).on('change','.produk-ganti', function () {
       $('#buttonedit').attr("disabled",false)
     });
+
+    $(document).on('change','.dropdownhapus',function(){
+      preLoad("#loadHapus","text-danger","5x");
+      var idpro = $(this).val();
+      $.ajax({
+        type      :'get',
+        url       :'{{ URL::route('getdatauser') }}',
+        data      :{'id':idpro},
+        dataType  :'JSON',
+        success:function(dataUser){
+          afterLoad("#loadHapus");
+          
+          if (dataUser.jabatan === "Pegawai") {
+            $('#loadHapus').addClass('d-flex justify-content-center');
+            $('#loadHapus').html('<span class="text-danger">Tidak dapat menghapus data user yang masih aktif (pegawai)</span>');
+          }else{
+            $('#loadHapus').html('<button type="submit" class="btn btn-danger bg-gradient">Hapus</button>');
+          }
+          console.log("masuk ajax");
+        },
+        error:function(){
+          console.log("error ajax");
+        }
+      });
+    })
   });
 </script>
 <script>

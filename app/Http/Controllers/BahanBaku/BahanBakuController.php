@@ -11,6 +11,7 @@ use App\Models\Resep;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BahanBakuController extends Controller
 {
@@ -66,7 +67,7 @@ class BahanBakuController extends Controller
             ]
         );
 
-        return redirect()->route('bahanbaku.index')->with('status', 'Sukses menambah bahan baku');
+        return redirect()->route('bahanbaku.index')->with('toast_success', 'Sukses menambah data bahan baku '. $request->get('nama'));
     }
 
     public function update(Request $request, $id)
@@ -82,9 +83,10 @@ class BahanBakuController extends Controller
             );
             $keterangan = $request->get('keteranganText');
         }
-
+        $pesan = $request->input('update');
         switch ($request->input('update')) {
             case 'tambah':
+                $pesan = "menambah";
                 $request->validate(
                     [
                         'jumlah' => ['numeric', 'min:1', 'required']
@@ -114,6 +116,7 @@ class BahanBakuController extends Controller
                 });
                 break;
             case 'kurang':
+                $pesan = "mengurangi";
                 $request->validate(
                     [
                         'jumlah' => ['numeric', 'min:1', 'required']
@@ -143,7 +146,8 @@ class BahanBakuController extends Controller
                 });
                 break;
         }
-        return redirect()->route('bahanbaku.index')->with('status', 'Sukses merubah data');
+        $bahanBaku = BahanBaku::where('id', $id)->first();
+        return redirect()->route('bahanbaku.index')->with('toast_success', 'Sukses '.$pesan.' '.$request->get('jumlah').' stok '.$bahanBaku->nama);
     }
 
     public function updateBahanBaku(Request $request)
@@ -178,7 +182,7 @@ class BahanBakuController extends Controller
             ->first();
 
         if ($cekUpdate) {
-            return redirect()->route('bahanbaku.index');
+            return redirect()->route('bahanbaku.index')->with('toast_error', 'Gagal merubah data bahan baku');
         }
 
         DB::transaction(function () use ($request, $satuan, $nama, $bahanBaku) {
@@ -201,7 +205,7 @@ class BahanBakuController extends Controller
             );
         });
 
-        return redirect()->route('bahanbaku.index')->with('status', 'Sukses merubah bahan baku');
+        return redirect()->route('bahanbaku.index')->with('toast_success', 'Sukses merubah data bahan baku');
     }
 
     public function destroy(Request $request)
@@ -222,7 +226,7 @@ class BahanBakuController extends Controller
 
             BahanBaku::where('id', $request->get('id'))->delete();
 
-            return redirect()->route('bahanbaku.index')->with('status', 'Sukses menghapus bahan baku');
+            return redirect()->route('bahanbaku.index')->with('toast_success', 'Sukses menghapus data bahan baku '. $bahanBaku->nama);
         }
     }
 

@@ -52,10 +52,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex @yield('profil_aktif')">
           <div class="image">
-            <img src="{{ asset('img/ante.png') }}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{auth()->user()->foto}}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="{{ route('users.show', 1)}}" class="d-block">Fikri Halim Ch</a>
+            <a href="{{ route('users.show', 1)}}" class="d-block">{{auth()->user()->name}}</a>
           </div>
         </div>
 
@@ -119,12 +119,14 @@
                     <p>Bahan Baku Keluar</p>
                   </a>
                 </li>
+                @if(auth()->user()->role == 1)
                 <li class="nav-item ">
                   <a href="{{route('history.bahanbaku.data')}}" class="nav-link @yield('dbb_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Bahan Baku</p>
                   </a>
                 </li>
+                @endif
               </ul>
             </li>
             <li class="nav-item @yield('produk_open')">
@@ -148,14 +150,17 @@
                     <p>Produk Keluar</p>
                   </a>
                 </li>
+                @if(auth()->user()->role == 1)
                 <li class="nav-item ">
                   <a href="{{route('history.produk.data')}}" class="nav-link @yield('dp_aktif')">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Produk</p>
                   </a>
                 </li>
+                @endif
               </ul>
             </li>
+            @if(auth()->user()->role == 1)
             <li class="nav-header">Users</li>
             <li class="nav-item">
               <a href="{{route('users.index')}}" class="nav-link @yield('is_aktif')">
@@ -165,7 +170,6 @@
                 </p>
               </a>
             </li>
-            @if(auth()->user()->role == 1)
             <li class="nav-item">
               <a href="{{route('users.create')}}" class="nav-link @yield('mu_aktif')">
                 <i class="nav-icon fas fa-user-edit"></i>
@@ -278,6 +282,7 @@
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="{{ asset('js/Master/dashboard.js') }}"></script>
   @yield('js_bawah')
+  @include('sweetalert::alert') 
 </body>
 
 </html>

@@ -69,25 +69,25 @@ class UserController extends Controller
             ]
         );
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('toast_success', 'Sukses menambah user '. $request->get('username'));
     }
 
     public function update(Request $request)
     {
         $request->validate(
             [
-                'password'  => ['required'],
-                'name'      => ['required'],
-                'no_hp'     => ['digits_between:10,13'],
-                'email'     => ['required', 'email', 'unique:users,email,' . $request->id],
-                'status'    => ['required', 'in:Pegawai,Resign']
+                'passwordedit'  => ['required'],
+                'nameedit'      => ['required'],
+                'no_hpedit'     => ['digits_between:10,13'],
+                'emailedit'     => ['required', 'email', 'unique:users,email,' . $request->id],
+                'statusedit'    => ['required', 'in:Pegawai,Resign']
             ],
             [
                 'password.required' => 'Mohon masukkan field password',
                 'name.required'     => 'Mohon masukkan field nama lengkap',
                 'no_hp.digits_between' => 'Mohon masukkan nomor hp 10 - 13 angka',
                 'no_hp.required'    => 'Mohon masukkan field nomor hp',
-                'email.requierd'    => 'Mohon masukkan field email',
+                'email.required'    => 'Mohon masukkan field email',
                 'email.email'       => 'Masukkan format email dengan benar',
                 'email.unique'      => 'Email telah digunakan',
             ]
@@ -95,23 +95,23 @@ class UserController extends Controller
 
         User::where('id', $request->id)->update(
             [
-                'password'  => bcrypt($request->get('password')),
-                'name'      => $request->get('name'),
-                'no_hp'     => $request->get('no_hp'),
-                'jabatan'   => $request->get('status'),
-                'email'     => $request->get('email'),
+                'password'  => bcrypt($request->get('passwordedit')),
+                'name'      => $request->get('nameedit'),
+                'no_hp'     => $request->get('no_hpedit'),
+                'jabatan'   => $request->get('statusedit'),
+                'email'     => $request->get('emailedit'),
                 'foto'      => $request->oldfoto
             ]
         );
 
-        return redirect()->route('users.index')->with('status', 'Sukses mengubah user');
+        return redirect()->route('users.index')->with('toast_success', 'Sukses merubah user '. $request->get('nameedit'));
     }
 
     public function destroy(Request $request, $id)
     {
         User::where('id', $request->id)->delete();
 
-        return redirect()->route('users.index')->with('status', 'Sukses menghapus user');
+        return redirect()->route('users.index')->with('toast_success', 'Sukses menghapus user');
     }
 
     public function getDataUser(Request $request)

@@ -13,6 +13,7 @@ use App\Rules\ProdukValidationRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukController extends Controller
 {
@@ -83,7 +84,7 @@ class ProdukController extends Controller
             );
         });
 
-        return redirect()->route('produk.index')->with('status', 'Produk berhasil ditambah');
+        return redirect()->route('produk.index')->with('toast_success', 'Sukses menambah data produk '.$request->get('nama'));
     }
 
     public function update(Request $request, $id)
@@ -98,9 +99,10 @@ class ProdukController extends Controller
             );
             $keterangan = $request->get('keteranganText');
         }
-
+        $pesan = $request->input('update');
         switch ($request->input('update')) {
             case 'tambah':
+                $pesan = "menambah";
                 $request->validate(
                     [
                         'jumlah' => ['numeric', 'min:1', 'required', new ProdukValidationRule($id, $request->get('jumlah'))],
@@ -157,6 +159,7 @@ class ProdukController extends Controller
                 });
                 break;
             case 'kurang':
+                $pesan = "mengurangi";
                 $request->validate(
                     [
                         'jumlah' => ['numeric', 'min:1', 'required']
@@ -186,7 +189,8 @@ class ProdukController extends Controller
                 });
                 break;
         }
-        return redirect()->route('produk.index')->with('status', 'Sukses merubah data');
+        $produk = Produk::where('id', $id)->first();
+        return redirect()->route('produk.index')->with('toast_success', 'Sukses '.$pesan.' '.$request->get('jumlah').' stok '.$produk->nama);
     }
 
     public function updateProduk(Request $request)
@@ -244,7 +248,7 @@ class ProdukController extends Controller
             );
         });
 
-        return redirect()->route('produk.index')->with('status', 'Produk berhasil diubah');
+        return redirect()->route('produk.index')->with('toast_success', 'Sukses merubah data produk');
     }
 
     public function destroy(Request $request)
@@ -265,7 +269,7 @@ class ProdukController extends Controller
 
             Produk::where('id', $request->get('id'))->delete();
 
-            return redirect()->route('produk.index')->with('status', 'Produk berhasil dihapus');
+            return redirect()->route('produk.index')->with('toast_success', 'Sukses menghapus data produk '. $produk->nama);
         }
     }
 
