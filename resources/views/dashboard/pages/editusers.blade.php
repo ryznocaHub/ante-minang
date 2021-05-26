@@ -187,26 +187,26 @@ active
           $('#radio').append(''+
           '<div class="form-group">' +
             '<label>Nama Lengkap</label>' +
-            '<input type="text" name="nameedit" class="form-control produk-ganti" value="'+dataUser.name+'" required>' +
+            '<input type="text" name="nameedit" class="form-control user-ganti" value="'+dataUser.name+'" required>' +
           '</div>' +
           '<div class="form-group">' +
-            '<label>Password</label>' +
-            '<input name="passwordedit" type="password" class="form-control autocomplete="off" value="'+dataUser.password+'" required>' +
+            '<label>Password (opsional)</label>' +
+            '<input name="passwordedit" type="password" class="form-control user-ganti" autocomplete="off" value="">' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Jabatan</label>' +
-            '<select id="jabatan" name="statusedit" class="form-control select2 produk-ganti" style="width: 100%;" required>' +
+            '<select id="jabatan" name="statusedit" class="form-control select2 user-ganti" style="width: 100%;" required>' +
               '<option id="pegawai" value="Pegawai">Pegawai</option>' +
               '<option id="resign" value="Resign">Resign</option>' +
             '</select>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Email</label>' +
-            '<input type="email" name="emailedit" class="form-control produk-ganti" value="'+dataUser.email+'" required>' +
+            '<input type="email" name="emailedit" class="form-control user-ganti" value="'+dataUser.email+'" required>' +
           '</div>' +
           '<div class="form-group">' +
             '<label>Nomor Handphone</label>' +
-            '<input type="text" name="no_hpedit" class="form-control produk-ganti" value="'+dataUser.no_hp+'" required>' +
+            '<input type="text" name="no_hpedit" class="form-control user-ganti" value="'+dataUser.no_hp+'" required>' +
           '</div>' +
           '<input type="hidden" value="'+dataUser.foto+'" name="oldfoto">' +
           '<button type="submit" class="btn btn-outline-warning bg-gradient mt-3" id="buttonedit" disabled>Ubah</button>'
@@ -226,7 +226,7 @@ active
     });
 
     // Pengaturan tombol edit agar tidak dapat dipencet jika belum mengganti isi form
-    $(document).on('change','.produk-ganti', function () {
+    $(document).on('change','.user-ganti', function () {
       $('#buttonedit').attr("disabled",false)
     });
 

@@ -4,10 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    public function login(Request $request)
+    {
+        $cek = User::where('email', $request->email)->first();
+
+        if (!$cek) {
+            return redirect()->back()->with('login', 'Akun tidak terdaftar');
+        }
+
+        $cek = User::where('email', $cek->email)->whereIn('jabatan', ['Pegawai', 'Superadmin'])->get();
+
+        if ($cek->isEmpty()) {
+            return redirect()->back()->with('login', 'Akun sudah  tidak aktif');
+        }
+
+        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->back()->withErrors(['login' => 'Akun tidak terdaftar']);
+        }
+
+        $user = User::where('email', $request->email)->first();
+        Auth::login($user);
+
+        return redirect()->route('home');
+    }
+
     public function index()
     {
         $users = User::where('role', 2)->get();
@@ -69,21 +94,20 @@ class UserController extends Controller
             ]
         );
 
-        return redirect()->route('users.index')->with('toast_success', 'Sukses menambah user '. $request->get('username'));
+        return redirect()->route('users.index')->with('toast_success', 'Sukses menambah user ' . $request->get('username'));
     }
 
     public function update(Request $request)
     {
         $request->validate(
             [
-                'passwordedit'  => ['required'],
+                'passwordedit'  => ['nullable'],
                 'nameedit'      => ['required'],
                 'no_hpedit'     => ['digits_between:10,13'],
                 'emailedit'     => ['required', 'email', 'unique:users,email,' . $request->id],
                 'statusedit'    => ['required', 'in:Pegawai,Resign']
             ],
             [
-                'password.required' => 'Mohon masukkan field password',
                 'name.required'     => 'Mohon masukkan field nama lengkap',
                 'no_hp.digits_between' => 'Mohon masukkan nomor hp 10 - 13 angka',
                 'no_hp.required'    => 'Mohon masukkan field nomor hp',
@@ -95,7 +119,6 @@ class UserController extends Controller
 
         User::where('id', $request->id)->update(
             [
-                'password'  => bcrypt($request->get('passwordedit')),
                 'name'      => $request->get('nameedit'),
                 'no_hp'     => $request->get('no_hpedit'),
                 'jabatan'   => $request->get('statusedit'),
@@ -104,7 +127,15 @@ class UserController extends Controller
             ]
         );
 
-        return redirect()->route('users.index')->with('toast_success', 'Sukses merubah user '. $request->get('nameedit'));
+        if ($request->has('passwordedit')) {
+            User::where('id', $request->id)->update(
+                [
+                    'password'  => bcrypt($request->passwordedit)
+                ]
+            );
+        }
+
+        return redirect()->route('users.index')->with('toast_success', 'Sukses merubah user ' . $request->get('nameedit'));
     }
 
     public function destroy(Request $request)

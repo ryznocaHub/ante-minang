@@ -8,8 +8,14 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login.user') }}">
                         @csrf
+
+                        @if(session()->has('login'))
+                        <div class="alert alert-danger col-md-6 mx-auto text-center">
+                            {{ session()->get('login') }} 
+                        </div>
+                        @endif
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
