@@ -139,7 +139,7 @@ active
             </div>
             <div id="collapseThree" class="collapse" data-parent="#accordion">
               <div class="card-body">
-                <form method="POST" action="{{ route('produk.destroy') }}">
+                <form method="POST" action="{{ route('users.destroy') }}">
                   @csrf
                   <div class="form-group">
                     <label>Username</label>
