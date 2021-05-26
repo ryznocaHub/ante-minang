@@ -23,7 +23,7 @@ Auth::routes();
 Route::group(['middleware' => 'Admin'], function () {
     Route::get('users/getData',      [UserController::class, 'getDataUser'])->name('getdatauser');
     Route::post('users/update',      [UserController::class, 'update'])->name('users.update');
-	Route::post('users/destroy',     [UserController::class, 'update'])->name('users.destroy');
+	Route::post('users/destroy',     [UserController::class, 'destroy'])->name('users.destroy');
     Route::resource('users',         UserController::class)->except(['edit', 'update', 'destroy']);
 });
 
