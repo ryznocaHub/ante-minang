@@ -1,6 +1,9 @@
 ## About
+
 Sistem Informasi inventory berbasis web untuk Ante-Minang
+
 ## Cara Instalasi
+
 -   [install Composer dari https://getcomposer.org/ ]
 -   [git clone https://github.com/ryznocaHub/ante-minang.git]
 -   [git bash "cd ante-minang"]
@@ -16,8 +19,6 @@ Sistem Informasi inventory berbasis web untuk Ante-Minang
 -   [Buka browser dengan URL http://127.0.0.1:8000]
 
 ## UPDATE
-
-
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
