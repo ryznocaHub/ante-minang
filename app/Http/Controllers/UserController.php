@@ -107,9 +107,9 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('toast_success', 'Sukses merubah user '. $request->get('nameedit'));
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request)
     {
-        User::where('id', $request->id)->delete();
+        User::where('id', $request->get('id'))->delete();
 
         return redirect()->route('users.index')->with('toast_success', 'Sukses menghapus user');
     }
