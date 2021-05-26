@@ -238,7 +238,7 @@ active
                   @csrf
                   <div class="form-group">
                     <label for="namabarang">Nama</label>
-                    <input name="nama" type="text" class="form-control" id="namabarang" placeholder="Input Nama Barang">
+                    <input name="nama" type="text" class="form-control" id="namabarang" placeholder="Input Nama Barang" required>
                   </div>
                   <label>Satuan</label>
                   <div class="custom-control custom-radio">
