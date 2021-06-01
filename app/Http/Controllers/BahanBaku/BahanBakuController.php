@@ -11,6 +11,7 @@ use App\Models\Resep;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class BahanBakuController extends Controller
@@ -25,20 +26,28 @@ class BahanBakuController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(
+        $validator = Validator::make($request->all(), 
             [
                 'nama'      => ['required', Rule::unique('bahan_bakus', 'nama')]
             ]
         );
 
+        if ($validator->fails()) {
+            return back()->with('toast_error', '<center> Nama bahan baku sudah digunakan <br> gagal menambah data bahan baku</center>');
+        }
+
         if ($request['satuantambah'] == 'select') {
             $satuan = $request->get('satuanSelect');
         } else if ($request['satuantambah'] == 'text') {
-            $request->validate(
+            $validator = Validator::make($request->all(), 
                 [
                     'satuanText'    => ['required']
                 ]
             );
+
+            if ($validator->fails()) {
+                return back()->with('toast_error', '<center> Jenis satuan harus diisi <br> gagal menambah data bahan baku</center>');
+            }
             $satuan = $request->get('satuanText');
         }
 
@@ -76,11 +85,15 @@ class BahanBakuController extends Controller
         if ($request['radioKeterangan'] == 'select') {
             $keterangan = $request->get('keteranganSelect');
         } else if ($request['radioKeterangan'] == 'text') {
-            $request->validate(
+            $validator = Validator::make($request->all(), 
                 [
                     'keteranganText'    => ['required']
                 ]
             );
+
+            if ($validator->fails()) {
+                return back()->with('toast_error', '<center> Jenis keterangan harus diisi <br> gagal merubah stok</center>');
+            }
             $keterangan = $request->get('keteranganText');
         }
         $pesan = $request->input('update');
@@ -155,11 +168,15 @@ class BahanBakuController extends Controller
         if ($request['ubah'] == 'select') {
             $satuan = $request->get('satuanSelect');
         } else if ($request['ubah'] == 'text') {
-            $request->validate(
+            $validator = Validator::make($request->all(), 
                 [
                     'satuanText'    => ['required']
                 ]
             );
+
+            if ($validator->fails()) {
+                return back()->with('toast_error', '<center> Jenis satuan harus diisi <br> gagal mengubah data bahan baku</center>');
+            }
             $satuan = $request->get('satuanText');
         }
 
@@ -182,7 +199,7 @@ class BahanBakuController extends Controller
             ->first();
 
         if ($cekUpdate) {
-            return redirect()->route('bahanbaku.index')->with('toast_error', 'Gagal merubah data bahan baku');
+            return redirect()->route('bahanbaku.index')->with('toast_error', 'Tidak ada data bahan baku yang berubah');
         }
 
         DB::transaction(function () use ($request, $satuan, $nama, $bahanBaku) {

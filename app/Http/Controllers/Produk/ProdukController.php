@@ -13,6 +13,7 @@ use App\Rules\ProdukValidationRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukController extends Controller
@@ -28,11 +29,15 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(
+        $validator = Validator::make($request->all(), 
             [
                 'nama'          => ['required', Rule::unique('produks', 'nama')],
             ]
         );
+
+        if ($validator->fails()) {
+            return back()->with('toast_error', '<center> Nama produk sudah digunakan <br> gagal menambah data produk </center>');
+        }
 
         if ($request['satuantambah'] == 'select') {
             $satuan = $request->get('satuanSelect');
@@ -92,22 +97,31 @@ class ProdukController extends Controller
         if ($request['radioKeterangan'] == 'select') {
             $keterangan = $request->get('keteranganSelect');
         } else if ($request['radioKeterangan'] == 'text') {
-            $request->validate(
+            $validator = Validator::make($request->all(), 
                 [
                     'keteranganText'    => ['required']
                 ]
             );
+
+            if ($validator->fails()) {
+                return back()->with('toast_error', '<center> Jenis keterangan harus diisi <br> gagal merubah stok</center>');
+            }
             $keterangan = $request->get('keteranganText');
         }
         $pesan = $request->input('update');
         switch ($request->input('update')) {
             case 'tambah':
                 $pesan = "menambah";
-                $request->validate(
+
+                $validator = Validator::make($request->all(), 
                     [
                         'jumlah' => ['numeric', 'min:1', 'required', new ProdukValidationRule($id, $request->get('jumlah'))],
                     ]
                 );
+
+                if ($validator->fails()) {
+                    return back()->with('toast_error', '<center> Stok bahan baku tidak mencukupi<br> gagal menambah stok</center>');
+                }
 
                 DB::transaction(function () use ($request, $keterangan, $id) {
                     $produk = Produk::where('id', $id)->first();
@@ -199,16 +213,24 @@ class ProdukController extends Controller
         if ($request['satuanedit'] == 'select') {
             $satuan = $request->get('satuanSelect');
         } else if ($request['satuanedit'] == 'text') {
-            $request->validate(
+            $validator = Validator::make($request->all(), 
                 [
                     'satuanText'    => ['required']
                 ]
             );
+
+            if ($validator->fails()) {
+                return back()->with('toast_error', '<center> Jenis satuan harus diisi <br> gagal mengubah data produk</center>');
+            }
             $satuan = $request->get('satuanText');
         }
 
-
-        $bahanBaku = array_unique($request->get('editBahanBaku'));
+        $cek_bahanbaku = $request->get('editBahanBaku');
+        if($cek_bahanbaku){
+            $bahanBaku = array_unique($request->get('editBahanBaku'));
+        }else{
+            return back()->with('toast_error', '<center> Minimal terdapat 1 bahan baku <br> gagal mengubah data produk</center>');
+        }
 
         DB::transaction(function () use ($request, $satuan, $bahanBaku) {
             Resep::where('produk_id', $request->get('id'))->delete();

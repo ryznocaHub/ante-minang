@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -99,7 +100,7 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate(
+        $validator = Validator::make($request->all(), 
             [
                 'passwordedit'  => ['nullable'],
                 'nameedit'      => ['required'],
@@ -116,6 +117,10 @@ class UserController extends Controller
                 'email.unique'      => 'Email telah digunakan',
             ]
         );
+
+        if ($validator->fails()) {
+        return back()->with('toast_error', '<center> Terdapat data yang tidak sesuai, gagal merubah data user</center>');
+        }
 
         User::where('id', $request->id)->update(
             [

@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $produk = Produk::where('nama', ' Sanjai')->first();
+        $produk = Produk::where('nama', ' Keripik Sanjai')->first();
         $month = Carbon::now()->addMonth(1)->format('m');
         $year = Carbon::now()->format('Y');
         if($produk){
@@ -30,6 +30,7 @@ class HomeController extends Controller
             ->inRandomOrder()
             ->first();
             $terjual = HistoryProduk::where('nama',$produk->nama)
+            ->where('tanggal','like', $year.' - '.$month.'%')
             ->where('keterangan', 'Terjual')
             ->sum('jumlah');
         }
