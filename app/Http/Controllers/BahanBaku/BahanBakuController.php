@@ -8,6 +8,7 @@ use App\Models\History;
 use App\Models\HistoryBahanBaku;
 use App\Models\HistoryManagementBahanBaku;
 use App\Models\Resep;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -26,7 +27,8 @@ class BahanBakuController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), 
+        $validator = Validator::make(
+            $request->all(),
             [
                 'nama'      => ['required', Rule::unique('bahan_bakus', 'nama')]
             ]
@@ -39,7 +41,8 @@ class BahanBakuController extends Controller
         if ($request['satuantambah'] == 'select') {
             $satuan = $request->get('satuanSelect');
         } else if ($request['satuantambah'] == 'text') {
-            $validator = Validator::make($request->all(), 
+            $validator = Validator::make(
+                $request->all(),
                 [
                     'satuanText'    => ['required']
                 ]
@@ -72,11 +75,12 @@ class BahanBakuController extends Controller
                 'kode'          => $bahanBaku->kode,
                 'nama'          => $bahanBaku->nama,
                 'user_id'       => auth()->user()->id,
-                'aksi'          => 'Tambah'
+                'aksi'          => 'Tambah',
+                'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
             ]
         );
 
-        return redirect()->route('bahanbaku.index')->with('toast_success', 'Sukses menambah data bahan baku '. $request->get('nama'));
+        return redirect()->route('bahanbaku.index')->with('toast_success', 'Sukses menambah data bahan baku ' . $request->get('nama'));
     }
 
     public function update(Request $request, $id)
@@ -85,7 +89,8 @@ class BahanBakuController extends Controller
         if ($request['radioKeterangan'] == 'select') {
             $keterangan = $request->get('keteranganSelect');
         } else if ($request['radioKeterangan'] == 'text') {
-            $validator = Validator::make($request->all(), 
+            $validator = Validator::make(
+                $request->all(),
                 [
                     'keteranganText'    => ['required']
                 ]
@@ -117,7 +122,8 @@ class BahanBakuController extends Controller
                             'jumlah'        => $request->get('jumlah'),
                             'satuan'        => $request->get('satuan'),
                             'keterangan'    => $keterangan,
-                            'kategori'      => 'Masuk'
+                            'kategori'      => 'Masuk',
+                            'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
                         ]
                     );
 
@@ -147,7 +153,8 @@ class BahanBakuController extends Controller
                             'jumlah'        => $request->get('jumlah'),
                             'satuan'        => $bahanBaku->satuan,
                             'keterangan'    => $keterangan,
-                            'kategori'      => 'Keluar'
+                            'kategori'      => 'Keluar',
+                            'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
                         ]
                     );
 
@@ -160,7 +167,7 @@ class BahanBakuController extends Controller
                 break;
         }
         $bahanBaku = BahanBaku::where('id', $id)->first();
-        return redirect()->route('bahanbaku.index')->with('toast_success', 'Sukses '.$pesan.' '.$request->get('jumlah').' stok '.$bahanBaku->nama);
+        return redirect()->route('bahanbaku.index')->with('toast_success', 'Sukses ' . $pesan . ' ' . $request->get('jumlah') . ' stok ' . $bahanBaku->nama);
     }
 
     public function updateBahanBaku(Request $request)
@@ -168,7 +175,8 @@ class BahanBakuController extends Controller
         if ($request['ubah'] == 'select') {
             $satuan = $request->get('satuanSelect');
         } else if ($request['ubah'] == 'text') {
-            $validator = Validator::make($request->all(), 
+            $validator = Validator::make(
+                $request->all(),
                 [
                     'satuanText'    => ['required']
                 ]
@@ -217,7 +225,8 @@ class BahanBakuController extends Controller
                     'kode'          => $bahanBaku->kode,
                     'nama'          => $bahanBaku->nama,
                     'user_id'       => auth()->user()->id,
-                    'aksi'          => 'Ubah'
+                    'aksi'          => 'Ubah',
+                    'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
                 ]
             );
         });
@@ -237,13 +246,14 @@ class BahanBakuController extends Controller
                     'kode'          => $bahanBaku->kode,
                     'nama'          => $bahanBaku->nama,
                     'user_id'       => auth()->user()->id,
-                    'aksi'          => 'Hapus'
+                    'aksi'          => 'Hapus',
+                    'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
                 ]
             );
 
             BahanBaku::where('id', $request->get('id'))->delete();
 
-            return redirect()->route('bahanbaku.index')->with('toast_success', 'Sukses menghapus data bahan baku '. $bahanBaku->nama);
+            return redirect()->route('bahanbaku.index')->with('toast_success', 'Sukses menghapus data bahan baku ' . $bahanBaku->nama);
         }
     }
 

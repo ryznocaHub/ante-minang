@@ -18,7 +18,8 @@ class HistoryProduk extends Model
         'jumlah',
         'satuan',
         'keterangan',
-        'kategori'
+        'kategori',
+        'tanggal'
     ];
 
     public function user()

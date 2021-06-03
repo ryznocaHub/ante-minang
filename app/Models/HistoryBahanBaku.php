@@ -18,7 +18,8 @@ class HistoryBahanBaku extends Model
         'jumlah',
         'satuan',
         'keterangan',
-        'kategori'
+        'kategori',
+        'tanggal'
     ];
 
     public function bahanbaku()
