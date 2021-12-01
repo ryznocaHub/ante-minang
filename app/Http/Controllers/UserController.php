@@ -119,7 +119,7 @@ class UserController extends Controller
         );
 
         if ($validator->fails()) {
-        return back()->with('toast_error', '<center> Terdapat data yang tidak sesuai, gagal merubah data user</center>');
+        return back()->with('toast_error', $validator->errors());
         }
 
         User::where('id', $request->id)->update(
