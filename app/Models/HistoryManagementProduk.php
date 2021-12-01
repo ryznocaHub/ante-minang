@@ -15,7 +15,8 @@ class HistoryManagementProduk extends Model
         'nama',
         'kode',
         'user_id',
-        'aksi'
+        'aksi',
+        'tanggal'
     ];
 
     public function user()

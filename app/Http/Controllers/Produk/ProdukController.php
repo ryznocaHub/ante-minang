@@ -10,6 +10,7 @@ use App\Models\HistoryProduk;
 use App\Models\Produk;
 use App\Models\Resep;
 use App\Rules\ProdukValidationRule;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -29,7 +30,8 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), 
+        $validator = Validator::make(
+            $request->all(),
             [
                 'nama'          => ['required', Rule::unique('produks', 'nama')],
             ]
@@ -84,12 +86,13 @@ class ProdukController extends Controller
                     'kode'      => $produk->kode,
                     'nama'      => $produk->nama,
                     'user_id'   => auth()->user()->id,
-                    'aksi'      => 'Tambah'
+                    'aksi'      => 'Tambah',
+                    'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
                 ]
             );
         });
 
-        return redirect()->route('produk.index')->with('toast_success', 'Sukses menambah data produk '.$request->get('nama'));
+        return redirect()->route('produk.index')->with('toast_success', 'Sukses menambah data produk ' . $request->get('nama'));
     }
 
     public function update(Request $request, $id)
@@ -97,7 +100,8 @@ class ProdukController extends Controller
         if ($request['radioKeterangan'] == 'select') {
             $keterangan = $request->get('keteranganSelect');
         } else if ($request['radioKeterangan'] == 'text') {
-            $validator = Validator::make($request->all(), 
+            $validator = Validator::make(
+                $request->all(),
                 [
                     'keteranganText'    => ['required']
                 ]
@@ -113,7 +117,8 @@ class ProdukController extends Controller
             case 'tambah':
                 $pesan = "menambah";
 
-                $validator = Validator::make($request->all(), 
+                $validator = Validator::make(
+                    $request->all(),
                     [
                         'jumlah' => ['numeric', 'min:1', 'required', new ProdukValidationRule($id, $request->get('jumlah'))],
                     ]
@@ -154,7 +159,8 @@ class ProdukController extends Controller
                                 'jumlah'        => $resep->jumlah * $request->get('jumlah'),
                                 'satuan'        => $request->get('satuan'),
                                 'keterangan'    => 'Bahan produksi ' . $produk->nama,
-                                'kategori'      => 'Keluar'
+                                'kategori'      => 'Keluar',
+                                'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
                             ]
                         );
                     }
@@ -167,7 +173,8 @@ class ProdukController extends Controller
                             'jumlah'        => $request->get('jumlah'),
                             'satuan'        => $request->get('satuan'),
                             'keterangan'    => $keterangan,
-                            'kategori'      => 'Masuk'
+                            'kategori'      => 'Masuk',
+                            'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
                         ]
                     );
                 });
@@ -191,7 +198,8 @@ class ProdukController extends Controller
                             'jumlah'        => $request->get('jumlah'),
                             'satuan'        => $produk->satuan,
                             'keterangan'    => $keterangan,
-                            'kategori'      => 'Keluar'
+                            'kategori'      => 'Keluar',
+                            'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
                         ]
                     );
 
@@ -204,7 +212,7 @@ class ProdukController extends Controller
                 break;
         }
         $produk = Produk::where('id', $id)->first();
-        return redirect()->route('produk.index')->with('toast_success', 'Sukses '.$pesan.' '.$request->get('jumlah').' stok '.$produk->nama);
+        return redirect()->route('produk.index')->with('toast_success', 'Sukses ' . $pesan . ' ' . $request->get('jumlah') . ' stok ' . $produk->nama);
     }
 
     public function updateProduk(Request $request)
@@ -213,7 +221,8 @@ class ProdukController extends Controller
         if ($request['satuanedit'] == 'select') {
             $satuan = $request->get('satuanSelect');
         } else if ($request['satuanedit'] == 'text') {
-            $validator = Validator::make($request->all(), 
+            $validator = Validator::make(
+                $request->all(),
                 [
                     'satuanText'    => ['required']
                 ]
@@ -226,9 +235,9 @@ class ProdukController extends Controller
         }
 
         $cek_bahanbaku = $request->get('editBahanBaku');
-        if($cek_bahanbaku){
+        if ($cek_bahanbaku) {
             $bahanBaku = array_unique($request->get('editBahanBaku'));
-        }else{
+        } else {
             return back()->with('toast_error', '<center> Minimal terdapat 1 bahan baku <br> gagal mengubah data produk</center>');
         }
 
@@ -265,7 +274,8 @@ class ProdukController extends Controller
                     'kode'      => $produk->kode,
                     'nama'      => $produk->nama,
                     'user_id'   => auth()->user()->id,
-                    'aksi'      => 'Edit'
+                    'aksi'      => 'Edit',
+                    'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
                 ]
             );
         });
@@ -285,13 +295,14 @@ class ProdukController extends Controller
                     'kode'          => $produk->kode,
                     'nama'          => $produk->nama,
                     'user_id'       => auth()->user()->id,
-                    'aksi'          => 'Hapus'
+                    'aksi'          => 'Hapus',
+                    'tanggal'       => Carbon::now()->setTimezone('Asia/Jakarta')
                 ]
             );
 
             Produk::where('id', $request->get('id'))->delete();
 
-            return redirect()->route('produk.index')->with('toast_success', 'Sukses menghapus data produk '. $produk->nama);
+            return redirect()->route('produk.index')->with('toast_success', 'Sukses menghapus data produk ' . $produk->nama);
         }
     }
 
